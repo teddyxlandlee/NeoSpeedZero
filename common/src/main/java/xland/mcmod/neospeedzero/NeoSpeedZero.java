@@ -1,6 +1,7 @@
 package xland.mcmod.neospeedzero;
 
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
+import xland.mcmod.neospeedzero.command.NeoSpeedCommands;
 import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 import xland.mcmod.neospeedzero.view.ViewPackets;
 
@@ -20,5 +21,7 @@ public final class NeoSpeedZero {
         ViewPackets.register();
         // Speedrun Difficulties
         SpeedrunDifficulties.registerBuiltins();
+        // Commands
+        NeoSpeedCommands.register();
     }
 }
