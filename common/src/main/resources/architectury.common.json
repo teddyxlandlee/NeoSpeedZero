@@ -1,0 +1,10 @@
+{
+  "injected_interfaces": {
+    "net/minecraft/class_9356": [
+      "xland/mcmod/neospeedzero/mixin/EnchantmentsPredicateAccessor"
+    ],
+    "net/minecraft/class_3222": [
+      "xland/mcmod/neospeedzero/record/NeoSpeedPlayer"
+    ]
+  }
+}

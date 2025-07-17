@@ -1,0 +1,45 @@
+{
+  "message.neospeedzero.record.start": "%1$s starts running %2$s now!",
+  "message.neospeedzero.record.start.started": "There is an existing record %2$s run by %1$s",
+  "message.neospeedzero.record.start.cancel": "Record start request is cancelled",
+  "message.neospeedzero.record.stop.force": "Record %2$s run by %1$s is aborted",
+  "message.neospeedzero.record.stop.absent": "%1$s isn't speedrunning",
+  "message.neospeedzero.record.stop.force.cancel": "Record stop request is cancelled",
+  "message.neospeedzero.challenge.complete": "%1$s got %3$s (%4$s) from %2$s in %5$s!",
+  "message.neospeedzero.record.complete": "%1$s completed %2$s in %3$s!",
+
+  "command.neospeedzero.not_found.goal": "Goal not found: %s",
+  "command.neospeedzero.not_found.difficulty": "Difficulty not found: %s",
+
+  "message.neospeedzero.record.snapshot.goal_id": "Goal ID: %s",
+  "message.neospeedzero.record.snapshot.difficulty": "Difficulty: %s",
+  "message.neospeedzero.record.snapshot.progress": "Progress: %s",
+  "message.neospeedzero.record.snapshot.progress.data": "%d/%d",
+  "message.neospeedzero.record.snapshot.finish_time": "Finished in %s",
+  "message.neospeedzero.record.snapshot.id": "Record ID: %s",
+  "message.neospeedzero.record.snapshot.non-synced": "Non-synced Data",
+
+  "item_predicate.neospeedzero.extra_req.items.any": "Any Item",
+  "item_predicate.neospeedzero.extra_req.count": "Required count: %s",
+  "item_predicate.neospeedzero.extra_req.count.exact": "%d",
+  "item_predicate.neospeedzero.extra_req.count.min": "≥%d",
+  "item_predicate.neospeedzero.extra_req.count.max": "≤%d",
+  "item_predicate.neospeedzero.extra_req.count.between": "%1$d~$2$d",
+  "item_predicate.neospeedzero.extra_req.damage": "Damage: %s",
+  "item_predicate.neospeedzero.extra_req.durability": "Durability: %s",
+  "item_predicate.neospeedzero.extra_req.enchantments.any": "Any enchantment with level %s",
+
+  "message.neospeedzero.item.mod_given": "Speedrunners Only",
+
+  "message.neospeedzero.difficulty.empty": "Start From Zero",
+  "message.neospeedzero.difficulty.firework": "Fireworks Only",
+  "message.neospeedzero.difficulty.inf_firework": "Infinite Fireworks Only",
+  "message.neospeedzero.difficulty.elytra": "Elytra Travel",
+  "message.neospeedzero.difficulty.firework_elytra": "Basic Travel",
+  "message.neospeedzero.difficulty.inf_firework_elytra": "Advanced Travel",
+  "message.neospeedzero.difficulty.inf_elytra": "Unbreakable Wings",
+  "message.neospeedzero.difficulty.firework_inf_elytra": "Infinite Adventure",
+  "message.neospeedzero.difficulty.inf_firework_inf_elytra": "Classic",
+
+  "key.neospeedzero.view": "Show Speedrun Progress"
+}

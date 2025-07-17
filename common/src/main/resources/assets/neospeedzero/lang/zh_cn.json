@@ -1,0 +1,45 @@
+{
+  "message.neospeedzero.record.start": "%1$s 将开始速通 %2$s！",
+  "message.neospeedzero.record.start.started": "%1$s 有正在进行的速通纪录 %2$s",
+  "message.neospeedzero.record.start.cancel": "开始速通的请求被取消",
+  "message.neospeedzero.record.stop.force": "已中止 %1$s 进行的速通纪录 %2$s ",
+  "message.neospeedzero.record.stop.absent": "%1$s 不在速通",
+  "message.neospeedzero.record.stop.force.cancel": "中止速通的请求被取消",
+  "message.neospeedzero.challenge.complete": "%1$s 已完成 %2$s 中的 %3$s (%4$s)，用时 %5$s！",
+  "message.neospeedzero.record.complete": "%1$s 已完成 %2$s 的全部挑战，用时 %3$s！",
+
+  "command.neospeedzero.not_found.goal": "未知速通目标：%s",
+  "command.neospeedzero.not_found.difficulty": "未知速通难度：%s",
+
+  "message.neospeedzero.record.snapshot.goal_id": "目标：%s",
+  "message.neospeedzero.record.snapshot.difficulty": "难度：%s",
+  "message.neospeedzero.record.snapshot.progress": "进度：%s",
+  "message.neospeedzero.record.snapshot.progress.data": "%d/%d",
+  "message.neospeedzero.record.snapshot.finish_time": "耗时：%s",
+  "message.neospeedzero.record.snapshot.id": "速通纪录 ID: %s",
+  "message.neospeedzero.record.snapshot.non-synced": "以上数据非实时更新",
+
+  "item_predicate.neospeedzero.extra_req.items.any": "任一物品",
+  "item_predicate.neospeedzero.extra_req.count": "需要 %s 个",
+  "item_predicate.neospeedzero.extra_req.count.exact": "%d",
+  "item_predicate.neospeedzero.extra_req.count.min": "≥%d",
+  "item_predicate.neospeedzero.extra_req.count.max": "≤%d",
+  "item_predicate.neospeedzero.extra_req.count.between": "%1$d~$2$d",
+  "item_predicate.neospeedzero.extra_req.damage": "损坏 %s 点耐久",
+  "item_predicate.neospeedzero.extra_req.durability": "耐久：%s",
+  "item_predicate.neospeedzero.extra_req.enchantments.any": "任意 %s 级附魔",
+
+  "message.neospeedzero.item.mod_given": "速通专用",
+
+  "message.neospeedzero.difficulty.empty": "从零开始",
+  "message.neospeedzero.difficulty.firework": "开局烟花",
+  "message.neospeedzero.difficulty.inf_firework": "无限烟花",
+  "message.neospeedzero.difficulty.elytra": "鞘翅旅行",
+  "message.neospeedzero.difficulty.firework_elytra": "基础旅行",
+  "message.neospeedzero.difficulty.inf_firework_elytra": "无尽旅行",
+  "message.neospeedzero.difficulty.inf_elytra": "永恒之翼",
+  "message.neospeedzero.difficulty.firework_inf_elytra": "无限探索",
+  "message.neospeedzero.difficulty.inf_firework_inf_elytra": "经典",
+
+  "key.neospeedzero.view": "查看速通进度"
+}

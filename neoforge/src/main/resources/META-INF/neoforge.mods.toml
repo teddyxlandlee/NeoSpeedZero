@@ -1,0 +1,38 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+#issueTrackerURL = ""
+license = "GNU AGPL 3.0"
+
+[[mods]]
+modId = "neospeedzero"
+version = "${version}"
+displayName = "NeoSpeed Zero"
+authors = "teddyxlandlee"
+description = '''
+ABS Next Level ™
+'''
+#logoFile = ""
+
+[[dependencies.neospeedzero]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.neospeedzero]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.7,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.neospeedzero]]
+modId = "architectury"
+type = "required"
+versionRange = "[17.0.6,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "neospeedzero.mixins.json"
