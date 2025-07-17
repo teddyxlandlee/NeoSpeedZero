@@ -2,8 +2,10 @@
   "display": {
     "translate": "speedrun.alphabet.speedrun_goals.speedabc.a"
   },
-  "items": ["#speedabc:a"],
   "icon": {
     "id": "apple"
-  }
+  },
+  "predicates": [
+    "#speedabc:a"
+  ]
 }

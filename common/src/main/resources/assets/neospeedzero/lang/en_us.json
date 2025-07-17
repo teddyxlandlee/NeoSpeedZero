@@ -41,5 +41,7 @@
   "message.neospeedzero.difficulty.firework_inf_elytra": "Infinite Adventure",
   "message.neospeedzero.difficulty.inf_firework_inf_elytra": "Classic",
 
-  "key.neospeedzero.view": "Show Speedrun Progress"
+  "key.neospeedzero.view": "Show Speedrun Progress",
+
+  "speedrun_goals.speedabc.vanilla_all": "All Vanilla Items"
 }

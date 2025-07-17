@@ -2,8 +2,10 @@
   "display": {
     "translate": "speedrun.alphabet.speedrun_goals.speedabc.d"
   },
-  "items": ["#speedabc:d"],
   "icon": {
     "id": "deepslate_emerald_ore"
-  }
+  },
+  "predicates": [
+    "#speedabc:d"
+  ]
 }

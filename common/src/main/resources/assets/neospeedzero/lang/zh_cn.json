@@ -41,5 +41,7 @@
   "message.neospeedzero.difficulty.firework_inf_elytra": "无限探索",
   "message.neospeedzero.difficulty.inf_firework_inf_elytra": "经典",
 
-  "key.neospeedzero.view": "查看速通进度"
+  "key.neospeedzero.view": "查看速通进度",
+
+  "speedrun_goals.speedabc.vanilla_all": "原版全物品速通"
 }

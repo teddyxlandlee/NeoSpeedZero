@@ -1,0 +1,15 @@
+{
+  "display": {
+    "translate": "speedrun_goals.speedabc.vanilla_all",
+    "fallback": "Speedrun Everything™"
+  },
+  "icon": {
+    "id": "ender_chest",
+    "components": {
+      "minecraft:enchantment_glint_override": true
+    }
+  },
+  "predicates": [
+    "#speedabc:vanilla_all"
+  ]
+}

@@ -2,8 +2,10 @@
   "display": {
     "translate": "speedrun.alphabet.speedrun_goals.speedabc.n"
   },
-  "items": ["#speedabc:n"],
   "icon": {
     "id": "netherite_block"
-  }
+  },
+  "predicates": [
+    "#speedabc:n"
+  ]
 }

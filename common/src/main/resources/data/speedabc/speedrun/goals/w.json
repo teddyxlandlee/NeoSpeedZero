@@ -2,8 +2,10 @@
   "display": {
     "translate": "speedrun.alphabet.speedrun_goals.speedabc.w"
   },
-  "items": ["#speedabc:w"],
   "icon": {
     "id": "wheat"
-  }
+  },
+  "predicates": [
+    "#speedabc:w"
+  ]
 }

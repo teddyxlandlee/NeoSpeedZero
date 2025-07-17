@@ -2,8 +2,10 @@
   "display": {
     "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.3"
   },
-  "items": ["#hannumspeed:len_3"],
   "icon": {
     "id": "allium"
-  }
+  },
+  "predicates": [
+    "#hannumspeed:len_3"
+  ]
 }

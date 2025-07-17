@@ -2,8 +2,10 @@
   "display": {
     "translate": "speedrun.alphabet.speedrun_goals.speedabc.r"
   },
-  "items": ["#speedabc:r"],
   "icon": {
     "id": "rabbit"
-  }
+  },
+  "predicates": [
+    "#speedabc:r"
+  ]
 }

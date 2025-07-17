@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "#speedabc:a", "required": false},
+    {"id": "#speedabc:b", "required": false},
+    {"id": "#speedabc:c", "required": false},
+    {"id": "#speedabc:d", "required": false},
+    {"id": "#speedabc:e", "required": false},
+    {"id": "#speedabc:f", "required": false},
+    {"id": "#speedabc:g", "required": false},
+    {"id": "#speedabc:h", "required": false},
+    {"id": "#speedabc:i", "required": false},
+    {"id": "#speedabc:j", "required": false},
+    {"id": "#speedabc:k", "required": false},
+    {"id": "#speedabc:l", "required": false},
+    {"id": "#speedabc:m", "required": false},
+    {"id": "#speedabc:n", "required": false},
+    {"id": "#speedabc:o", "required": false},
+    {"id": "#speedabc:p", "required": false},
+    {"id": "#speedabc:q", "required": false},
+    {"id": "#speedabc:r", "required": false},
+    {"id": "#speedabc:s", "required": false},
+    {"id": "#speedabc:t", "required": false},
+    {"id": "#speedabc:u", "required": false},
+    {"id": "#speedabc:v", "required": false},
+    {"id": "#speedabc:w", "required": false},
+    {"id": "#speedabc:x", "required": false},
+    {"id": "#speedabc:y", "required": false},
+    {"id": "#speedabc:z", "required": false}
+  ]
+}
