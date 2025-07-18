@@ -11,6 +11,8 @@
   "command.neospeedzero.not_found.goal": "未知速通目标：%s",
   "command.neospeedzero.not_found.difficulty": "未知速通难度：%s",
 
+  "gamerule.announceSpeedruns": "广播速通信息",
+
   "message.neospeedzero.record.snapshot.goal_id": "目标：%s",
   "message.neospeedzero.record.snapshot.difficulty": "难度：%s",
   "message.neospeedzero.record.snapshot.progress": "进度：%s",

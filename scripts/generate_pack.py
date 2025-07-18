@@ -142,8 +142,8 @@ def generate_datapack(input_csv, output_dir):
 
     # 2. 创建数据包目录结构
     print("⏳ 正在创建数据包结构...")
-    speedabc_dir = os.path.join(output_dir, 'data', 'speedabc', 'tags', 'items')
-    hannumspeed_dir = os.path.join(output_dir, 'data', 'hannumspeed', 'tags', 'items')
+    speedabc_dir = os.path.join(output_dir, 'data', 'speedabc', 'tags', 'item')
+    hannumspeed_dir = os.path.join(output_dir, 'data', 'hannumspeed', 'tags', 'item')
     os.makedirs(speedabc_dir, exist_ok=True)
     os.makedirs(hannumspeed_dir, exist_ok=True)
 

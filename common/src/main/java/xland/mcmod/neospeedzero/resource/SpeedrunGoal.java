@@ -1,6 +1,5 @@
 package xland.mcmod.neospeedzero.resource;
 
-import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,18 +32,18 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
     });
 
     public record Holder(ResourceLocation id, SpeedrunGoal goal) {
-        private static final ThreadLocal<Map<ResourceLocation, Holder>> HOLDERS = ThreadLocal.withInitial(Maps::newLinkedHashMap);
+        private static Map<ResourceLocation, Holder> wrappedHolders = Collections.emptyMap();
 
-        public static Map<ResourceLocation, Holder> holders() {
-            return Collections.unmodifiableMap(HOLDERS.get());
+        public static @Unmodifiable Map<ResourceLocation, Holder> holders() {
+            return Collections.unmodifiableMap(wrappedHolders);
         }
 
         public static void clearHolders() {
-            HOLDERS.remove();
+            wrappedHolders = Collections.emptyMap();
         }
 
         public static void setHolders(Map<ResourceLocation, Holder> holders) {
-            HOLDERS.set(holders);
+            wrappedHolders = holders;
         }
     }
 }

@@ -11,6 +11,8 @@
   "command.neospeedzero.not_found.goal": "Goal not found: %s",
   "command.neospeedzero.not_found.difficulty": "Difficulty not found: %s",
 
+  "gamerule.announceSpeedruns": "Broadcast Speedrun Message",
+
   "message.neospeedzero.record.snapshot.goal_id": "Goal ID: %s",
   "message.neospeedzero.record.snapshot.difficulty": "Difficulty: %s",
   "message.neospeedzero.record.snapshot.progress": "Progress: %s",

@@ -74,6 +74,13 @@ public interface ItemExtensions {
                 .orElse(true);  // Not marked
     }
 
+    static boolean isModGivenItem(ItemStack stack) {
+        CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+        if (customData == null) return false;
+
+        return customData.contains(TAG_MOD_GIVEN);
+    }
+
     static boolean isInfiniteFirework(ItemStack stack) {
         if (!stack.is(Items.FIREWORK_ROCKET)) return false;
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);

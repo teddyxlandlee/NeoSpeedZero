@@ -57,10 +57,10 @@ public record SpeedrunStartupConfigImpl(
         }
 
         private static final DynamicCommandExceptionType EX_INVALID_GOAL = new DynamicCommandExceptionType(
-                obj -> Component.translatable("command.neospeedzero.not_found.goal", obj)
+                obj -> Component.translatable("command.neospeedzero.not_found.goal", String.valueOf(obj))
         );
         private static final DynamicCommandExceptionType EX_INVALID_DIFFICULTY = new DynamicCommandExceptionType(
-                obj -> Component.translatable("command.neospeedzero.not_found.difficulty", obj)
+                obj -> Component.translatable("command.neospeedzero.not_found.difficulty", String.valueOf(obj))
         );
 
         @Override

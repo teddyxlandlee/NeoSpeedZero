@@ -67,7 +67,7 @@ public class NeoSpeedCommands {
                                 final ServerPlayer player = context.getSource().getPlayerOrException();
                                 final SpeedrunRecord record = player.ns0$currentRecord();
                                 if (record == null) {
-                                    context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent"));
+                                    context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                     return 0;
                                 }
                                 NeoSpeedLifecycle.viewRecord(player, record);

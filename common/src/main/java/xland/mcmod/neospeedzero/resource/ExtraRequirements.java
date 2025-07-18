@@ -83,7 +83,7 @@ final class ExtraRequirements {
                     // Name
                     loreAdder.accept(Component.empty().append(enchantmentType.value().description())
                                     .append(" ")
-                                    .append(formatNumber(enchantmentLevel, enchantmentLevel, true)));
+                                    .append(formatNumber(enchantmentLevel, enchantmentLevel)));
         }));
         if (componentPredicate instanceof EnchantmentsPredicateAccessor enchantmentsPredicate) {
             enchantmentsPredicate.ns0$getEnchantments().forEach(enchantmentPredicate -> {
@@ -91,7 +91,7 @@ final class ExtraRequirements {
                 MinMaxBounds.Ints levels = enchantmentPredicate.level();
 
                 if (enchantments.isEmpty()) {
-                    loreAdder.accept(Component.translatable("item_predicate.neospeedzero.extra_req.enchantments.any", formatEnchantmentLevels(levels)));
+                    loreAdder.accept(Component.translatable("item_predicate.neospeedzero.extra_req.enchantments.any", formatIntRange(levels)));
                 } else {
                     int size = enchantments.get().size();
                     if (size == 0) return;  // contains nothing
@@ -99,7 +99,7 @@ final class ExtraRequirements {
                     loreAdder.accept(Component.empty()
                             .append(enchantments.get().get(0).value().description())
                             .append(size == 1 ? " " : "... ")
-                            .append(formatEnchantmentLevels(levels))
+                            .append(formatIntRange(levels))
                     );
                 }
             });
@@ -110,22 +110,13 @@ final class ExtraRequirements {
         return formatNumber(intRange.min().orElse(null), intRange.max().orElse(null));
     }
 
-    private static Component formatEnchantmentLevels(MinMaxBounds.Ints intRange) {
-        return formatNumber(intRange.min().orElse(null), intRange.max().orElse(null), true);
-    }
-
+    @Contract("null, null -> fail")
     private static Component formatNumber(@Nullable Integer min, @Nullable Integer max) {
-        return formatNumber(min, max, false);
-    }
-
-    @Contract("null,null,_->fail")
-    private static Component formatNumber(@Nullable Integer min, @Nullable Integer max, boolean isEnchanting) {
         Preconditions.checkArgument(min != null || max != null);
         if (min == null) return Component.translatable("item_predicate.neospeedzero.extra_req.count.max", max);
         if (max == null) return Component.translatable("item_predicate.neospeedzero.extra_req.count.min", min);
         if (min.equals(max))
-            return isEnchanting ? Component.translatable("enchantment.level." + min)
-                    : Component.translatable("item_predicate.neospeedzero.extra_req.count.exact", min);
+            return Component.translatable("item_predicate.neospeedzero.extra_req.count.exact", min);
         return Component.translatable("item_predicate.neospeedzero.extra_req.count.between", min, max);
     }
 

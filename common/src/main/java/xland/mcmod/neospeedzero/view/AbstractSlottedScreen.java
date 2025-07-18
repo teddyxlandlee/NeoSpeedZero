@@ -115,6 +115,7 @@ abstract class AbstractSlottedScreen extends Screen {
         FakeSlot cachedHoveredSlot = this.getCachedHoveredSlot();
         if (cachedHoveredSlot != null) {
             ItemStack itemStack = cachedHoveredSlot.getItemStack();
+            if (itemStack.isEmpty()) return;
             assert this.minecraft != null;
             guiGraphics.setTooltipForNextFrame(
                     this.font, getTooltipFromItem(this.minecraft, itemStack), itemStack.getTooltipImage(), x, y, itemStack.get(DataComponents.TOOLTIP_STYLE)

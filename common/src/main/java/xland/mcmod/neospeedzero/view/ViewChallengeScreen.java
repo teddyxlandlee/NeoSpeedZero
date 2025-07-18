@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TriState;
+import net.minecraft.world.item.ItemStack;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 
 import java.util.Arrays;
@@ -15,7 +16,8 @@ import java.util.Arrays;
 @Environment(EnvType.CLIENT)
 public class ViewChallengeScreen extends AbstractSlottedScreen {
     private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "textures/gui/view.png");
-    private static final int COLOR_COMPLETED = 0x45c545, COLOR_NOT_COMPLETED = 0xc54545;
+    private static final ResourceLocation SPRITE_YES = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "yes");
+    private static final ResourceLocation SPRITE_NO = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "no");
 
     private final ChallengeSnapshot snapshot;
     int page;
@@ -29,6 +31,11 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
 
         this.cachedConditions = new TriState[63];
         Arrays.fill(this.cachedConditions, TriState.DEFAULT);
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
     }
 
     @Override
@@ -86,6 +93,7 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
         final int indexTo = Mth.clamp(snapshot.challenges().size(), 0, (page + 1) * 63);
 
         // Clear existing ones
+        slots.forEach(slot -> slot.setItemStack(ItemStack.EMPTY));
         Arrays.fill(cachedConditions, TriState.DEFAULT);
 
         for (int rawIndex = indexFrom, slotIndex = 0; rawIndex < indexTo; rawIndex++, slotIndex++) {
@@ -95,6 +103,10 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
 
         // Also update button
         updateButtonVisibility();
+        xland.mcmod.neospeedzero.util.ABSDebug.debug(2, l -> {
+            l.info("Page: {}", page);
+            l.info("Cached Conditions: {}", Arrays.toString(cachedConditions));
+        });
     }
 
     private void updateButtonVisibility() {
@@ -110,16 +122,17 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
     @Override
     protected void renderExtraBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0F, 0F, imageWidth, imageHeight, 176, 166);
-        guiGraphics.pose().pushMatrix();
-        guiGraphics.pose().translate(leftPos, topPos);
         // Coloring
         for (int i = 0; i < 63; i++) {
             FakeSlot fakeSlot = slots.get(i);
             switch (cachedConditions[i]) {
-                case TRUE -> guiGraphics.fill(fakeSlot.x(), fakeSlot.y(), fakeSlot.x() + 16, fakeSlot.y() + 16, COLOR_COMPLETED);
-                case FALSE -> guiGraphics.fill(fakeSlot.x(), fakeSlot.y(), fakeSlot.x() + 16, fakeSlot.y() + 16, COLOR_NOT_COMPLETED);
+                case TRUE -> blitSprite(guiGraphics, SPRITE_YES, fakeSlot.x(), fakeSlot.y());
+                case FALSE -> blitSprite(guiGraphics, SPRITE_NO, fakeSlot.x(), fakeSlot.y());
             }
         }
-        guiGraphics.pose().popMatrix();
+    }
+
+    private void blitSprite(GuiGraphics guiGraphics, ResourceLocation sprite, int x, int y) {
+        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, 16, 16, 0, 0, leftPos + x, topPos + y, 16, 16);
     }
 }

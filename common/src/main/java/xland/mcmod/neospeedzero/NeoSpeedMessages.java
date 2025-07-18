@@ -112,7 +112,7 @@ public final class NeoSpeedMessages {
     
     private static Component snapshotHover(SpeedrunRecord record) {
         MutableComponent t = Component.empty();
-        t.append(Component.translatable("message.neospeedzero.record.snapshot.goal_id", record.goal().id()))
+        t.append(Component.translatable("message.neospeedzero.record.snapshot.goal_id", String.valueOf(record.goal().id())))
                 .append("\n");
         t.append(Component.translatable("message.neospeedzero.record.snapshot.difficulty", record.difficulty().displayedName()))
                 .append("\n");
@@ -131,7 +131,7 @@ public final class NeoSpeedMessages {
                     progress(record).withStyle(ChatFormatting.RED)
             )).append("\n");
         }
-        t.append(Component.translatable("message.neospeedzero.record.snapshot.id", record.recordId())).append("\n");
+        t.append(Component.translatable("message.neospeedzero.record.snapshot.id", String.valueOf(record.recordId()))).append("\n");
         t.append(Component.translatable("message.neospeedzero.record.snapshot.non-synced").withStyle(ChatFormatting.GRAY));
         return t;
     }

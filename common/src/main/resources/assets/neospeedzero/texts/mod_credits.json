@@ -1,0 +1,59 @@
+[
+  {
+    "section": "NeoSpeed Zero",
+    "disciplines": [
+      {
+        "discipline": "Mod Authors",
+        "titles": [
+          {
+            "title": "Maintainer & Code",
+            "names": [
+              "teddyxlandlee"
+            ]
+          },
+          {
+            "title": "Art",
+            "names": [
+              "Peterice233"
+            ]
+          },
+          {
+            "title": "Important Contributors",
+            "names": [
+              "2333tech",
+              "FengMing3093",
+              "无语真无语了"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Special Thanks",
+        "titles": [
+          {
+            "title": "Videos",
+            "names": [
+              "Mime_Sunflower",
+              "无语真无语了"
+            ]
+          },
+          {
+            "title": "SpeedABC Original Author & Contributors",
+            "names": [
+              "FengMing3093",
+              "HanEric"
+            ]
+          },
+          {
+            "title": "αβspeedrun Early-stage Sponsors",
+            "names": [
+              "Fake_Mime_Sunflower",
+              "唐伯龙",
+              "乐于助人的花栗鼠"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -58,7 +58,7 @@ public final class NeoSpeedLifecycle {
     public static Optional<Component> stopSpeedrun(ServerPlayer player) {
         SpeedrunRecord previousRecord = player.ns0$currentRecord();
         if (previousRecord == null) {
-            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent"));
+            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
         }
 
         EventResult eventResult = NeoSpeedLifecycleEvents.FORCE_STOP_RECORD.invoker().onStop(player);
@@ -78,14 +78,15 @@ public final class NeoSpeedLifecycle {
     }
 
     public static void onInventoryChange(ServerPlayer player, ItemStack stack) {
-        if (stack.isEmpty()) return;
+        if (stack.isEmpty() || ItemExtensions.isModGivenItem(stack)) return;
 
         SpeedrunRecord record = player.ns0$currentRecord();
         if (record == null) return;
 
-        final int size = record.challenges().size();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0, size = record.challenges().size(); i < size; i++) {
+            if (record.collectedTimes()[i] >= 0) continue;
             SpeedrunChallenge challenge = record.challenges().get(i);
+
             final int idx = i;
             challenge.challenge().ifLeft(itemPredicate -> {
                 if (itemPredicate.test(stack)) {
@@ -100,9 +101,10 @@ public final class NeoSpeedLifecycle {
         SpeedrunRecord record = player.ns0$currentRecord();
         if (record == null) return;
 
-        final int size = record.challenges().size();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0, size = record.challenges().size(); i < size; i++) {
+            if (record.collectedTimes()[i] >= 0) continue;
             SpeedrunChallenge challenge = record.challenges().get(i);
+
             final int idx = i;
             challenge.challenge().ifRight(advancementKey -> {
                 if (advancement.id().equals(advancementKey.location())) {

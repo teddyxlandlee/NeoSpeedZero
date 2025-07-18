@@ -55,7 +55,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     }
 
     int totalPageCount() {
-        return challenges().size() / 63;
+        return Math.ceilDivExact(challenges().size(), 63);
     }
 
     public record Change(UUID recordId, int index, long newValue) implements CustomPacketPayload {
