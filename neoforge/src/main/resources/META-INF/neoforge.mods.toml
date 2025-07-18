@@ -11,7 +11,8 @@ authors = "teddyxlandlee"
 description = '''
 ABS Next Level ™
 '''
-#logoFile = ""
+logoFile = "icon_neo.png"
+logoBlur = false
 
 [[dependencies.neospeedzero]]
 modId = "neoforge"

@@ -11,7 +11,7 @@
     "homepage": "https://modrinth.com/mod/neospeedzero"
   },
   "license": "AGPL-3.0",
-  "icon": "assets/neospeedzero/icon.png",
+  "icon": "assets/neospeedzero/icon_fabric.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -31,7 +31,9 @@
     "architectury": ">=17.0.6",
     "fabric-api": "*"
   },
-  "suggests": {
-    "another-mod": "*"
+  "breaks": {
+    "alphabet_speedrun": "<5",
+    "fireworksnodec": "<5",
+    "speedabc": "<5"
   }
 }
