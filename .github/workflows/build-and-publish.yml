@@ -43,14 +43,11 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Set up Modrinth token
-        run: echo "MR_TOKEN=${{ secrets.MR_TOKEN }}" >> $GITHUB_ENV
-
-      - name: Set up commit message
-        run: echo "MR_CHANGELOG=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
-
       - name: Publish to Modrinth
         run: ./gradlew modrinth
+        env:
+          MR_TOKEN: '${{ secrets.MR_TOKEN }}'
+          MR_CHANGELOG: '${{ github.event.head_commit.message }}'
 
       - name: Upload publish artifacts
         uses: actions/upload-artifact@v4
