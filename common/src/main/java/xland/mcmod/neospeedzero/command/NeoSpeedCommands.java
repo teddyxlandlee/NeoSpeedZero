@@ -73,18 +73,6 @@ public class NeoSpeedCommands {
                                 NeoSpeedLifecycle.viewRecord(player, record);
                                 return Command.SINGLE_SUCCESS;
                             })
-                            .then(literal("raw")
-                                    .executes(context -> {
-                                        final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = player.ns0$currentRecord();
-                                        if (record == null) {
-                                            context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
-                                            return 0;
-                                        }
-                                        NeoSpeedLifecycle.viewRecordRaw(player, record);
-                                        return Command.SINGLE_SUCCESS;
-                                    })
-                            )
                     )
             );
         });

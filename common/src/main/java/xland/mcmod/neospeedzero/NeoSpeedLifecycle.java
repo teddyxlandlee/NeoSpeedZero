@@ -82,10 +82,6 @@ public final class NeoSpeedLifecycle {
         ChallengeSnapshot.fromRecord(record).sendToClient(audience);
     }
 
-    public static void viewRecordRaw(ServerPlayer audience, @NotNull SpeedrunRecord record) {
-        audience.sendSystemMessage(ChallengeSnapshot.fromRecord(record).toText());
-    }
-
     public static void onInventoryChange(ServerPlayer player, ItemStack stack) {
         if (stack.isEmpty() || ItemExtensions.isModGivenItem(stack)) return;
 

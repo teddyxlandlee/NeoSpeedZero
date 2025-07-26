@@ -21,10 +21,6 @@
   "message.neospeedzero.record.snapshot.id": "Record ID: %s",
   "message.neospeedzero.record.snapshot.non-synced": "Non-synced Data",
 
-  "command.neospeedzero.view_raw.title": "====== Speedrun Record (Goal: %s) ======",
-  "command.neospeedzero.view_raw.complete.yes": "Completed (%d):",
-  "command.neospeedzero.view_raw.complete.no": "Not completed (%d):",
-
   "item_predicate.neospeedzero.extra_req.items.any": "Any Item",
   "item_predicate.neospeedzero.extra_req.count": "Required count: %s",
   "item_predicate.neospeedzero.extra_req.count.exact": "%d",
@@ -48,8 +44,6 @@
   "message.neospeedzero.difficulty.inf_firework_inf_elytra": "Classic",
 
   "key.neospeedzero.view": "Show Speedrun Progress",
-
-  "pack.neospeedzero.meta": "NeoSpeed Zero: Built-in Pack",
 
   "speedrun_goals.speedabc.vanilla_all": "All Vanilla Items"
 }

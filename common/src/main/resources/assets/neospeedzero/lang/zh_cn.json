@@ -21,10 +21,6 @@
   "message.neospeedzero.record.snapshot.id": "速通纪录 ID: %s",
   "message.neospeedzero.record.snapshot.non-synced": "以上数据非实时更新",
 
-  "command.neospeedzero.view_raw.title": "====== 速通纪录（目标：%s）======",
-  "command.neospeedzero.view_raw.complete.yes": "已完成 (%d):",
-  "command.neospeedzero.view_raw.complete.no": "未完成 (%d):",
-
   "item_predicate.neospeedzero.extra_req.items.any": "任一物品",
   "item_predicate.neospeedzero.extra_req.count": "需要 %s 个",
   "item_predicate.neospeedzero.extra_req.count.exact": "%d",
@@ -48,8 +44,6 @@
   "message.neospeedzero.difficulty.inf_firework_inf_elytra": "经典",
 
   "key.neospeedzero.view": "查看速通进度",
-
-  "pack.neospeedzero.meta": "NeoSpeed Zero：内置包",
 
   "speedrun_goals.speedabc.vanilla_all": "原版全物品速通"
 }
