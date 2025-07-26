@@ -24,8 +24,13 @@ public final class NeoSpeedLifecycle {
     private NeoSpeedLifecycle() {}
 
     public static Optional<Component> startSpeedrun(ServerPlayer player, SpeedrunStartupConfig startupConfig) {
-        if (player.ns0$currentRecord() != null) {
-            return Optional.of(Component.translatable("message.neospeedzero.record.start.started"));
+        SpeedrunRecord record = player.ns0$currentRecord();
+        if (record != null) {
+            return Optional.of(Component.translatable(
+                    "message.neospeedzero.record.start.started",
+                    player.getDisplayName(),
+                    record.snapshot()
+            ));
         }
 
         EventResult eventResult = NeoSpeedLifecycleEvents.START_RECORD.invoker().onStart(player, startupConfig);
@@ -33,7 +38,7 @@ public final class NeoSpeedLifecycle {
             // Do not start
             return Optional.of(Component.translatable("message.neospeedzero.record.start.cancel"));
         }
-        SpeedrunRecord record = startupConfig.createRecord(player.ns0$time());
+        record = startupConfig.createRecord(player.ns0$time());
         player.ns0$setCurrentRecord(record);
         NeoSpeedMessages.announceRecordStart(player, record);
 

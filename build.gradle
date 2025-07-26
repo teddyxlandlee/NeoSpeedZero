@@ -2,6 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.10-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "com.modrinth.minotaur" version "2.+" apply false
 }
 
 architectury {
@@ -78,6 +79,39 @@ subprojects {
             // Notice: This block does NOT have the same function as the block in the top level.
             // The repositories here will be used for publishing your artifact, not for
             // retrieving dependencies.
+        }
+    }
+
+    if (project.name in ['fabric', 'neoforge']) {
+        apply plugin: 'com.modrinth.minotaur'
+        def modLoaders = project.mr_loader.toString().split(",") as List
+        modrinth {
+            token.set System.getenv("MR_TOKEN")
+            projectId.set rootProject.mr_project_id
+            versionNumber.set "${project.version}+${project.minecraft_version}-${modLoaders[0]}"
+            versionName.set String.format(
+                    /*format=*/ rootProject.mr_version_name_format.toString(),
+                    rootProject.mr_version_game_range,
+                    project.mr_loader_display,
+                    rootProject.mr_version_mod_abbr,
+                    project.version
+            )
+            changelog.set rootProject.mr_version_changelog
+            versionType.set rootProject.mr_version_type
+            gameVersions = rootProject.mr_version_game.toString().split(",") as List
+            loaders.set modLoaders
+            detectLoaders.set false
+            autoAddDependsOn.set false
+
+            dependencies {
+                required.project 'architectury-api'
+                if (project.name == 'fabric') required.project 'fabric-api'
+            }
+
+            uploadFile.set tasks.remapJar
+            additionalFiles = [tasks.remapSourcesJar]
+
+            debugMode = System.getenv("MR_DEBUG_MODE") == '1'
         }
     }
 }
