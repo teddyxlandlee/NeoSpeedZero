@@ -48,8 +48,7 @@ jobs:
 
       - name: Set up commit message
         run: |
-          commit_message="${{ github.event.head_commit.message }}"
-          echo "MR_CHANGELOG=$(echo $commit_message | sed -E 's/^\[ci publish\]\s*//i')" >> $GITHUB_ENV
+          echo "MR_CHANGELOG=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
 
       - name: Publish to Modrinth
         run: ./gradlew modrinth

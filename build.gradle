@@ -96,7 +96,7 @@ subprojects {
                     rootProject.mr_version_mod_abbr,
                     project.version
             )
-            changelog.set rootProject.mr_version_changelog
+            changelog.set System.getenv("MR_CHANGELOG").substring('[ci publish]'.length()).trim()
             versionType.set rootProject.mr_version_type
             gameVersions = rootProject.mr_version_game.toString().split(",") as List
             loaders.set modLoaders
