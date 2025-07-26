@@ -1,8 +1,11 @@
 package xland.mcmod.neospeedzero.view;
 
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.platform.Platform;
+import dev.architectury.utils.Env;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -24,28 +27,38 @@ public interface ViewPackets {
 
     static void register() {
         // ClientBound
-        NetworkManager.registerReceiver(
-                NetworkManager.s2c(), ViewPackets.TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC,
-                (snapshot, context) -> context.queue(() -> {
-                    // Received snapshot -> open the screen
-                    Minecraft.getInstance().setScreen(new ViewChallengeScreen(snapshot));
-                })
-        );
-        NetworkManager.registerReceiver(
-                NetworkManager.s2c(), ViewPackets.TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC,
-                (change, context) -> context.queue(() -> {
-                    if (Minecraft.getInstance().screen instanceof ViewChallengeScreen viewChallengeScreen) {
-                        viewChallengeScreen.onDataUpdate(change);
-                    }
-                })
-        );
+        if (Platform.getEnvironment() == Env.CLIENT) {
+            NetworkManager.registerReceiver(
+                    NetworkManager.s2c(), ViewPackets.TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC,
+                    (snapshot, context) -> context.queue(() -> {
+                        // Received snapshot -> open the screen
+                        Minecraft.getInstance().setScreen(new ViewChallengeScreen(snapshot));
+                    })
+            );
+            NetworkManager.registerReceiver(
+                    NetworkManager.s2c(), ViewPackets.TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC,
+                    (change, context) -> context.queue(() -> {
+                        if (Minecraft.getInstance().screen instanceof ViewChallengeScreen viewChallengeScreen) {
+                            viewChallengeScreen.onDataUpdate(change);
+                        }
+                    })
+            );
+        } else {
+            NetworkManager.registerS2CPayloadType(ViewPackets.TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC);
+            NetworkManager.registerS2CPayloadType(ViewPackets.TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC);
+        }
 
         // ServerBound
         NetworkManager.registerReceiver(NetworkManager.c2s(), TYPE_C2S_REQUEST, Request.STREAM_CODEC, (singleton, context) -> {
             if (context.getPlayer() instanceof ServerPlayer serverPlayer) {
                 SpeedrunRecord record = serverPlayer.ns0$currentRecord();
-                if (record == null) return;
-                NeoSpeedLifecycle.viewRecord(serverPlayer, record);
+                if (record != null) {
+                    NeoSpeedLifecycle.viewRecord(serverPlayer, record);
+                } else {
+                    serverPlayer.sendSystemMessage(Component.translatable(
+                            "message.neospeedzero.record.stop.absent", serverPlayer.getDisplayName()
+                    ));
+                }
             }
         });
     }
