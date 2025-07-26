@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.6"
+    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.6",
+    "fallback": "6 characters"
   },
   "icon": {
     "id": "acacia_button"

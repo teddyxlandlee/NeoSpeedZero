@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.l"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.l",
+    "fallback": "SpeedABC: L"
   },
   "icon": {
     "id": "lodestone"

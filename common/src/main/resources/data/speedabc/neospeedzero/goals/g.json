@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.g"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.g",
+    "fallback": "SpeedABC: G"
   },
   "icon": {
     "id": "gold_ingot"

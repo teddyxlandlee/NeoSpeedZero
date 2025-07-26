@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.f"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.f",
+    "fallback": "SpeedABC: F"
   },
   "icon": {
     "id": "furnace"

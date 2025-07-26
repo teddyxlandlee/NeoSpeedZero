@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.t"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.t",
+    "fallback": "SpeedABC: T"
   },
   "icon": {
     "id": "tuff"

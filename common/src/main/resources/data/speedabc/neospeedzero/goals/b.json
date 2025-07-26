@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.b"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.b",
+    "fallback": "SpeedABC: B"
   },
   "icon": {
     "id": "beacon"

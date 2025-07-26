@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.m"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.m",
+    "fallback": "SpeedABC: M"
   },
   "icon": {
     "id": "minecart"

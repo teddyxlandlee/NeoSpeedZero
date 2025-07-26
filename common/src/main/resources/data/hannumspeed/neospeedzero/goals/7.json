@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.7"
+    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.7",
+    "fallback": "7 characters"
   },
   "icon": {
     "id": "acacia_chest_boat"

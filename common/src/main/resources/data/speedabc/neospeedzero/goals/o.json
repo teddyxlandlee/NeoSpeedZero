@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.o"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.o",
+    "fallback": "SpeedABC: O"
   },
   "icon": {
     "id": "oak_sign"

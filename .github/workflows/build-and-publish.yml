@@ -44,11 +44,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Set up Modrinth token
-        run: echo "MR_TOKEN=${{ secrets.MODRINTH_TOKEN }}" >> $GITHUB_ENV
+        run: echo "MR_TOKEN=${{ secrets.MR_TOKEN }}" >> $GITHUB_ENV
 
       - name: Set up commit message
-        run: |
-          echo "MR_CHANGELOG=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+        run: echo "MR_CHANGELOG=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
 
       - name: Publish to Modrinth
         run: ./gradlew modrinth

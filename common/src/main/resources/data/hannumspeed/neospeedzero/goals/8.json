@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.8"
+    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.8",
+    "fallback": "8 characters"
   },
   "icon": {
     "id": "dead_brain_coral_block"

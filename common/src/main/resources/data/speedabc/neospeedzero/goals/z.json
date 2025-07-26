@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.z"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.z",
+    "fallback": "SpeedABC: Z"
   },
   "icon": {
     "id": "zombie_head"

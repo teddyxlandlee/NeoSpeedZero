@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.j"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.j",
+    "fallback": "SpeedABC: J"
   },
   "icon": {
     "id": "jukebox"

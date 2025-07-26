@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.h"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.h",
+    "fallback": "SpeedABC: H"
   },
   "icon": {
     "id": "honey_bottle"

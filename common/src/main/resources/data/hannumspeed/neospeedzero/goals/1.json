@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.1"
+    "translate": "speedrun.alphabet.speedrun_goals.hannumspeed.1",
+    "fallback": "1 character"
   },
   "icon": {
     "id": "arrow"

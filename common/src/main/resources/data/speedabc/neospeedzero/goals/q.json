@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.q"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.q",
+    "fallback": "SpeedABC: Q"
   },
   "icon": {
     "id": "quartz"

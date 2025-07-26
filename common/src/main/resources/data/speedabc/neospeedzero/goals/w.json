@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.w"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.w",
+    "fallback": "SpeedABC: W"
   },
   "icon": {
     "id": "wheat"

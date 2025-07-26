@@ -1,6 +1,7 @@
 {
   "display": {
-    "translate": "speedrun.alphabet.speedrun_goals.speedabc.d"
+    "translate": "speedrun.alphabet.speedrun_goals.speedabc.d",
+    "fallback": "SpeedABC: D"
   },
   "icon": {
     "id": "deepslate_emerald_ore"
