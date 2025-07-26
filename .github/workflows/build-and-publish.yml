@@ -3,7 +3,7 @@ name: Build / Publish to Modrinth
 on:
   push:
     branches:
-      - neo
+      - master
   workflow_dispatch:
 
 jobs:
