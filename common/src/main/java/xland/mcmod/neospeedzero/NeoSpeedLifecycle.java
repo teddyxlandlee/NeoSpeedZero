@@ -157,7 +157,7 @@ public final class NeoSpeedLifecycle {
 
         // Prevent irrelevant players from obtaining marked items
         TickEvent.PLAYER_PRE.register(player -> {
-            if (player.isLocalPlayer()) return;
+            if (!(player instanceof ServerPlayer)) return;
             SpeedrunRecord record = ((ServerPlayer) player).ns0$currentRecord();
             UUID uuid = record == null ? null : record.recordId();
 
