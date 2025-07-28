@@ -5,6 +5,12 @@ plugins {
     id "com.modrinth.minotaur" version "2.+" apply false
 }
 
+static String removePrefix(String base, String prefix) {
+    if (base == null) return ''
+    if (prefix == null || !base.startsWith(prefix)) return base
+    return base.substring(prefix.length())
+}
+
 architectury {
     minecraft = project.minecraft_version
 }
@@ -96,7 +102,7 @@ subprojects {
                     rootProject.mr_version_mod_abbr,
                     project.version
             )
-            changelog.set System.getenv("MR_CHANGELOG").substring('[ci publish]'.length()).trim()
+            changelog.set removePrefix(System.getenv("MR_CHANGELOG"), '[ci publish]').trim()
             versionType.set rootProject.mr_version_type
             gameVersions = rootProject.mr_version_game.toString().split(",") as List
             loaders.set modLoaders
