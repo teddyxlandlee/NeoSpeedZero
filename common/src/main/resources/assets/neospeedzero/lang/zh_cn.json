@@ -34,6 +34,13 @@
   "item_predicate.neospeedzero.extra_req.damage": "损坏 %s 点耐久",
   "item_predicate.neospeedzero.extra_req.durability": "耐久：%s",
   "item_predicate.neospeedzero.extra_req.enchantments.any": "任意 %s 级附魔",
+  "item_predicate.neospeedzero.extra_req.bundle": "对收纳袋内容物有额外要求",
+  "item_predicate.neospeedzero.extra_req.custom_data": "对自定义数据 (NBT) 有额外要求",
+  "item_predicate.neospeedzero.extra_req.items": "是以下任一物品：",
+  "item_predicate.neospeedzero.extra_req.song": "是以下任一唱片：",
+  "item_predicate.neospeedzero.extra_req.potion": "是以下任一药水：",
+  "item_predicate.neospeedzero.extra_req.trim.material": "含以下纹饰材料：",
+  "item_predicate.neospeedzero.extra_req.trim.patterns": "含以下纹饰图案：",
 
   "message.neospeedzero.item.mod_given": "速通专用",
 

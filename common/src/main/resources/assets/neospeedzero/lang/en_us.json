@@ -34,6 +34,13 @@
   "item_predicate.neospeedzero.extra_req.damage": "Damage: %s",
   "item_predicate.neospeedzero.extra_req.durability": "Durability: %s",
   "item_predicate.neospeedzero.extra_req.enchantments.any": "Any enchantment with level %s",
+  "item_predicate.neospeedzero.extra_req.bundle": "Has extra requirements for bundle contents",
+  "item_predicate.neospeedzero.extra_req.custom_data": "Has extra requirements for custom data",
+  "item_predicate.neospeedzero.extra_req.items": "Requires any of following items:",
+  "item_predicate.neospeedzero.extra_req.song": "Plays any of following songs:",
+  "item_predicate.neospeedzero.extra_req.potion": "Any of following potions:",
+  "item_predicate.neospeedzero.extra_req.trim.material": "Has any of following trim materials:",
+  "item_predicate.neospeedzero.extra_req.trim.patterns": "Has any of following trim patterns:",
 
   "message.neospeedzero.item.mod_given": "Speedrunners Only",
 
