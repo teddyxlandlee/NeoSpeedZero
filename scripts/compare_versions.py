@@ -1,13 +1,47 @@
+import hashlib
 import os
 import json
 import requests
 import subprocess
 import argparse
 from collections import defaultdict
+import shutil
 
 # 全局路径设置
 SERVER_DIR = "server_jars"
 REPORTS_DIR = "item_reports"
+
+def match_sha1(filename: str, sha1: str, silent_fnf: bool = True) -> bool:
+    # 创建一个 SHA-1 对象
+    sha1_hash = hashlib.sha1()
+    try:
+        with open(filename, 'rb') as f:
+            # 以二进制模式读取文件，并分块更新哈希（适合大文件）
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha1_hash.update(byte_block)
+    except FileNotFoundError:
+        if not silent_fnf:
+            print(f"文件 '{filename}' 未找到。")
+        return False
+    except Exception as e:
+        print(f"读取文件时出错: {e}")
+        return False
+
+    # 获取计算出的 SHA-1 哈希值（十六进制字符串）
+    calculated_sha1 = sha1_hash.hexdigest()
+
+    # 比较计算出的 SHA-1 和传入的 SHA-1 是否相等（不区分大小写）
+    return calculated_sha1.lower() == sha1.lower()
+
+def mkdir_dummy(dirpath: str) -> None:
+    if os.path.exists(dirpath):
+        if os.path.isdir(dirpath):
+            shutil.rmtree(dirpath)
+            print(f"已删除现有目录: {dirpath}")
+        else:
+            raise ValueError(f"路径 '{dirpath}' 已存在但不是目录，而是一个文件。无法继续。")
+    os.makedirs(dirpath)
+    print(f"已创建目录: {dirpath}")
 
 def setup_directories():
     """创建必要目录"""
@@ -30,7 +64,12 @@ def download_server_jar(version):
     # 获取server.jar下载链接
     version_meta = requests.get(version_meta_url).json()
     server_url = version_meta["downloads"]["server"]["url"]
+    server_hash = version_meta["downloads"]["server"]["sha1"]
     jar_path = os.path.join(SERVER_DIR, f"server_{version}.jar")
+
+    if match_sha1(jar_path, server_hash):
+        print(f'✅ server.jar 已存在于 {jar_path}')
+        return jar_path
     
     # 下载文件
     print(f"⏳ 下载 {version} 的 server.jar...")
@@ -43,7 +82,7 @@ def download_server_jar(version):
 def generate_item_report(version, jar_path):
     """生成物品报告"""
     report_dir = os.path.join(REPORTS_DIR, version)
-    os.makedirs(report_dir, exist_ok=True)
+    mkdir_dummy(report_dir, exist_ok=True)
     report_path = os.path.join(report_dir, "reports", "items.json")
     
     # 执行server.jar生成报告
@@ -52,7 +91,8 @@ def generate_item_report(version, jar_path):
         "java",
         "-DbundlerMainClass=net.minecraft.data.Main",
         "-jar", jar_path,
-        "--reports", "--output", report_dir
+        "--reports",
+        "--output", report_dir
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
     print(f"✅ 报告已生成: {report_path}")

@@ -7,6 +7,43 @@ import requests
 import sys
 from collections import defaultdict
 import unicodedata
+import hashlib
+import shutil
+
+SERVER_DIR='server_jars'
+REPORTS_DIR='item_reports'
+
+def match_sha1(filename: str, sha1: str, silent_fnf: bool = True) -> bool:
+    # 创建一个 SHA-1 对象
+    sha1_hash = hashlib.sha1()
+    try:
+        with open(filename, 'rb') as f:
+            # 以二进制模式读取文件，并分块更新哈希（适合大文件）
+            for byte_block in iter(lambda: f.read(4096), b""):
+                sha1_hash.update(byte_block)
+    except FileNotFoundError:
+        if not silent_fnf:
+            print(f"文件 '{filename}' 未找到。")
+        return False
+    except Exception as e:
+        print(f"读取文件时出错: {e}")
+        return False
+
+    # 获取计算出的 SHA-1 哈希值（十六进制字符串）
+    calculated_sha1 = sha1_hash.hexdigest()
+
+    # 比较计算出的 SHA-1 和传入的 SHA-1 是否相等（不区分大小写）
+    return calculated_sha1.lower() == sha1.lower()
+
+def mkdir_dummy(dirpath: str) -> None:
+    if os.path.exists(dirpath):
+        if os.path.isdir(dirpath):
+            shutil.rmtree(dirpath)
+            print(f"已删除现有目录: {dirpath}")
+        else:
+            raise ValueError(f"路径 '{dirpath}' 已存在但不是目录，而是一个文件。无法继续。")
+    os.makedirs(dirpath)
+    print(f"已创建目录: {dirpath}")
 
 def download_server_jar(version):
     # 获取版本清单
@@ -26,10 +63,15 @@ def download_server_jar(version):
     # 获取server.jar下载URL
     version_meta = requests.get(version_meta_url).json()
     server_url = version_meta["downloads"]["server"]["url"]
+    server_sha1 = version_meta['downloads']['server']['sha1']
 
     # 下载文件
-    os.makedirs("server_files", exist_ok=True)
-    jar_path = f"server_files/server_{version}.jar"
+    os.makedirs(SERVER_DIR, exist_ok=True)
+    jar_path = os.path.join(SERVER_DIR, f"server_{version}.jar")
+
+    if match_sha1(jar_path, server_sha1):
+        print(f'✅ server.jar 已存在于 {jar_path}')
+        return jar_path
 
     print(f"⏳ 正在下载 {version} 的 server.jar...")
     response = requests.get(server_url)
@@ -47,12 +89,16 @@ def generate_csv(version, output_csv):
     server_jar = download_server_jar(version)
     try:
         # 1. 调用server.jar生成物品报告
+        report_dir = os.path.join(REPORTS_DIR, version)
+        mkdir_dummy(report_dir)
+        
         print(f"⏳ 正在执行server.jar生成物品报告...")
         cmd = [
             'java',
             '-DbundlerMainClass=net.minecraft.data.Main',
             '-jar', server_jar,
-            '--reports'
+            '--reports',
+            '--output', report_dir
         ]
         subprocess.run(cmd, check=True, capture_output=True)
         print("✅ server.jar执行成功")
@@ -197,13 +243,13 @@ def main():
 
     # generate-csv 命令
     parser_csv = subparsers.add_parser('csv', help='生成中间CSV文件')
-    parser_csv.add_argument('--version', required=True, help='Minecraft版本号，如1.21.6')
-    parser_csv.add_argument('--output-csv', required=True, help='输出的CSV文件路径')
+    parser_csv.add_argument('version', required=True, help='Minecraft版本号，如1.21.6')
+    parser_csv.add_argument('output-csv', required=True, help='输出的CSV文件路径')
 
     # generate-datapack 命令
     parser_datapack = subparsers.add_parser('datapack', help='生成最终数据包')
-    parser_datapack.add_argument('--input-csv', required=True, help='输入的CSV文件路径')
-    parser_datapack.add_argument('--output-dir', required=True, help='数据包输出目录')
+    parser_datapack.add_argument('input-csv', required=True, help='输入的CSV文件路径')
+    parser_datapack.add_argument('output-dir', required=True, help='数据包输出目录')
 
     args = parser.parse_args()
 
