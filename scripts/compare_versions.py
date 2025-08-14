@@ -82,7 +82,7 @@ def download_server_jar(version):
 def generate_item_report(version, jar_path):
     """生成物品报告"""
     report_dir = os.path.join(REPORTS_DIR, version)
-    mkdir_dummy(report_dir, exist_ok=True)
+    mkdir_dummy(report_dir)
     report_path = os.path.join(report_dir, "reports", "items.json")
     
     # 执行server.jar生成报告
