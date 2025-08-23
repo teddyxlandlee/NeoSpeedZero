@@ -26,4 +26,9 @@ public interface SpeedrunDifficulty {
     }
 
     void onStart(ServerPlayer player, SpeedrunRecord record);
+
+    static SpeedrunDifficulty getDefault() {
+        // Classic
+        return BuiltinDifficulty.UU;
+    }
 }

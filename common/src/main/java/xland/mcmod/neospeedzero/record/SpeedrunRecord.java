@@ -4,8 +4,14 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.server.dialog.Dialog;
+import net.minecraft.server.dialog.NoticeDialog;
+import net.minecraft.server.dialog.body.DialogBody;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.mutable.MutableLong;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
@@ -13,13 +19,14 @@ import org.jetbrains.annotations.Unmodifiable;
 import xland.mcmod.neospeedzero.NeoSpeedMessages;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
+import xland.mcmod.neospeedzero.util.DialogUtil;
 import xland.mcmod.neospeedzero.util.TimeUtil;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.LongSupplier;
 import java.util.stream.LongStream;
 
 public record SpeedrunRecord(
@@ -33,10 +40,6 @@ public record SpeedrunRecord(
 ) {
     public void markComplete(final int index, final long currentTime) {
         collectedTimes()[index] = currentTime;
-    }
-
-    public void markComplete(final int index, LongSupplier timeFactory) {
-        markComplete(index, timeFactory.getAsLong());
     }
 
     public boolean shallComplete() {
@@ -62,7 +65,7 @@ public record SpeedrunRecord(
 
     @Contract(value = "->new", pure = true)
     public Component snapshot() {
-        return NeoSpeedMessages.snapshotFor(this);
+        return NeoSpeedMessages.snapshotFor(this, true);
     }
 
     @ApiStatus.Internal
@@ -113,5 +116,36 @@ public record SpeedrunRecord(
             return DataResult.error(() -> "Different sizes between challenges (" + challenges().size() + ") and collectedTimes (" + collectedTimes().length + ')');
         }
         return DataResult.success(this);
+    }
+
+    public Dialog asDialog() {
+        List<DialogBody> dialogBodies = new ArrayList<>(challenges().size());
+        int index = 0;
+        final long[] timeMap = this.collectedTimes();
+        for (SpeedrunChallenge challenge : challenges()) {
+            ItemStack icon = challenge.icon();
+            final long time = timeMap[index++];
+            ChatFormatting color = time >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
+            dialogBodies.add(DialogUtil.itemBody(
+                    icon,
+                    Component.empty().append(icon.getHoverName()).withStyle(style -> {
+                        style = style.withColor(color);
+                        if (time >= 0) {
+                            style = style.withHoverEvent(new HoverEvent.ShowText(Component.translatable(
+                                    "message.neospeedzero.challenge.finished_in",
+                                    TimeUtil.duration(this, time)
+                            )));
+                        }
+                        return style;
+                    })
+            ));
+        }
+
+        return new NoticeDialog(
+                DialogUtil.commonDialogData(
+                        NeoSpeedMessages.snapshotFor(this, false), false, dialogBodies
+                ),
+                NoticeDialog.DEFAULT_ACTION
+        );
     }
 }

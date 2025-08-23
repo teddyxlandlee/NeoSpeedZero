@@ -4,6 +4,7 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,7 @@ import xland.mcmod.neospeedzero.itemext.ItemExtensions;
 import xland.mcmod.neospeedzero.mixin.PlayerAdvancementsAccessor;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
+import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.view.ChallengeSnapshot;
 
 import java.util.Objects;
@@ -84,6 +86,14 @@ public final class NeoSpeedLifecycle {
 
     public static void viewRecordRaw(ServerPlayer audience, @NotNull SpeedrunRecord record) {
         audience.sendSystemMessage(ChallengeSnapshot.fromRecord(record).toText());
+    }
+
+    public static void viewRecordDialog(ServerPlayer audience, @NotNull SpeedrunRecord record) {
+        audience.openDialog(Holder.direct(record.asDialog()));
+    }
+
+    public static void listDialog(ServerPlayer audience) {
+        audience.openDialog(Holder.direct(SpeedrunGoal.Holder.toDialog()));
     }
 
     public static void onInventoryChange(ServerPlayer player, ItemStack stack) {

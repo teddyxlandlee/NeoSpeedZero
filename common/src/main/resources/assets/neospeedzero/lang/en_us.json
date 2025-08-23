@@ -13,6 +13,11 @@
 
   "gamerule.announceSpeedruns": "Broadcast Speedrun Message",
 
+  "gui.neospeedzero.goals": "NeoSpeedZero Speedrun Goals",
+  "message.neospeedzero.challenge.finished_in": "Finished in %s",
+  "gui.neospeedzero.startup_goal": "Start a Record - %s",
+  "gui.neospeedzero.select_difficulty": "Difficulty",
+
   "message.neospeedzero.record.snapshot.goal_id": "Goal ID: %s",
   "message.neospeedzero.record.snapshot.difficulty": "Difficulty: %s",
   "message.neospeedzero.record.snapshot.progress": "Progress: %s",

@@ -8,6 +8,7 @@ import xland.mcmod.neospeedzero.difficulty.BuiltinDifficulty;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
@@ -34,5 +35,9 @@ public final class SpeedrunDifficulties {
 
     public static Set<ResourceLocation> keys() {
         return Collections.unmodifiableSet(REGISTRY_MAP.keySet());
+    }
+
+    public static Set<Map.Entry<ResourceLocation, SpeedrunDifficulty>> entries() {
+        return Collections.unmodifiableSet(REGISTRY_MAP.entrySet());
     }
 }

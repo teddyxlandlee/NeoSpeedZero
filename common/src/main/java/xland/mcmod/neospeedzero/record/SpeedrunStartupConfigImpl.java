@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
-import xland.mcmod.neospeedzero.difficulty.BuiltinDifficulty;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
 import xland.mcmod.neospeedzero.resource.GoalPredicate;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
@@ -33,7 +32,7 @@ public record SpeedrunStartupConfigImpl(
     public static final class BuilderImpl implements Builder {
         private SpeedrunGoal.Holder goal;
         // Here we have default difficulty
-        private @NotNull SpeedrunDifficulty difficulty = BuiltinDifficulty.UU;
+        private @NotNull SpeedrunDifficulty difficulty = SpeedrunDifficulty.getDefault();
 
         @Override
         public Builder goal(SpeedrunGoal.@NotNull Holder goal) {

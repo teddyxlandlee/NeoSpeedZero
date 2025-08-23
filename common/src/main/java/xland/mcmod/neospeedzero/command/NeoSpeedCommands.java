@@ -85,6 +85,25 @@ public class NeoSpeedCommands {
                                         return Command.SINGLE_SUCCESS;
                                     })
                             )
+                            .then(literal("dialog")
+                                    .executes(context -> {
+                                        final ServerPlayer player = context.getSource().getPlayerOrException();
+                                        final SpeedrunRecord record = player.ns0$currentRecord();
+                                        if (record == null) {
+                                            context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
+                                            return 0;
+                                        }
+                                        NeoSpeedLifecycle.viewRecordDialog(player, record);
+                                        return Command.SINGLE_SUCCESS;
+                                    })
+                            )
+                    )
+                    .then(literal("list")
+                            .executes(context -> {
+                                final ServerPlayer player = context.getSource().getPlayerOrException();
+                                NeoSpeedLifecycle.listDialog(player);
+                                return Command.SINGLE_SUCCESS;
+                            })
                     )
             );
         });

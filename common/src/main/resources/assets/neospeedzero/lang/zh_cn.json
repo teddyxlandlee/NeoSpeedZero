@@ -13,6 +13,11 @@
 
   "gamerule.announceSpeedruns": "广播速通信息",
 
+  "gui.neospeedzero.goals": "NeoSpeedZero 速通目标列表",
+  "message.neospeedzero.challenge.finished_in": "用时：%s",
+  "gui.neospeedzero.startup_goal": "准备速通 - %s",
+  "gui.neospeedzero.select_difficulty": "速通难度",
+
   "message.neospeedzero.record.snapshot.goal_id": "目标：%s",
   "message.neospeedzero.record.snapshot.difficulty": "难度：%s",
   "message.neospeedzero.record.snapshot.progress": "进度：%s",
