@@ -7,6 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
+import xland.mcmod.neospeedzero.util.DurationLocalizer;
 import xland.mcmod.neospeedzero.view.ViewPackets;
 
 @Environment(EnvType.CLIENT)
@@ -27,5 +28,7 @@ public final class NeoSpeedZeroClient {
                 NetworkManager.sendToServer(ViewPackets.Request.INSTANCE);
             }
         });
+        // Time format
+        DurationLocalizer.bootstrap();
     }
 }
