@@ -32,7 +32,7 @@
 
   "message.neospeedzero.duration.placeholder": "%s",
   "message.neospeedzero.duration.apply_localizer": "true",
-  "message.neospeedzero.duration.template": "{value} {unit}",
+  "message.neospeedzero.duration.template": "{value}{unit}",
   "message.neospeedzero.duration.days": "天",
   "message.neospeedzero.duration.hours": "小时",
   "message.neospeedzero.duration.minutes": "分",

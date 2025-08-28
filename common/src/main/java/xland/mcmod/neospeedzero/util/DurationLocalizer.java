@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 
 @Environment(EnvType.CLIENT)
 @SuppressWarnings("ClassCanBeRecord")
-public class DurationLocalizer {
+public final class DurationLocalizer {
     private static final String PREFIX = "message.neospeedzero.duration.";
     private static final String TEMPLATE_KEY = PREFIX + "template";
     private static final String MAX_UNITS_KEY = PREFIX + "max_units";
@@ -53,12 +53,12 @@ public class DurationLocalizer {
     @ExpectPlatform
     private static boolean isLangPatchAvailable() { throw new AssertionError("Not implemented"); }
     
-    public DurationLocalizer(@NotNull Map<String, String> translations) {
+    private DurationLocalizer(@NotNull Map<String, String> translations) {
         Objects.requireNonNull(translations, "translations");
         this.translations = translations;
     }
     
-    public @NotNull String localize(@NotNull Duration duration) {
+    @NotNull String localize(@NotNull Duration duration) {
         Objects.requireNonNull(duration, "duration");
         // Fetch config
         int maxUnits = getIntConfig(MAX_UNITS_KEY, Integer.MAX_VALUE);
