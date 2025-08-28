@@ -3,16 +3,9 @@ architectury {
 }
 
 repositories {
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = "https://api.modrinth.com/maven"
-            }
-        }
-        filter {
-            includeGroup "maven.modrinth"
-        }
+    maven {
+        url 'https://mvn.7c7.icu'
+        name '7c7 Maven'
     }
 }
 
@@ -24,8 +17,7 @@ dependencies {
 
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
 
-    // Will switch to mvn.7c7.icu later
-    compileOnly "maven.modrinth:enchlevel-langpatch:3.1.0"
+    compileOnly "xland.mcmod:enchlevel-langpatch:3.1.0"
 }
 
 sourceSets {
