@@ -81,52 +81,65 @@ def download_server_jar(version):
 
     return jar_path
 
+def generate_item_report(version, jar_path):
+    """生成物品报告"""
+    report_dir = os.path.join(REPORTS_DIR, version)
+    mkdir_dummy(report_dir)
+    report_path = os.path.join(report_dir, "reports", "items.json")
+
+    # 执行server.jar生成报告
+    print(f"⏳ 生成 {version} 的物品报告...")
+    cmd = [
+        "java",
+        "-DbundlerMainClass=net.minecraft.data.Main",
+        "-jar", jar_path,
+        "--reports",
+        "--output", report_dir
+    ]
+    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
+    print(f"✅ 报告已生成: {report_path}")
+    return report_path
+
+def load_item_data(report_path):
+    """解析物品报告"""
+    with open(report_path, "r", encoding='utf8') as f:
+        data = json.load(f)
+    return {
+        item_id.split(":")[1]: item_data["components"]["minecraft:item_name"]["translate"]
+        for item_id, item_data in data.items()
+    }
+
+def load_chinese_translations(version):
+    manifest_url = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
+    manifest = requests.get(manifest_url).json()
+
+    # 查找版本元数据
+    version_meta_url = next((v['url'] for v in manifest['versions'] if v['id'] == version), None)
+    if not version_meta_url:
+        print(f"❌ 找不到版本 {version} 的元数据")
+        raise Exception(f"Version not found: {version}")
+
+    version_meta = requests.get(version_meta_url).json()
+    asset_index_url = version_meta['assetIndex']['url']
+    asset_index = requests.get(asset_index_url).json()
+    zh_cn_hash = asset_index['objects']['minecraft/lang/zh_cn.json']['hash']
+    zh_cn_url = f"https://resources.download.minecraft.net/{zh_cn_hash[:2]}/{zh_cn_hash}"
+    return requests.get(zh_cn_url).json()
+
 # ========================
 # CSV生成模块
 # ========================
 def generate_csv(version, output_csv):
     """生成中间CSV文件：执行server.jar并处理数据"""
     server_jar = download_server_jar(version)
-    try:
-        # 1. 调用server.jar生成物品报告
-        report_dir = os.path.join(REPORTS_DIR, version)
-        mkdir_dummy(report_dir)
-        
-        print(f"⏳ 正在执行server.jar生成物品报告...")
-        cmd = [
-            'java',
-            '-DbundlerMainClass=net.minecraft.data.Main',
-            '-jar', server_jar,
-            '--reports',
-            '--output', report_dir
-        ]
-        subprocess.run(cmd, check=True, capture_output=True)
-        print("✅ server.jar执行成功")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ server.jar执行失败: {e.stderr.decode()}")
-        sys.exit(1)
-    except FileNotFoundError:
-        print("❌ 找不到server.jar文件，请确认路径是否正确")
-        sys.exit(1)
+
+    # 1. 调用server.jar生成物品报告
+    items_report_path = generate_item_report(version, server_jar)
 
     # 2. 获取中文翻译文件
     print("⏳ 正在获取中文翻译文件...")
     try:
-        manifest_url = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
-        manifest = requests.get(manifest_url).json()
-
-        # 查找版本元数据
-        version_meta_url = next((v['url'] for v in manifest['versions'] if v['id'] == version), None)
-        if not version_meta_url:
-            print(f"❌ 找不到版本 {version} 的元数据")
-            sys.exit(1)
-
-        version_meta = requests.get(version_meta_url).json()
-        asset_index_url = version_meta['assetIndex']['url']
-        asset_index = requests.get(asset_index_url).json()
-        zh_cn_hash = asset_index['objects']['minecraft/lang/zh_cn.json']['hash']
-        zh_cn_url = f"https://resources.download.minecraft.net/{zh_cn_hash[:2]}/{zh_cn_hash}"
-        zh_cn_data = requests.get(zh_cn_url).json()
+        zh_cn_data = load_chinese_translations(version)
         print("✅ 中文翻译文件获取成功")
     except Exception as e:
         print(f"❌ 获取中文翻译文件失败: {str(e)}")
@@ -134,15 +147,9 @@ def generate_csv(version, output_csv):
 
     # 3. 处理物品报告并生成CSV
     print("⏳ 正在处理物品数据生成CSV...")
-    items_report_path = "generated/reports/items.json"
     csv_data = []
 
-    with open(items_report_path, 'r', encoding='utf-8') as f:
-        items_data = json.load(f)
-
-    for item_id, item_info in items_data.items():
-        base_id = item_id.split(':')[1]  # 移除minecraft:前缀
-        translate_key = item_info['components']['minecraft:item_name']['translate']
+    for base_id, translate_key in load_item_data(items_report_path).items():
         chinese_name = zh_cn_data.get(translate_key, '')
 
         if chinese_name:
@@ -158,6 +165,8 @@ def generate_csv(version, output_csv):
                 'han_num': char_count,
                 'chinese_name': chinese_name
             })
+        else:
+            print(f"⚠ 物品 {base_id} 暂无中文翻译，请等待正式翻译发布")
 
     # 4. 写入CSV文件
     with open(output_csv, 'w', newline='', encoding='utf-8') as f:
@@ -243,13 +252,13 @@ def main():
 
     # generate-csv 命令
     parser_csv = subparsers.add_parser('csv', help='生成中间CSV文件')
-    parser_csv.add_argument('version', required=True, help='Minecraft版本号，如1.21.6')
-    parser_csv.add_argument('output-csv', required=True, help='输出的CSV文件路径')
+    parser_csv.add_argument('version', help='Minecraft版本号，如1.21.6')
+    parser_csv.add_argument('output_csv', help='输出的CSV文件路径')
 
     # generate-datapack 命令
     parser_datapack = subparsers.add_parser('datapack', help='生成最终数据包')
-    parser_datapack.add_argument('input-csv', required=True, help='输入的CSV文件路径')
-    parser_datapack.add_argument('output-dir', required=True, help='数据包输出目录')
+    parser_datapack.add_argument('input_csv', help='输入的CSV文件路径')
+    parser_datapack.add_argument('output_dir', help='数据包输出目录')
 
     args = parser.parse_args()
 

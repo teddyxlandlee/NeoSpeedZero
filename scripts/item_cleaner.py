@@ -107,15 +107,15 @@ if __name__ == "__main__":
     
     # generate命令
     parser_gen = subparsers.add_parser('generate', help='生成避坑列表')
-    parser_gen.add_argument('--original', required=True, help='原始CSV文件路径')
-    parser_gen.add_argument('--modified', required=True, help='修改后CSV文件路径')
-    parser_gen.add_argument('--output', required=True, help='避坑列表输出路径')
+    parser_gen.add_argument('original', help='原始CSV文件路径')
+    parser_gen.add_argument('modified', help='修改后CSV文件路径')
+    parser_gen.add_argument('output', help='避坑列表输出路径')
     
     # remove命令
     parser_rm = subparsers.add_parser('remove', help='自动删除避坑项')
-    parser_rm.add_argument('--original', required=True, help='原始CSV文件路径')
-    parser_rm.add_argument('--avoid', required=True, help='避坑列表文件路径')
-    parser_rm.add_argument('--output', required=True, help='清理后输出路径')
+    parser_rm.add_argument('original', help='原始CSV文件路径')
+    parser_rm.add_argument('avoid', help='避坑列表文件路径')
+    parser_rm.add_argument('output', help='清理后输出路径')
     
     args = parser.parse_args()
     

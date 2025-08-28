@@ -7,105 +7,12 @@ import argparse
 from collections import defaultdict
 import shutil
 
-# 全局路径设置
-SERVER_DIR = "server_jars"
-REPORTS_DIR = "item_reports"
-
-def match_sha1(filename: str, sha1: str, silent_fnf: bool = True) -> bool:
-    # 创建一个 SHA-1 对象
-    sha1_hash = hashlib.sha1()
-    try:
-        with open(filename, 'rb') as f:
-            # 以二进制模式读取文件，并分块更新哈希（适合大文件）
-            for byte_block in iter(lambda: f.read(4096), b""):
-                sha1_hash.update(byte_block)
-    except FileNotFoundError:
-        if not silent_fnf:
-            print(f"文件 '{filename}' 未找到。")
-        return False
-    except Exception as e:
-        print(f"读取文件时出错: {e}")
-        return False
-
-    # 获取计算出的 SHA-1 哈希值（十六进制字符串）
-    calculated_sha1 = sha1_hash.hexdigest()
-
-    # 比较计算出的 SHA-1 和传入的 SHA-1 是否相等（不区分大小写）
-    return calculated_sha1.lower() == sha1.lower()
-
-def mkdir_dummy(dirpath: str) -> None:
-    if os.path.exists(dirpath):
-        if os.path.isdir(dirpath):
-            shutil.rmtree(dirpath)
-            print(f"已删除现有目录: {dirpath}")
-        else:
-            raise ValueError(f"路径 '{dirpath}' 已存在但不是目录，而是一个文件。无法继续。")
-    os.makedirs(dirpath)
-    print(f"已创建目录: {dirpath}")
+from generate_pack import *
 
 def setup_directories():
     """创建必要目录"""
     os.makedirs(SERVER_DIR, exist_ok=True)
     os.makedirs(REPORTS_DIR, exist_ok=True)
-
-def download_server_jar(version):
-    """下载指定版本的server.jar"""
-    # 获取版本清单
-    manifest_url = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
-    manifest = requests.get(manifest_url).json()
-    
-    # 查找版本元数据URL
-    version_meta_url = next(
-        (v["url"] for v in manifest["versions"] if v["id"] == version), None
-    )
-    if not version_meta_url:
-        raise ValueError(f"找不到版本 {version} 的元数据")
-    
-    # 获取server.jar下载链接
-    version_meta = requests.get(version_meta_url).json()
-    server_url = version_meta["downloads"]["server"]["url"]
-    server_hash = version_meta["downloads"]["server"]["sha1"]
-    jar_path = os.path.join(SERVER_DIR, f"server_{version}.jar")
-
-    if match_sha1(jar_path, server_hash):
-        print(f'✅ server.jar 已存在于 {jar_path}')
-        return jar_path
-    
-    # 下载文件
-    print(f"⏳ 下载 {version} 的 server.jar...")
-    response = requests.get(server_url)
-    with open(jar_path, "wb") as f:
-        f.write(response.content)
-    print(f"✅ 已保存至 {jar_path}")
-    return jar_path
-
-def generate_item_report(version, jar_path):
-    """生成物品报告"""
-    report_dir = os.path.join(REPORTS_DIR, version)
-    mkdir_dummy(report_dir)
-    report_path = os.path.join(report_dir, "reports", "items.json")
-    
-    # 执行server.jar生成报告
-    print(f"⏳ 生成 {version} 的物品报告...")
-    cmd = [
-        "java",
-        "-DbundlerMainClass=net.minecraft.data.Main",
-        "-jar", jar_path,
-        "--reports",
-        "--output", report_dir
-    ]
-    subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
-    print(f"✅ 报告已生成: {report_path}")
-    return report_path
-
-def load_item_data(report_path):
-    """解析物品报告"""
-    with open(report_path, "r") as f:
-        data = json.load(f)
-    return {
-        item_id.split(":")[1]: item_data["components"]["minecraft:item_name"]["translate"]
-        for item_id, item_data in data.items()
-    }
 
 def compare_items(version1, data1, version2, data2):
     """比较两个版本的物品差异"""
@@ -126,41 +33,53 @@ def compare_items(version1, data1, version2, data2):
     for item_id, trans_key1 in data1.items():
         if item_id not in data2:
             results["removed"][item_id] = trans_key1
+
+    if (results['added'] or results['removed'] or results['modified']):
+        results['translations'] = {
+            'old': load_chinese_translations(version1),
+            'new': load_chinese_translations(version2)
+        }
     
     return results
 
-def print_comparison(results, version1, version2):
+def print_comparison(results, version1, version2, output):
     """可视化输出比较结果"""
-    print(f"\n🔍 版本对比结果: {version1} → {version2}")
+    if isinstance(output, str):
+        with open(output, 'w', encoding='utf8') as f:
+            print_comparison(results, version1, version2, f)
+        return
+
+    print(f"\n🔍 版本对比结果: {version1} → {version2}", file=output)
     
     # 输出新增物品
     if results["added"]:
-        print(f"\n🟢 新增物品 ({len(results['added'])}):")
+        print(f"\n🟢 新增物品 ({len(results['added'])}):", file=output)
         for id, key in results["added"].items():
-            print(f"  - {id}: {key}")
+            print(f"  - {id}: {key} ({results['translations']['new'].get(key)})", file=output)
     
     # 输出删除物品
     if results["removed"]:
-        print(f"\n🔴 删除物品 ({len(results['removed'])}):")
+        print(f"\n🔴 删除物品 ({len(results['removed'])}):", file=output)
         for id, key in results["removed"].items():
-            print(f"  - {id}: {key}")
+            print(f"  - {id}: {key} ({results['translations']['old'].get(key)})", file=output)
     
     # 输出修改物品
     if results["modified"]:
-        print(f"\n🟡 修改翻译键 ({len(results['modified'])}):")
+        print(f"\n🟡 修改翻译键 ({len(results['modified'])}):", file=output)
         for id, (old_key, new_key) in results["modified"].items():
             print(f"  - {id}:")
-            print(f"     旧: {old_key}")
-            print(f"     新: {new_key}")
+            print(f"     旧: {old_key} ({results['translations']['old'].get(key)})", file=output)
+            print(f"     新: {new_key} ({results['translations']['new'].get(key)})", file=output)
     
     # 统计总结
-    total_changes = sum(len(v) for v in results.values())
-    print(f"\n📊 总计变动: {total_changes} 项")
+    total_changes = sum(len(v) for v in (results['added'], results['removed'], results['modified']))
+    print(f"\n📊 总计变动: {total_changes} 项", file=output)
 
 def main():
     parser = argparse.ArgumentParser(description="Minecraft物品报告对比工具")
     parser.add_argument("version1", help="第一个Minecraft版本号 (如 1.21.6)")
     parser.add_argument("version2", help="第二个Minecraft版本号 (如 1.21.7-rc2)")
+    parser.add_argument('-o', '--output', help="报告输出路径 (可选)")
     args = parser.parse_args()
     
     try:
@@ -178,7 +97,7 @@ def main():
         
         # 比较并输出结果
         results = compare_items(args.version1, data1, args.version2, data2)
-        print_comparison(results, args.version1, args.version2)
+        print_comparison(results, args.version1, args.version2, args.output)
         
     except Exception as e:
         print(f"❌ 错误: {str(e)}")
