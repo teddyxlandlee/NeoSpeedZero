@@ -81,6 +81,7 @@ public interface ItemExtensions {
         return customData.contains(TAG_MOD_GIVEN);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isInfiniteFirework(ItemStack stack) {
         if (!stack.is(Items.FIREWORK_ROCKET)) return false;
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
