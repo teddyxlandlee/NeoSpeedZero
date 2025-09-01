@@ -3,6 +3,7 @@ package xland.mcmod.neospeedzero;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -120,12 +121,20 @@ public final class NeoSpeedLifecycle {
         SpeedrunRecord record = player.ns0$currentRecord();
         if (record == null) return;
 
+        xland.mcmod.neospeedzero.util.ABSDebug.debug(3, l -> l.info("Adv: {}", advancement.id()));
+
         for (int i = 0, size = record.challenges().size(); i < size; i++) {
             if (record.collectedTimes()[i] >= 0) continue;
             SpeedrunChallenge challenge = record.challenges().get(i);
 
             final int idx = i;
             challenge.challenge().ifRight(advancementKey -> {
+                xland.mcmod.neospeedzero.util.ABSDebug.debug(3, l -> {
+                    l.info("IsRight challenge[{}] which matches {}", idx, advancementKey);
+                    l.info("Match: {}", advancement.id().equals(advancementKey.location()));
+                    l.info("===============");
+                });
+
                 if (advancement.id().equals(advancementKey.location())) {
                     // Matched advancement
                     onCompleteSingleChallenge(player, record, idx);
@@ -159,7 +168,7 @@ public final class NeoSpeedLifecycle {
     }
 
     public static void register() {
-        PlayerEvent.PLAYER_ADVANCEMENT.register(NeoSpeedLifecycle::onAdvancementMade);
+        registerAdvancementEvent(NeoSpeedLifecycle::onAdvancementMade);
         PlayerEvent.PLAYER_CLONE.register((oldPlayer, newPlayer, wonGame) -> {
             // Move SpeedrunRecord
             newPlayer.ns0$setCurrentRecord(oldPlayer.ns0$currentRecord());
@@ -180,5 +189,10 @@ public final class NeoSpeedLifecycle {
                 stack.setCount(0);
             });
         });
+    }
+
+    @ExpectPlatform
+    private static void registerAdvancementEvent(@NotNull PlayerEvent.PlayerAdvancement callback) {
+        throw new AssertionError(callback);
     }
 }

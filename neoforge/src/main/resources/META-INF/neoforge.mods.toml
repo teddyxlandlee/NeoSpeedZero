@@ -37,3 +37,6 @@ side = "BOTH"
 
 [[mixins]]
 config = "neospeedzero.mixins.json"
+
+[[mixins]]
+config = "neospeedzero-neo.mixins.json"

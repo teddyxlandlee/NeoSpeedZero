@@ -36,8 +36,6 @@ public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> 
         return of(challenge, generatedIcon, statedIcon.orElse(null));
     }
 
-
-
     private enum Type implements StringRepresentable {
         ITEM_PREDICATE("item"),
         ADVANCEMENT("advancement")
