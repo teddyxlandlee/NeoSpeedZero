@@ -11,6 +11,17 @@
   "command.neospeedzero.not_found.goal": "未知速通目标：%s",
   "command.neospeedzero.not_found.difficulty": "未知速通难度：%s",
 
+  "message.neospeedzero.join.success": "%1$s 成功加入速通纪录 %2$s",
+  "message.neospeedzero.join.unjoined": "%1$s 已退出速通纪录 %2$s",
+  "message.neospeedzero.stop.no_host": "不能中止发起者的速通纪录。若想退出速通，键入 `/neospeed quit`。",
+
+  "message.neospeedzero.view.host": "发起者：%s",
+  "message.neospeedzero.view.participants": "参与者：%s",
+
+  "message.neospeedzero.record.not_found": "找不到速通纪录：%s",
+  "message.neospeedzero.record.invalid_ref": "无效的纪录引用：%s",
+  "message.neospeedzero.record.ambiguous": "纪录引用 %s 对应多个速通纪录，请使用完整的速通纪录 ID。",
+
   "gamerule.announceSpeedruns": "广播速通信息",
 
   "gui.neospeedzero.goals": "NeoSpeedZero 速通目标列表",

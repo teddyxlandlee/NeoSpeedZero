@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import java.util.function.Consumer;
 
 @ApiStatus.Internal
-public class ABSDebug {
+public final class ABSDebug {
     private ABSDebug() {}
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final int DEBUG = Integer.getInteger("ns0.debug", 0);

@@ -4,7 +4,10 @@
       "xland/mcmod/neospeedzero/mixin/EnchantmentsPredicateAccessor"
     ],
     "net/minecraft/class_3222": [
-      "xland/mcmod/neospeedzero/record/NeoSpeedPlayer"
+      "xland/mcmod/neospeedzero/record/manager/NeoSpeedPlayer"
+    ],
+    "net/minecraft/server/MinecraftServer": [
+      "xland/mcmod/neospeedzero/record/manager/NeoSpeedServer"
     ]
   }
 }

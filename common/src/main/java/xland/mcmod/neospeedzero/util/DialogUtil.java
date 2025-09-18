@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class DialogUtil {
+public final class DialogUtil {
     public static ItemBody itemBody(ItemStack icon, Component description) {
         PlainMessage plainMessage = new PlainMessage(description, PlainMessage.DEFAULT_WIDTH);
         return new ItemBody(icon, Optional.of(plainMessage), true, true, 16, 16);
@@ -54,4 +54,6 @@ public class DialogUtil {
                 ParsedTemplate.CODEC.parse(JavaOps.INSTANCE, template).getOrThrow(/* should not happen */)
         );
     }
+
+    private DialogUtil() {}
 }

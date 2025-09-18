@@ -11,6 +11,17 @@
   "command.neospeedzero.not_found.goal": "Goal not found: %s",
   "command.neospeedzero.not_found.difficulty": "Difficulty not found: %s",
 
+  "message.neospeedzero.join.success": "%1$s has joined in the record %2$s",
+  "message.neospeedzero.join.unjoined": "%1$s has quit from the record %2$s",
+  "message.neospeedzero.stop.no_host": "Cannot stop the record run by your host.\nIf you want to quit, type `/neospeed quit.`",
+
+  "message.neospeedzero.view.host": "Host: %s",
+  "message.neospeedzero.view.participants": "Participants: %s",
+
+  "message.neospeedzero.record.not_found": "Record %1$s not found",
+  "message.neospeedzero.record.invalid_ref": "Invalid record reference: %s",
+  "message.neospeedzero.record.ambiguous": "Record reference %s is ambiguous. Please use its full record ID.",
+
   "gamerule.announceSpeedruns": "Broadcast Speedrun Message",
 
   "gui.neospeedzero.goals": "NeoSpeedZero Speedrun Goals",

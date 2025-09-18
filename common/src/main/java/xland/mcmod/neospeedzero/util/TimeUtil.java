@@ -4,7 +4,7 @@ import net.minecraft.network.chat.Component;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
-public class TimeUtil {
+public final class TimeUtil {
     public static final long TICK_TO_NANOS = 50000000L;
     static final String PLACEHOLDER_KEY = "message.neospeedzero.duration.placeholder";
 
@@ -22,4 +22,6 @@ public class TimeUtil {
                 /*args=*/DurationFormatUtils.formatDurationHMS(millis)
         );
     }
+
+    private TimeUtil() {}
 }

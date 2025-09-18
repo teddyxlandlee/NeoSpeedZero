@@ -1,10 +1,12 @@
 package xland.mcmod.neospeedzero.command;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -102,6 +104,43 @@ public class NeoSpeedCommands {
                             .executes(context -> {
                                 final ServerPlayer player = context.getSource().getPlayerOrException();
                                 NeoSpeedLifecycle.listDialog(player);
+                                return Command.SINGLE_SUCCESS;
+                            })
+                    )
+                    .then(literal("join")
+                            .then(literal("player")
+                                    .then(argument("maybeHost", EntityArgument.player())
+                                            .executes(context -> {
+                                                final ServerPlayer me = context.getSource().getPlayerOrException();
+                                                final ServerPlayer maybeHost = EntityArgument.getPlayer(context, "maybeHost");
+
+                                                NeoSpeedLifecycle.joinSpeedrun(me, RecordReference.ofPlayer(maybeHost)).ifPresent(sendFailure(context));
+                                                return Command.SINGLE_SUCCESS;
+                                            })
+                                    )
+                            )
+                            .then(literal("record")
+                                    .then(argument("reference", StringArgumentType.word())
+                                            .suggests((context, builder) -> {
+                                                context.getSource().getServer().ns0$recordManager().getAllRecordIds().forEach(uuid -> {
+                                                    // Due to performance concerns, detailed tooltips won't be suggested so far
+                                                    builder.suggest(uuid.toString());
+                                                });
+                                                return builder.buildFuture();
+                                            })
+                                            .executes(context -> {
+                                                final ServerPlayer me = context.getSource().getPlayerOrException();
+                                                var ref = RecordReference.of(StringArgumentType.getString(context, "reference"));
+
+                                                NeoSpeedLifecycle.joinSpeedrun(me, ref).ifPresent(sendFailure(context));
+                                                return Command.SINGLE_SUCCESS;
+                                            })
+                                    )
+                            )
+                    )
+                    .then(literal("quit")
+                            .executes(context -> {
+                                NeoSpeedLifecycle.quitSpeedrun(context.getSource().getPlayerOrException()).ifPresent(sendFailure(context));
                                 return Command.SINGLE_SUCCESS;
                             })
                     )

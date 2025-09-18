@@ -20,15 +20,10 @@ import java.util.Objects;
 public final class NeoSpeedMessages {
     private NeoSpeedMessages() {}
 
-    static void announceRecordStart(ServerPlayer serverPlayer, SpeedrunRecord record) {
+    private static void announce(ServerPlayer serverPlayer, Component component) {
         final MinecraftServer server = Objects.requireNonNull(serverPlayer.getServer());
         final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
 
-        final Component component = Component.translatable(
-                "message.neospeedzero.record.start",
-                serverPlayer.getDisplayName(),
-                record.snapshot()
-        );
         if (announceSpeedruns) {
             server.getPlayerList().broadcastSystemMessage(component, false);
         } else {
@@ -36,20 +31,36 @@ public final class NeoSpeedMessages {
         }
     }
 
-    static void announceRecordForceStop(ServerPlayer serverPlayer, SpeedrunRecord record) {
-        final MinecraftServer server = Objects.requireNonNull(serverPlayer.getServer());
-        final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
+    static void announceRecordStart(ServerPlayer serverPlayer, SpeedrunRecord record) {
+        announce(serverPlayer, Component.translatable(
+                "message.neospeedzero.record.start",
+                serverPlayer.getDisplayName(),
+                record.snapshot()
+        ));
+    }
 
-        final Component component = Component.translatable(
+    static void announceRecordForceStop(ServerPlayer serverPlayer, SpeedrunRecord record) {
+        announce(serverPlayer, Component.translatable(
                 "message.neospeedzero.record.stop.force",
                 serverPlayer.getDisplayName(),
                 record.snapshot()
-        );
-        if (announceSpeedruns) {
-            server.getPlayerList().broadcastSystemMessage(component, false);
-        } else {
-            serverPlayer.sendSystemMessage(component);
-        }
+        ));
+    }
+
+    static void announceRecordQuit(ServerPlayer serverPlayer, SpeedrunRecord record) {
+        announce(serverPlayer, Component.translatable(
+                "message.neospeedzero.join.unjoined",
+                serverPlayer.getDisplayName(),
+                record.snapshot()
+        ));
+    }
+
+    static void announceRecordJoin(ServerPlayer serverPlayer, SpeedrunRecord record) {
+        announce(serverPlayer, Component.translatable(
+                "message.neospeedzero.join.success",
+                serverPlayer.getDisplayName(),
+                record.snapshot()
+        ));
     }
 
     static void announceChallengeComplete(ServerPlayer serverPlayer, SpeedrunRecord record, int index, long currentTime) {
