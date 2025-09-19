@@ -1,6 +1,7 @@
 package xland.mcmod.neospeedzero;
 
 import dev.architectury.event.EventResult;
+import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.injectables.annotations.ExpectPlatform;
@@ -120,7 +121,22 @@ public final class NeoSpeedLifecycle {
         }
 
         RecordManager manager = player.ns0$serverRecordManager();
-        return ref.parse(manager).map(uuid -> Optional.ofNullable(manager.joinRecord(uuid, player)), Optional::of);
+        return ref.parse(manager).map(
+                uuid -> {
+                    Component msg = manager.joinRecord(uuid, player);
+                    if (msg == null) {
+                        SpeedrunRecordHolder holder = manager.findRecordByUuid(uuid);
+                        if (holder == null) {
+                            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
+                        }
+
+                        NeoSpeedMessages.announceRecordJoin(player, holder.record());
+                        initSpeedrunBeginning(player, holder.record());
+                    }
+                    return Optional.ofNullable(msg);
+                },
+                Optional::of
+        );
     }
 
     public static void viewRecord(ServerPlayer audience, @NotNull SpeedrunRecord record) {
@@ -211,6 +227,10 @@ public final class NeoSpeedLifecycle {
     }
 
     public static void register() {
+        // Server lifecycle events
+        LifecycleEvent.SERVER_STARTING.register(server -> server.ns0$recordManager().loadFromServer());
+        LifecycleEvent.SERVER_STOPPING.register(server -> server.ns0$recordManager().saveToServer());
+
         registerAdvancementEvent(NeoSpeedLifecycle::onAdvancementMade);
 
         // Prevent irrelevant players from obtaining marked items

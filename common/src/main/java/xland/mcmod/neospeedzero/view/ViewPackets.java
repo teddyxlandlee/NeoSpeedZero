@@ -15,8 +15,6 @@ import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
-import java.util.concurrent.Callable;
-
 public interface ViewPackets {
     ResourceLocation ID_SNAPSHOT = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "view_challenge");
     CustomPacketPayload.Type<ChallengeSnapshot> TYPE_SNAPSHOT = new CustomPacketPayload.Type<>(ID_SNAPSHOT);

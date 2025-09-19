@@ -3,9 +3,13 @@ package xland.mcmod.neospeedzero.record.manager;
 import com.mojang.logging.LogUtils;
 import io.netty.buffer.ByteBufUtil;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.*;
@@ -26,6 +30,12 @@ public class RecordManager {
     private static final Logger LOGGER = LogUtils.getLogger();
     private final Map<UUID, UUID> playerToRecordMap = new LinkedHashMap<>();
     private final Map<UUID, SpeedrunRecordHolder> recordMap = new LinkedHashMap<>();
+
+    private final MinecraftServer server;
+
+    public RecordManager(MinecraftServer server) {
+        this.server = server;
+    }
 
     private void bindHost(SpeedrunRecord record, ServerPlayer host) {
         recordMap.put(record.recordId(), new SpeedrunRecordHolder(
@@ -111,7 +121,7 @@ public class RecordManager {
         // Remove all players
         playerToRecordMap.keySet().removeAll(holder.info().getAllPlayers());
 
-        // Remvoe the record, and move it to history
+        // Remove the record, and move it to history
         recordMap.remove(holder.record().recordId());
         saveHistoricalRecordAsync(holder);
     }
@@ -130,7 +140,14 @@ public class RecordManager {
                 yield holder;
             }
             // sub-player quits
-            case PARTICIPANT -> holder.info().participants().remove(playerId) ? holder : null;
+            case PARTICIPANT -> {
+                if (holder.info().participants().remove(playerId)) {
+                    playerToRecordMap.remove(playerId);
+                    yield holder;
+                } else {
+                    yield null;
+                }
+            }
             default -> null;
         };
     }
@@ -182,9 +199,29 @@ public class RecordManager {
     }
 
 //    private final ExecutorService historyExecutor = Executors.newVirtualThreadPerTaskExecutor();
+    private static final Thread.Builder THREAD_BUILDER = Thread.ofVirtual().name("History-Record-Saver-", 1);
 
     private void saveHistoricalRecordAsync(SpeedrunRecordHolder holder) {
-        // TODO: save historical record into a directory
+        THREAD_BUILDER.start(() -> {
+            try {
+                var ops = RegistryOps.create(NbtOps.INSTANCE, server.registryAccess());
+                CompoundTag compound = SpeedrunRecordHolder.CODEC.encodeStart(ops, holder)
+                        .getOrThrow()
+                        .asCompound()
+                        .orElseThrow(() -> new IllegalStateException("Not a compound"));
+
+                String recordIdString = holder.record().recordId().toString();
+                Path path = server.getFile("neospeedzero")
+                        .resolve("historical_records")
+                        .resolve(recordIdString.substring(0, 2))
+                        .resolve(recordIdString + ".dat");
+                Files.createDirectories(path.getParent());
+
+                NbtIo.writeCompressed(compound, path);
+            } catch (Exception e) {
+                LOGGER.error("Failed to save historical record {}", holder.record().recordId(), e);
+            }
+        });
     }
 
 
@@ -193,7 +230,7 @@ public class RecordManager {
         startHosting(record, (ServerPlayer) player);
     }
 
-    public void loadFrom(MinecraftServer server) {
+    public void loadFromServer() {
         Path path = server.getFile("neospeedzero").resolve("PlayerRecords.dat");
         Snapshot snapshot;
 
@@ -215,7 +252,7 @@ public class RecordManager {
         snapshot.loadTo(this);
     }
 
-    public void saveTo(MinecraftServer server) {
+    public void saveToServer() {
         Path path = server.getFile("neospeedzero").resolve("PlayerRecords.dat");
         Path backup = server.getFile("neospeedzero").resolve("PlayerRecords.dat_old");
 

@@ -9,7 +9,7 @@ import xland.mcmod.neospeedzero.record.manager.RecordManager;
 @Mixin(MinecraftServer.class)
 abstract class MinecraftServerMixin implements NeoSpeedServer {
     @Unique
-    private final RecordManager ns0$recordManager = new RecordManager();
+    private final RecordManager ns0$recordManager = new RecordManager((MinecraftServer) (Object) this);
 
     @Override
     public RecordManager ns0$recordManager() {
