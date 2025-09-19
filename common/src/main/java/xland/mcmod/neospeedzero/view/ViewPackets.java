@@ -15,6 +15,8 @@ import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
+import java.util.concurrent.Callable;
+
 public interface ViewPackets {
     ResourceLocation ID_SNAPSHOT = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "view_challenge");
     CustomPacketPayload.Type<ChallengeSnapshot> TYPE_SNAPSHOT = new CustomPacketPayload.Type<>(ID_SNAPSHOT);
@@ -26,27 +28,34 @@ public interface ViewPackets {
     CustomPacketPayload.Type<Request> TYPE_C2S_REQUEST = new CustomPacketPayload.Type<>(ID_C2S_REQUEST);
 
     static void register() {
+        xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registering (1/2)"));
         // ClientBound
+        class ClientBoundMethods {
+            static void snapshot(ChallengeSnapshot snapshot) {
+                Minecraft.getInstance().setScreen(new ViewChallengeScreen(snapshot));
+            }
+
+            static void change(ChallengeSnapshot.Change change) {
+                if (Minecraft.getInstance().screen instanceof ViewChallengeScreen viewChallengeScreen) {
+                    viewChallengeScreen.onDataUpdate(change);
+                }
+            }
+        }
+
         if (Platform.getEnvironment() == Env.CLIENT) {
             NetworkManager.registerReceiver(
                     NetworkManager.s2c(), ViewPackets.TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC,
-                    (snapshot, context) -> context.queue(() -> {
-                        // Received snapshot -> open the screen
-                        Minecraft.getInstance().setScreen(new ViewChallengeScreen(snapshot));
-                    })
+                    (snapshot, context) -> context.queue(() -> ClientBoundMethods.snapshot(snapshot))
             );
             NetworkManager.registerReceiver(
                     NetworkManager.s2c(), ViewPackets.TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC,
-                    (change, context) -> context.queue(() -> {
-                        if (Minecraft.getInstance().screen instanceof ViewChallengeScreen viewChallengeScreen) {
-                            viewChallengeScreen.onDataUpdate(change);
-                        }
-                    })
+                    (change, context) -> ClientBoundMethods.change(change)
             );
         } else {
             NetworkManager.registerS2CPayloadType(ViewPackets.TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC);
             NetworkManager.registerS2CPayloadType(ViewPackets.TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC);
         }
+        xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registered (2/2)"));
 
         // ServerBound
         NetworkManager.registerReceiver(NetworkManager.c2s(), TYPE_C2S_REQUEST, Request.STREAM_CODEC, (singleton, context) -> {

@@ -1,5 +1,7 @@
 package xland.mcmod.neospeedzero.view;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+@Environment(EnvType.CLIENT)
 abstract class AbstractSlottedScreen extends Screen {
     protected int imageWidth = 176;
     protected int imageHeight = 166;
