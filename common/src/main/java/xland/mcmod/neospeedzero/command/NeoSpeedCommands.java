@@ -120,7 +120,7 @@ public class NeoSpeedCommands {
                                     )
                             )
                             .then(literal("record")
-                                    .then(argument("reference", StringArgumentType.string())
+                                    .then(argument("reference", StringArgumentType.word())
                                             .suggests((context, builder) -> {
                                                 context.getSource().getServer().ns0$recordManager().getAllRecordIds().forEach(uuid -> {
                                                     // Due to performance concerns, detailed tooltips won't be suggested so far

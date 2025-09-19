@@ -33,12 +33,11 @@ record RecordLookup(String prefix) implements RecordReference {
             return new Definite(UUID.fromString(s));
         } catch (IllegalArgumentException e) {
             // not a definite reference
-            if (!s.matches("^#[0-9A-Fa-f]{4}$")) {
+            if (!s.matches("^[0-9A-Fa-f]{4}$")) {
                 return new Failure(Component.translatable("message.neospeedzero.record.invalid_ref", s));
             }
 
-            s = s.substring(1).toLowerCase(Locale.ROOT);
-            return new RecordLookup(s);
+            return new RecordLookup(s.toLowerCase(Locale.ROOT));
         }
     }
 
