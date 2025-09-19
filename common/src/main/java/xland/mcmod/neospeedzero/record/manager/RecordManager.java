@@ -12,6 +12,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.*;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
@@ -211,7 +212,7 @@ public class RecordManager {
                         .orElseThrow(() -> new IllegalStateException("Not a compound"));
 
                 String recordIdString = holder.record().recordId().toString();
-                Path path = server.getFile("neospeedzero")
+                Path path = this.serverDir()
                         .resolve("historical_records")
                         .resolve(recordIdString.substring(0, 2))
                         .resolve(recordIdString + ".dat");
@@ -231,7 +232,7 @@ public class RecordManager {
     }
 
     public void loadFromServer() {
-        Path path = server.getFile("neospeedzero").resolve("PlayerRecords.dat");
+        Path path = this.serverDir().resolve("PlayerRecords.dat");
         Snapshot snapshot;
 
         try {
@@ -253,8 +254,8 @@ public class RecordManager {
     }
 
     public void saveToServer() {
-        Path path = server.getFile("neospeedzero").resolve("PlayerRecords.dat");
-        Path backup = server.getFile("neospeedzero").resolve("PlayerRecords.dat_old");
+        Path path = this.serverDir().resolve("PlayerRecords.dat");
+        Path backup = this.serverDir().resolve("PlayerRecords.dat_old");
 
         try {
             // onServerSave is currently unpredictable, so `false` it here
@@ -271,5 +272,11 @@ public class RecordManager {
         } catch (Exception e) {
             LOGGER.error("Failed to save NeoSpeed Zero player records", e);
         }
+    }
+    
+    private static final LevelResource LEVEL_RESOURCE = new LevelResource("neospeedzero");
+    
+    private Path serverDir() {
+        return this.server.getWorldPath(LEVEL_RESOURCE);
     }
 }
