@@ -15,13 +15,12 @@ import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.util.TimeUtil;
 
-import java.util.Objects;
-
 public final class NeoSpeedMessages {
     private NeoSpeedMessages() {}
 
     private static void announce(ServerPlayer serverPlayer, Component component) {
-        final MinecraftServer server = Objects.requireNonNull(serverPlayer.getServer());
+        @SuppressWarnings("resource")
+        final MinecraftServer server = serverPlayer.level().getServer();
         final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
 
         if (announceSpeedruns) {
@@ -66,7 +65,8 @@ public final class NeoSpeedMessages {
     static void announceChallengeComplete(ServerPlayer serverPlayer, SpeedrunRecord record, int index, long currentTime) {
         SpeedrunChallenge challenge = record.challenges().get(index);
 
-        final MinecraftServer server = Objects.requireNonNull(serverPlayer.getServer());
+        @SuppressWarnings("resource")
+        final MinecraftServer server = serverPlayer.level().getServer();
         final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
 
         final Component component = Component.translatable(
@@ -88,7 +88,8 @@ public final class NeoSpeedMessages {
     }
 
     static void announceRecordComplete(ServerPlayer serverPlayer, SpeedrunRecord record, long currentTime) {
-        final MinecraftServer server = Objects.requireNonNull(serverPlayer.getServer());
+        @SuppressWarnings("resource")
+        final MinecraftServer server = serverPlayer.level().getServer();
         final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
 
         final Component component = Component.translatable(

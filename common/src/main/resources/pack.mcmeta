@@ -1,7 +1,9 @@
 {
   "pack": {
     "pack_format": 81,
-    "supported_formats": [50, 114514],
+    "supported_formats": [50, 64],
+    "min_format": 50,
+    "max_format": 114514,
     "description": {
       "translate": "pack.neospeedzero.meta",
       "fallback": "NS0 built-in pack"

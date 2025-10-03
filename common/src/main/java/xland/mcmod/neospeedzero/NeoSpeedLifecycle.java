@@ -25,7 +25,6 @@ import xland.mcmod.neospeedzero.record.manager.SpeedrunRecordHolder;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.view.ChallengeSnapshot;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -207,7 +206,8 @@ public final class NeoSpeedLifecycle {
         record.markComplete(index, currentTime);
 
         // sync to client
-        new ChallengeSnapshot.Change(record.recordId(), index, currentTime).broadcastToAll(Objects.requireNonNull(serverPlayer.getServer()).getPlayerList());
+        //noinspection resource
+        new ChallengeSnapshot.Change(record.recordId(), index, currentTime).broadcastToAll(serverPlayer.level().getServer().getPlayerList());
 
         NeoSpeedMessages.announceChallengeComplete(serverPlayer, record, index, currentTime);
         NeoSpeedLifecycleEvents.COMPLETE_SINGLE_CHALLENGE.invoker().onComplete(serverPlayer, record, index);

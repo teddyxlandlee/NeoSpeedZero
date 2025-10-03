@@ -13,6 +13,7 @@ import net.minecraft.world.item.component.ItemLore;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
+import xland.mcmod.neospeedzero.mixin.CustomDataAccessor;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -64,8 +65,8 @@ public interface ItemExtensions {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData == null) return true;    // Not marked
 
-        @SuppressWarnings("deprecation")    // we just read, not write
-        CompoundTag rawTag = customData.getUnsafe();
+        // we just read, not write
+        CompoundTag rawTag = ((CustomDataAccessor)(Object) customData).ns0$getUnsafe();
         Optional<int[]> intArray = rawTag.getIntArray(TAG_MOD_GIVEN);
         return intArray.map(
                         // If marked, then a record must be present and matched.
@@ -78,7 +79,7 @@ public interface ItemExtensions {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData == null) return false;
 
-        return customData.contains(TAG_MOD_GIVEN);
+        return ((CustomDataAccessor)(Object) customData).ns0$getUnsafe().contains(TAG_MOD_GIVEN);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -87,8 +88,8 @@ public interface ItemExtensions {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData == null) return false;
 
-        @SuppressWarnings("deprecation")    // we just read, not write
-        CompoundTag rawTag = customData.getUnsafe();
+        // we just read, not write
+        CompoundTag rawTag = ((CustomDataAccessor)(Object) customData).ns0$getUnsafe();
         return rawTag.getBooleanOr(TAG_INFINITE_FIREWORK, false);
     }
 

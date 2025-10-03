@@ -5,8 +5,6 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
-import java.util.Objects;
-
 @ApiStatus.NonExtendable
 public interface NeoSpeedPlayer {
     @Nullable
@@ -17,10 +15,12 @@ public interface NeoSpeedPlayer {
     }
 
     default long ns0$time() {
-        return Objects.requireNonNull(((ServerPlayer) this).getServer()).overworld().getGameTime();
+        //noinspection resource
+        return ((ServerPlayer) this).level().getServer().overworld().getGameTime();
     }
 
     default RecordManager ns0$serverRecordManager() {
-        return Objects.requireNonNull(((ServerPlayer) this).getServer()).ns0$recordManager();
+        //noinspection resource
+        return ((ServerPlayer) this).level().getServer().ns0$recordManager();
     }
 }

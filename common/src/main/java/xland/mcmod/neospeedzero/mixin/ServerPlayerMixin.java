@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xland.mcmod.neospeedzero.record.manager.NeoSpeedPlayer;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Mixin(ServerPlayer.class)
@@ -22,8 +21,8 @@ abstract class ServerPlayerMixin implements NeoSpeedPlayer {
     private void onReadData(ValueInput input, CallbackInfo ci) {
         Optional<SpeedrunRecord> optionalLegacyRecord = input.read("neospeedzero:speedrun_record", SpeedrunRecord.CODEC);
         if (optionalLegacyRecord.isPresent()) {
-            MinecraftServer server = ((ServerPlayer)(Object)this).getServer();
-            Objects.requireNonNull(server); // must be server-side
+            @SuppressWarnings("resource")
+            MinecraftServer server = ((ServerPlayer)(Object)this).level().getServer();
             server.ns0$recordManager().registerLegacyRecord(this, optionalLegacyRecord.get());
         }
     }

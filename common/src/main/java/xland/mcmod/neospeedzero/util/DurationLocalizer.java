@@ -41,6 +41,7 @@ public final class DurationLocalizer {
                             final Duration duration = Duration.ofMillis(Long.parseUnsignedLong(fallback));
                             return new DurationLocalizer(translations).localize(duration);
                         } catch (Exception e) {
+                            LOGGER.warn("Duration localization failed, using fallback", e);
                             return null;
                         }
                     })

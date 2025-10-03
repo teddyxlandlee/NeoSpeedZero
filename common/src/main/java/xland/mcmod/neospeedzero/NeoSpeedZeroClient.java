@@ -15,7 +15,7 @@ public final class NeoSpeedZeroClient {
     public static final KeyMapping KEY_VIEW = new KeyMapping(
             "key.neospeedzero.view",
             GLFW.GLFW_KEY_B,
-            KeyMapping.CATEGORY_MISC
+            KeyMapping.Category.MISC
     );
 
     private NeoSpeedZeroClient() {}
