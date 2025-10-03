@@ -24,13 +24,19 @@
     "minecraft:explorer_pottery_sherd",
     "minecraft:exposed_chiseled_copper",
     "minecraft:exposed_copper",
+    "minecraft:exposed_copper_bars",
     "minecraft:exposed_copper_bulb",
+    "minecraft:exposed_copper_chain",
+    "minecraft:exposed_copper_chest",
     "minecraft:exposed_copper_door",
+    "minecraft:exposed_copper_golem_statue",
     "minecraft:exposed_copper_grate",
+    "minecraft:exposed_copper_lantern",
     "minecraft:exposed_copper_trapdoor",
     "minecraft:exposed_cut_copper",
     "minecraft:exposed_cut_copper_slab",
     "minecraft:exposed_cut_copper_stairs",
+    "minecraft:exposed_lightning_rod",
     "minecraft:eye_armor_trim_smithing_template"
   ]
 }
