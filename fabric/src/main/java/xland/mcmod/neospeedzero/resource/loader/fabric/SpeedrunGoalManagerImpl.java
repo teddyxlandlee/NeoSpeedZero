@@ -1,23 +1,32 @@
 package xland.mcmod.neospeedzero.resource.loader.fabric;
 
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
+import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 
-public final class SpeedrunGoalManagerImpl extends SpeedrunGoalManager implements IdentifiableResourceReloadListener {
-    private SpeedrunGoalManagerImpl(HolderLookup.Provider provider) {
-        super(provider);
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.function.Function;
+
+@SuppressWarnings("ClassCanBeRecord")
+public final class SpeedrunGoalManagerImpl implements PreparableReloadListener {
+    private final Function<HolderLookup.Provider, SpeedrunGoalManager> factory;
+
+    private SpeedrunGoalManagerImpl(Function<HolderLookup.Provider, SpeedrunGoalManager> factory) {
+        this.factory = factory;
     }
 
-    public static void register() {
-        ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(GOAL_KEY_ID, SpeedrunGoalManagerImpl::new);
+    @SuppressWarnings("unused")
+    public static void register(Function<HolderLookup.Provider, SpeedrunGoalManager> factory) {
+        ResourceLoader.get(PackType.SERVER_DATA).registerReloader(SpeedrunGoalManager.GOAL_KEY_ID, new SpeedrunGoalManagerImpl(factory));
     }
 
     @Override
-    public ResourceLocation getFabricId() {
-        return GOAL_KEY_ID;
+    public @NotNull CompletableFuture<Void> reload(SharedState sharedState, Executor executor, PreparationBarrier preparationBarrier, Executor executor2) {
+        HolderLookup.Provider provider = sharedState.get(ResourceLoader.RELOADER_REGISTRY_LOOKUP_KEY);
+        return factory.apply(provider).reload(sharedState, executor, preparationBarrier, executor2);
     }
 }

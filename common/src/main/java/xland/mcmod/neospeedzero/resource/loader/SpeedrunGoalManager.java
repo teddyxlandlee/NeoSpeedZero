@@ -16,18 +16,19 @@ import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 
 import java.util.Map;
+import java.util.function.Function;
 
 public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<SpeedrunGoal> {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final ResourceLocation GOAL_KEY_ID = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");
     public static final ResourceKey<Registry<SpeedrunGoal>> GOAL_KEY = ResourceKey.createRegistryKey(GOAL_KEY_ID);
 
-    protected SpeedrunGoalManager(HolderLookup.Provider provider) {
+    private SpeedrunGoalManager(HolderLookup.Provider provider) {
         super(provider, SpeedrunGoal.CODEC, GOAL_KEY);
     }
 
     public static void registerEvents() {
-        register();
+        register(SpeedrunGoalManager::new);
         // Remove cached holders
         LifecycleEvent.SERVER_STOPPED.register(server -> {
             LOGGER.info("Clearing SpeedRunGoal.Holder");
@@ -36,7 +37,9 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
     }
 
     @ExpectPlatform
-    private static void register() { throw new AssertionError("ExpectPlatform"); }
+    private static void register(@SuppressWarnings("unused") Function<HolderLookup.Provider, SpeedrunGoalManager> factory) {
+        throw new AssertionError("ExpectPlatform");
+    }
 
     @Override
     protected void apply(Map<ResourceLocation, SpeedrunGoal> map, ResourceManager resourceManager, ProfilerFiller profiler) {

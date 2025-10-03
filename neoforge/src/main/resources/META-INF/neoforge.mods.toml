@@ -24,14 +24,14 @@ side = "BOTH"
 [[dependencies.neospeedzero]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.7,)"
+versionRange = "[1.21.9,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.neospeedzero]]
 modId = "architectury"
 type = "required"
-versionRange = "[17.0.6,)"
+versionRange = "[19,)"
 ordering = "AFTER"
 side = "BOTH"
 
