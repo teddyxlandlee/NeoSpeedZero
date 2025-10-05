@@ -31,7 +31,7 @@ side = "BOTH"
 [[dependencies.neospeedzero]]
 modId = "architectury"
 type = "required"
-versionRange = "[19,)"
+versionRange = "[18,)"
 ordering = "AFTER"
 side = "BOTH"
 
