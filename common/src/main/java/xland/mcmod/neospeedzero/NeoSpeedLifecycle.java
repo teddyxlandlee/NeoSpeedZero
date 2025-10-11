@@ -1,10 +1,6 @@
 package xland.mcmod.neospeedzero;
 
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.event.events.common.PlayerEvent;
-import dev.architectury.event.events.common.TickEvent;
-import dev.architectury.injectables.annotations.ExpectPlatform;
+import com.mojang.logging.LogUtils;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -12,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.api.NeoSpeedLifecycleEvents;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
 import xland.mcmod.neospeedzero.command.RecordReference;
@@ -23,6 +20,8 @@ import xland.mcmod.neospeedzero.record.manager.PlayerRole;
 import xland.mcmod.neospeedzero.record.manager.RecordManager;
 import xland.mcmod.neospeedzero.record.manager.SpeedrunRecordHolder;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
+import xland.mcmod.neospeedzero.util.event.ActionResult;
+import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 import xland.mcmod.neospeedzero.view.ChallengeSnapshot;
 
 import java.util.Optional;
@@ -41,8 +40,8 @@ public final class NeoSpeedLifecycle {
             ));
         }
 
-        EventResult eventResult = NeoSpeedLifecycleEvents.START_RECORD.invoker().onStart(player, startupConfig);
-        if (eventResult == EventResult.interruptFalse()) {
+        ActionResult actionResult = NeoSpeedLifecycleEvents.START_RECORD.invoker().onStart(player, startupConfig);
+        if (!actionResult.getResult(true)) {    // interruptFalse
             // Do not start
             return Optional.of(Component.translatable("message.neospeedzero.record.start.cancel"));
         }
@@ -83,8 +82,8 @@ public final class NeoSpeedLifecycle {
             return Optional.of(Component.translatable("message.neospeedzero.stop.no_host"));
         }
 
-        EventResult eventResult = NeoSpeedLifecycleEvents.FORCE_STOP_RECORD.invoker().onStop(player);
-        if (eventResult == EventResult.interruptFalse()) {
+        ActionResult actionResult = NeoSpeedLifecycleEvents.FORCE_STOP_RECORD.invoker().onStop(player);
+        if (!actionResult.getResult(true)) {  // interruptFalse
             // Do not stop
             return Optional.of(Component.translatable("message.neospeedzero.record.stop.force.cancel"));
         }
@@ -175,7 +174,8 @@ public final class NeoSpeedLifecycle {
         }
     }
 
-    private static void onAdvancementMade(ServerPlayer player, AdvancementHolder advancement) {
+    // will be called by the mixin
+    public static void onAdvancementMade(ServerPlayer player, AdvancementHolder advancement) {
         SpeedrunRecord record = player.ns0$currentRecord();
         if (record == null) return;
 
@@ -228,17 +228,19 @@ public final class NeoSpeedLifecycle {
 
     public static void register() {
         // Server lifecycle events
-        LifecycleEvent.SERVER_STARTING.register(server -> server.ns0$recordManager().loadFromServer());
-        LifecycleEvent.SERVER_STOPPING.register(server -> server.ns0$recordManager().saveToServer());
-
-        registerAdvancementEvent(NeoSpeedLifecycle::onAdvancementMade);
+        PlatformEvents.whenServerStarting(server -> server.ns0$recordManager().loadFromServer());
+        PlatformEvents.whenServerStopped(server -> {
+            server.ns0$recordManager().saveToServer();
+            // Then, remove cached holders
+            LOGGER.info("Clearing SpeedRunGoal.Holder");
+            SpeedrunGoal.Holder.clearHolders();
+        });
 
         // Prevent irrelevant players from obtaining marked items
-        TickEvent.PLAYER_PRE.register(player -> {
-            if (!(player instanceof ServerPlayer serverPlayer)) return;
+        PlatformEvents.preServerPlayerTick(serverPlayer -> {
             final @Nullable UUID uuid = serverPlayer.ns0$serverRecordManager().findRecordIdByPlayer(serverPlayer);
 
-            player.getInventory().forEach(stack -> {
+            serverPlayer.getInventory().forEach(stack -> {
                 if (stack.isEmpty()) return;
                 if (ItemExtensions.matchesRecordId(stack, uuid)) {
                     return;     // This is OK
@@ -249,8 +251,5 @@ public final class NeoSpeedLifecycle {
         });
     }
 
-    @ExpectPlatform
-    private static void registerAdvancementEvent(@NotNull PlayerEvent.PlayerAdvancement callback) {
-        throw new AssertionError(callback);
-    }
+    private static final Logger LOGGER = LogUtils.getLogger();
 }

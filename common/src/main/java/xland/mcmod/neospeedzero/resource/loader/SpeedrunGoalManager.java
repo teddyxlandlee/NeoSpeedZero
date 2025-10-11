@@ -2,8 +2,6 @@ package xland.mcmod.neospeedzero.resource.loader;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.logging.LogUtils;
-import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -14,9 +12,9 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
+import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Map;
-import java.util.function.Function;
 
 public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<SpeedrunGoal> {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -28,17 +26,7 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
     }
 
     public static void registerEvents() {
-        register(SpeedrunGoalManager::new);
-        // Remove cached holders
-        LifecycleEvent.SERVER_STOPPED.register(server -> {
-            LOGGER.info("Clearing SpeedRunGoal.Holder");
-            SpeedrunGoal.Holder.clearHolders();
-        });
-    }
-
-    @ExpectPlatform
-    private static void register(@SuppressWarnings("unused") Function<HolderLookup.Provider, SpeedrunGoalManager> factory) {
-        throw new AssertionError("ExpectPlatform");
+        PlatformEvents.registerResourceReloadListener(GOAL_KEY_ID, SpeedrunGoalManager::new);
     }
 
     @Override

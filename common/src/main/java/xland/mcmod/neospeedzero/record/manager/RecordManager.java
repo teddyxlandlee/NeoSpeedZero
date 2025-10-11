@@ -15,6 +15,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.*;
 import org.slf4j.Logger;
+import xland.mcmod.neospeedzero.NeoSpeedZero;
+import xland.mcmod.neospeedzero.mixin.LevelResourceAccessor;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.util.StreamIoUtil;
 
@@ -274,7 +276,7 @@ public class RecordManager {
         }
     }
     
-    private static final LevelResource LEVEL_RESOURCE = new LevelResource("neospeedzero");
+    private static final LevelResource LEVEL_RESOURCE = LevelResourceAccessor.ns0$create(NeoSpeedZero.MOD_ID);
     
     private Path serverDir() {
         return this.server.getWorldPath(LEVEL_RESOURCE);
