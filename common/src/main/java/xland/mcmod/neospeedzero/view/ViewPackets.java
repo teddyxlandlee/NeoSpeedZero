@@ -24,11 +24,7 @@ public interface ViewPackets {
     static void register() {
         xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registering (1/2)"));
         // ClientBound
-        {
-            var codec = ChallengeSnapshot.STREAM_CODEC;
-            var typeAndCodec = new CustomPacketPayload.TypeAndCodec<>(TYPE_SNAPSHOT, codec);
-            PlatformNetwork.registerS2C(typeAndCodec);
-        }
+        PlatformNetwork.registerS2C(new CustomPacketPayload.TypeAndCodec<>(TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC));
         PlatformNetwork.registerS2C(new CustomPacketPayload.TypeAndCodec<>(TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC));
 
         xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registered (2/2)"));

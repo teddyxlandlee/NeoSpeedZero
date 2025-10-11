@@ -52,7 +52,7 @@ public final class PlatformEventsImpl {
     public static void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
         NeoForge.EVENT_BUS.addListener(
                 AddServerReloadListenersEvent.class,
-                event -> event.addListener(id, factory.apply(event.getRegistryAccess()))
+                event -> event.addListener(id, factory.apply(event.getServerResources().getRegistryLookup()))
         );
     }
 

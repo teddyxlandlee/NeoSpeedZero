@@ -65,7 +65,14 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     @Environment(EnvType.CLIENT)
     @Override
     public void onClientReceive() {
-        Minecraft.getInstance().setScreen(new ViewChallengeScreen(this));
+        // Fuck you NeoForge classloader
+        class Receiver implements Runnable {
+            @Override
+            public void run() {
+                Minecraft.getInstance().setScreen(new ViewChallengeScreen(ChallengeSnapshot.this));
+            }
+        }
+        new Receiver().run();
     }
 
     public record Change(UUID recordId, int index, long newValue) implements ServerToClientPayload {
