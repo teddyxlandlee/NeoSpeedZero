@@ -11,10 +11,10 @@ public final class NeoSpeedZeroNeoForge {
     public NeoSpeedZeroNeoForge(IEventBus modBus) {
         // Run our common setup.
         NeoSpeedZero.init();
-        modBus.addListener(this::onClientSetup);
+        modBus.addListener(FMLClientSetupEvent.class, NeoSpeedZeroNeoForge::onClientSetup);
     }
 
-    private void onClientSetup(FMLClientSetupEvent event) {
+    private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(NeoSpeedZeroClient::initClient);
     }
 }

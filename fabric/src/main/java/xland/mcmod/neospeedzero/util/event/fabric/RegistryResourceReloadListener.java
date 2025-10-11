@@ -1,27 +1,22 @@
-package xland.mcmod.neospeedzero.resource.loader.fabric;
+package xland.mcmod.neospeedzero.util.event.fabric;
 
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import org.jetbrains.annotations.NotNull;
-import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Function;
 
 @SuppressWarnings("ClassCanBeRecord")
-public final class SpeedrunGoalManagerImpl implements PreparableReloadListener {
-    private final Function<HolderLookup.Provider, SpeedrunGoalManager> factory;
+final class RegistryResourceReloadListener implements PreparableReloadListener {
+    private final Function<HolderLookup.Provider, PreparableReloadListener> factory;
 
-    private SpeedrunGoalManagerImpl(Function<HolderLookup.Provider, SpeedrunGoalManager> factory) {
+    RegistryResourceReloadListener(Function<HolderLookup.Provider, PreparableReloadListener> factory) {
+        Objects.requireNonNull(factory, "factory cannot be null.");
         this.factory = factory;
-    }
-
-    @SuppressWarnings("unused")
-    public static void register(Function<HolderLookup.Provider, SpeedrunGoalManager> factory) {
-        ResourceLoader.get(PackType.SERVER_DATA).registerReloader(SpeedrunGoalManager.GOAL_KEY_ID, new SpeedrunGoalManagerImpl(factory));
     }
 
     @Override

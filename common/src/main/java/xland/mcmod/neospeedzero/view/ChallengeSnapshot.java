@@ -1,7 +1,9 @@
 package xland.mcmod.neospeedzero.view;
 
-import dev.architectury.networking.NetworkManager;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -10,7 +12,6 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.item.ItemStack;
@@ -18,10 +19,12 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
+import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
+import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
 import java.util.*;
 
-public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> challenges, long[] successTimeMap) implements CustomPacketPayload {
+public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> challenges, long[] successTimeMap) implements ServerToClientPayload {
     // The exact time is not used yet. We simply check its non-negativity.
     // Just send to client.
 
@@ -47,7 +50,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     );
 
     public void sendToClient(ServerPlayer serverPlayer) {
-        NetworkManager.sendToPlayer(serverPlayer, this);
+        PlatformNetwork.sendToPlayer(this, serverPlayer);
     }
 
     @Override
@@ -59,7 +62,13 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         return Math.ceilDivExact(challenges().size(), 63);
     }
 
-    public record Change(UUID recordId, int index, long newValue) implements CustomPacketPayload {
+    @Environment(EnvType.CLIENT)
+    @Override
+    public void onClientReceive() {
+        Minecraft.getInstance().setScreen(new ViewChallengeScreen(this));
+    }
+
+    public record Change(UUID recordId, int index, long newValue) implements ServerToClientPayload {
         public static final StreamCodec<RegistryFriendlyByteBuf, Change> STREAM_CODEC = StreamCodec.composite(
                 UUIDUtil.STREAM_CODEC, Change::recordId,
                 ByteBufCodecs.VAR_INT, Change::index,
@@ -79,12 +88,21 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         }
 
         public void broadcastToAll(PlayerList playerList) {
-            NetworkManager.sendToPlayers(playerList.getPlayers(), this);
+//            NetworkManager.sendToPlayers(playerList.getPlayers(), this);
+            PlatformNetwork.sendToPlayers(this, playerList.getPlayers());
         }
 
         @Override
         public @NotNull Type<Change> type() {
             return ViewPackets.TYPE_CHANGE;
+        }
+
+        @Override
+        @Environment(EnvType.CLIENT)
+        public void onClientReceive() {
+            if (Minecraft.getInstance().screen instanceof ViewChallengeScreen viewChallengeScreen) {
+                viewChallengeScreen.onDataUpdate(this);
+            }
         }
     }
 

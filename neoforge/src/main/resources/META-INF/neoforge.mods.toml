@@ -28,15 +28,6 @@ versionRange = "[1.21.9,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.neospeedzero]]
-modId = "architectury"
-type = "required"
-versionRange = "[18,)"
-ordering = "AFTER"
-side = "BOTH"
-
 [[mixins]]
 config = "neospeedzero.mixins.json"
 
-[[mixins]]
-config = "neospeedzero-neo.mixins.json"

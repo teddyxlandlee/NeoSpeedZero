@@ -1,4 +1,4 @@
-package xland.mcmod.neospeedzero.neoforge.mixin;
+package xland.mcmod.neospeedzero.mixin;
 
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.server.PlayerAdvancements;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xland.mcmod.neospeedzero.neoforge.NeoSpeedLifecycleImpl;
+import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 
 @Mixin(PlayerAdvancements.class)
 abstract class PlayerAdvancementsMixin {
@@ -24,6 +24,6 @@ abstract class PlayerAdvancementsMixin {
             )
     )
     private void onComplete(AdvancementHolder advancement, String criterionKey, CallbackInfoReturnable<Boolean> cir) {
-        NeoSpeedLifecycleImpl.onAdvancementMade(ns0$player(), advancement);
+        NeoSpeedLifecycle.onAdvancementMade(ns0$player(), advancement);
     }
 }

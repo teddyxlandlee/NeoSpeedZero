@@ -3,7 +3,6 @@ package xland.mcmod.neospeedzero.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import dev.architectury.event.events.common.CommandRegistrationEvent;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -16,6 +15,7 @@ import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
+import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.function.Consumer;
 
@@ -23,7 +23,8 @@ import static net.minecraft.commands.Commands.*;
 
 public class NeoSpeedCommands {
     public static void register() {
-        CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
+        //CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
+        PlatformEvents.registerCommand(dispatcher -> {
             // Register commands here...
             dispatcher.register(literal("neospeed")
                     .then(literal("start")

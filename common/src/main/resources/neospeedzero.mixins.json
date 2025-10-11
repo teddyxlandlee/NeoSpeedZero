@@ -9,8 +9,10 @@
     "CustomDataAccessor",
     "EnchantmentsPredicateAccessor",
     "FireworkRocketItemMixin",
+    "LevelResourceAccessor",
     "MinecraftServerMixin",
     "PlayerAdvancementsAccessor",
+    "PlayerAdvancementsMixin",
     "ServerPlayerContainerListenerMixin",
     "ServerPlayerMixin"
   ],
