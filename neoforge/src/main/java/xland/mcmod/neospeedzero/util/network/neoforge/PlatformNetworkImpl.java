@@ -6,12 +6,15 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
 import java.util.Collection;
@@ -27,7 +30,7 @@ public final class PlatformNetworkImpl {
     ) {
         Objects.requireNonNull(typeAndCodec, "typeAndCodec cannot be null.");
         Objects.requireNonNull(callback, "callback cannot be null.");
-        NeoForge.EVENT_BUS.addListener(RegisterPayloadHandlersEvent.class, event -> {
+        registerPayloadHandlers(event -> {
             // According to architectury
             event.registrar(typeAndCodec.type().id().getNamespace()).optional().playToServer(
                     typeAndCodec.type(), typeAndCodec.codec(),
@@ -38,7 +41,7 @@ public final class PlatformNetworkImpl {
 
     public static <C extends ServerToClientPayload> void registerS2CImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
         Objects.requireNonNull(typeAndCodec, "typeAndCodec cannot be null.");
-        NeoForge.EVENT_BUS.addListener(RegisterPayloadHandlersEvent.class, event -> {
+        registerPayloadHandlers(event -> {
             // According to architectury, as well
             PayloadRegistrar registrar = event.registrar(typeAndCodec.type().id().getNamespace()).optional();
             if (FMLEnvironment.getDist() != Dist.CLIENT) {
@@ -47,6 +50,10 @@ public final class PlatformNetworkImpl {
                 registrar.playToClient(typeAndCodec.type(), typeAndCodec.codec(), (payload, context) -> payload.onClientReceive());
             }
         });
+    }
+
+    private static void registerPayloadHandlers(Consumer<RegisterPayloadHandlersEvent> consumer) {
+        ModList.get().getModContainerById(NeoSpeedZero.MOD_ID).map(ModContainer::getEventBus).orElseThrow().addListener(RegisterPayloadHandlersEvent.class, consumer);
     }
 
     @OnlyIn(Dist.CLIENT)
