@@ -11,6 +11,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -19,6 +22,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import xland.mcmod.neospeedzero.NeoSpeedZero;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -63,7 +67,8 @@ public final class PlatformEventsImpl {
     @OnlyIn(Dist.CLIENT)
     public static void registerKeyMapping(KeyMapping keyMapping) {
         Objects.requireNonNull(keyMapping, "keyMapping cannot be null.");
-        NeoForge.EVENT_BUS.addListener(RegisterKeyMappingsEvent.class, event -> event.register(keyMapping));
+        IEventBus bus = ModList.get().getModContainerById(NeoSpeedZero.MOD_ID).map(ModContainer::getEventBus).orElseThrow();
+        bus.addListener(RegisterKeyMappingsEvent.class, event -> event.register(keyMapping));
     }
     
     @OnlyIn(Dist.CLIENT)
