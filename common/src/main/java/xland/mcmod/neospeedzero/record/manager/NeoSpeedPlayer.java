@@ -16,7 +16,7 @@ public interface NeoSpeedPlayer {
 
     default long ns0$time() {
         //noinspection resource
-        return ((ServerPlayer) this).level().getServer().overworld().getGameTime();
+        return ((ServerPlayer)this).level().getServer().overworld().getLevelData().getGameTime();
     }
 
     default RecordManager ns0$serverRecordManager() {

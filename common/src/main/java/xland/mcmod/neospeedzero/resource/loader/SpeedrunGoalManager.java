@@ -35,15 +35,5 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
         map.forEach((id, goal) -> builder.put(id, new SpeedrunGoal.Holder(id, goal)));
         SpeedrunGoal.Holder.setHolders(builder.buildOrThrow());
         LOGGER.info("Updated SpeedrunGoal.Holder");
-        xland.mcmod.neospeedzero.util.ABSDebug.debug(1, l -> {
-            l.info("Known keys: {}", map.keySet());
-            var loaded = net.minecraft.resources.FileToIdConverter.registry(GOAL_KEY).listMatchingResources(resourceManager);
-            l.info("Load again ({}): {}", loaded.size(), loaded);
-            var path = net.minecraft.core.registries.Registries.elementsDirPath(GOAL_KEY);
-            var path2 = GOAL_KEY_ID.getPath();
-            l.info("Path#1: {}, Path#2: {}, Equal: {}", path, path2, java.util.Objects.equals(path, path2));
-            loaded = net.minecraft.resources.FileToIdConverter.json(path).listMatchingResources(resourceManager);
-            l.info("Load another time ({}): {}", loaded.size(), loaded);
-        });
     }
 }
