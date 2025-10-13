@@ -10,21 +10,27 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
+import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public final class PlatformNetworkImpl {
+public final class PlatformNetworkImpl extends PlatformNetwork {
     private PlatformNetworkImpl() {}
+    private static final PlatformNetworkImpl INSTANCE = new PlatformNetworkImpl();
 
-    public static <P extends CustomPacketPayload> void registerC2SImpl(
+    @SuppressWarnings("unused")
+    public static PlatformNetwork getInstance() {
+        return INSTANCE;
+    }
+
+    public <P extends CustomPacketPayload> void registerC2SImpl(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,
             Consumer<ServerPlayer> callback
     ) {
@@ -39,7 +45,7 @@ public final class PlatformNetworkImpl {
         });
     }
 
-    public static <C extends ServerToClientPayload> void registerS2CImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
+    public <C extends ServerToClientPayload> void registerS2CImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
         Objects.requireNonNull(typeAndCodec, "typeAndCodec cannot be null.");
         registerPayloadHandlers(event -> {
             // According to architectury, as well
@@ -57,15 +63,15 @@ public final class PlatformNetworkImpl {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void sendToServer(CustomPacketPayload payload) {
+    public void sendToServer(CustomPacketPayload payload) {
         ClientPacketDistributor.sendToServer(payload);
     }
 
-    public static void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer) {
+    public void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer) {
         PacketDistributor.sendToPlayer(serverPlayer, payload);
     }
 
-    public static void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players) {
+    public void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players) {
         ClientboundCustomPayloadPacket packet = new ClientboundCustomPayloadPacket(payload);
         players.forEach(p -> p.connection.send(packet));
     }

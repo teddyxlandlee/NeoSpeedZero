@@ -50,7 +50,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     );
 
     public void sendToClient(ServerPlayer serverPlayer) {
-        PlatformNetwork.sendToPlayer(this, serverPlayer);
+        PlatformNetwork.getInstance().sendToPlayer(this, serverPlayer);
     }
 
     @Override
@@ -95,8 +95,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         }
 
         public void broadcastToAll(PlayerList playerList) {
-//            NetworkManager.sendToPlayers(playerList.getPlayers(), this);
-            PlatformNetwork.sendToPlayers(this, playerList.getPlayers());
+            PlatformNetwork.getInstance().sendToPlayers(this, playerList.getPlayers());
         }
 
         @Override

@@ -24,7 +24,7 @@ import static net.minecraft.commands.Commands.*;
 public class NeoSpeedCommands {
     public static void register() {
         //CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
-        PlatformEvents.registerCommand(dispatcher -> {
+        PlatformEvents.getInstance().registerCommand(dispatcher -> {
             // Register commands here...
             dispatcher.register(literal("neospeed")
                     .then(literal("start")

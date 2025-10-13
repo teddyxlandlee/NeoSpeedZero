@@ -15,53 +15,42 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public final class PlatformNetwork {
-    public static <P extends CustomPacketPayload> void registerC2S(
+public abstract class PlatformNetwork {
+    @ExpectPlatform
+    public static PlatformNetwork getInstance() {
+        throw new AssertionError("ExpectPlatform");
+    }
+
+    public <P extends CustomPacketPayload> void registerC2S(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,
             Consumer<ServerPlayer> callback
     ) {
         registerC2SImpl(transform(typeAndCodec), callback);
     }
 
-    public static <C extends ServerToClientPayload> void registerS2C(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
+    public <C extends ServerToClientPayload> void registerS2C(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
         registerS2CImpl(transform(typeAndCodec));
     }
 
-    @ExpectPlatform
-    private static <P extends CustomPacketPayload> void registerC2SImpl(
+    protected abstract <P extends CustomPacketPayload> void registerC2SImpl(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,
             Consumer<ServerPlayer> callback
-    ) {
-        throw expectPlatform(typeAndCodec, callback);
-    }
+    );
 
-    @ExpectPlatform
-    private static <C extends ServerToClientPayload> void registerS2CImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
-        throw expectPlatform(typeAndCodec);
-    }
+    protected abstract <C extends ServerToClientPayload> void registerS2CImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec);
 
-    @ExpectPlatform
     @Environment(EnvType.CLIENT)
-    public static void sendToServer(CustomPacketPayload payload) {
-        throw expectPlatform(payload);
-    }
+    public abstract void sendToServer(CustomPacketPayload payload);
 
-    @ExpectPlatform
-    public static void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer) {
-        throw expectPlatform(payload, serverPlayer);
-    }
+    public abstract void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer);
 
-    @ExpectPlatform
-    public static void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players) {
-        throw expectPlatform(payload, players);
-    }
-
+    public abstract void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players);
     /**
      * Since architectury used to wrap a ByteArray around the real data, we have to implement it as well
      * for compatibility (with older versions of mod, plugins, etc.)
      */
     static <T extends CustomPacketPayload> CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, T> transform(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, T> original) {
-        return new CustomPacketPayload.TypeAndCodec<>(original.type(), new TransformedStreamCodec<T>(original.codec()));
+        return new CustomPacketPayload.TypeAndCodec<>(original.type(), new TransformedStreamCodec<>(original.codec()));
     }
 
     private record TransformedStreamCodec<T extends CustomPacketPayload>(StreamCodec<RegistryFriendlyByteBuf, T> original) implements StreamCodec<RegistryFriendlyByteBuf, T> {
@@ -99,10 +88,4 @@ public final class PlatformNetwork {
 
         private static final ThreadLocal<ByteBuf> BUF_CACHE = ThreadLocal.withInitial(Unpooled::buffer);
     }
-
-    private static Error expectPlatform(Object... ignore) {
-        return new AssertionError("ExpectPlatform");
-    }
-
-    private PlatformNetwork() {}
 }

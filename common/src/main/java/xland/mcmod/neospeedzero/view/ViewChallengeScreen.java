@@ -103,10 +103,6 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
 
         // Also update button
         updateButtonVisibility();
-        xland.mcmod.neospeedzero.util.ABSDebug.debug(2, l -> {
-            l.info("Page: {}", page);
-            l.info("Cached Conditions: {}", Arrays.toString(cachedConditions));
-        });
     }
 
     private void updateButtonVisibility() {

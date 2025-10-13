@@ -24,13 +24,13 @@ public interface ViewPackets {
     static void register() {
         xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registering (1/2)"));
         // ClientBound
-        PlatformNetwork.registerS2C(new CustomPacketPayload.TypeAndCodec<>(TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC));
-        PlatformNetwork.registerS2C(new CustomPacketPayload.TypeAndCodec<>(TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC));
+        PlatformNetwork.getInstance().registerS2C(new CustomPacketPayload.TypeAndCodec<>(TYPE_SNAPSHOT, ChallengeSnapshot.STREAM_CODEC));
+        PlatformNetwork.getInstance().registerS2C(new CustomPacketPayload.TypeAndCodec<>(TYPE_CHANGE, ChallengeSnapshot.Change.STREAM_CODEC));
 
         xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registered (2/2)"));
 
         // ServerBound
-        PlatformNetwork.registerC2S(
+        PlatformNetwork.getInstance().registerC2S(
                 new CustomPacketPayload.TypeAndCodec<>(TYPE_C2S_REQUEST, Request.STREAM_CODEC),
                 serverPlayer -> {
                     SpeedrunRecord record = serverPlayer.ns0$currentRecord();

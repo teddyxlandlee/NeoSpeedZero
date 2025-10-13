@@ -19,18 +19,17 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 @ApiStatus.Internal
-public final class PlatformEvents {
+public abstract class PlatformEvents {
     @ExpectPlatform
-    public static void whenServerStarting(Consumer<MinecraftServer> callback) {
-        throw expectPlatform(callback);
+    public static PlatformEvents getInstance() {
+        throw new AssertionError("ExpectPlatform");
     }
 
-    @ExpectPlatform
-    public static void whenServerStopped(Consumer<MinecraftServer> callback) {
-        throw expectPlatform(callback);
-    }
+    public abstract void whenServerStarting(Consumer<MinecraftServer> callback);
 
-    public static void preServerPlayerTick(Consumer<ServerPlayer> callback) {
+    public abstract void whenServerStopped(Consumer<MinecraftServer> callback);
+
+    public void preServerPlayerTick(Consumer<ServerPlayer> callback) {
         prePlayerTick(player -> {
             if (player instanceof ServerPlayer) {
                 callback.accept((ServerPlayer) player);
@@ -38,43 +37,17 @@ public final class PlatformEvents {
         });
     }
 
-    @ExpectPlatform
-    private static void prePlayerTick(Consumer<Player> callback) {
-        throw expectPlatform(callback);
-    }
+    protected abstract void prePlayerTick(Consumer<Player> callback);
 
-    @ExpectPlatform
-    public static void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback) {
-        throw expectPlatform(callback);
-    }
+    public abstract void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback);
 
-    @ExpectPlatform
-    public static void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
-        throw expectPlatform(id, factory);
-    }
+    public abstract void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory);
 
-    @ExpectPlatform
-    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type) {
-        throw expectPlatform(name, category, type);
-    }
+    public abstract  <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type);
 
     @Environment(EnvType.CLIENT)
-    @ExpectPlatform
-    public static void registerKeyMapping(KeyMapping keyMapping) {
-        throw expectPlatform(keyMapping);
-    }
+    public abstract void registerKeyMapping(KeyMapping keyMapping);
 
     @Environment(EnvType.CLIENT)
-    @ExpectPlatform
-    public static void postClientTick(Runnable callback) {
-        throw expectPlatform(callback);
-    }
-
-    private PlatformEvents() {}
-
-    private static Error expectPlatform(Object... ignore) {
-        // pass in ignored vararg in case unused
-        return new AssertionError("ExpectPlatform");
-    }
-
+    public abstract void postClientTick(Runnable callback);
 }

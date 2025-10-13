@@ -110,7 +110,6 @@ subprojects {
             autoAddDependsOn.set false
 
             dependencies {
-                required.project 'architectury-api'
                 if (project.name == 'fabric') required.project 'fabric-api'
 
                 // Recommended for Duration localization

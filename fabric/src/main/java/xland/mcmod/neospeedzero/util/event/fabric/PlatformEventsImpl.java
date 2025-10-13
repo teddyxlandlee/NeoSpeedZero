@@ -19,19 +19,27 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import xland.mcmod.neospeedzero.util.event.Event;
+import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public final class PlatformEventsImpl {
+public final class PlatformEventsImpl extends PlatformEvents {
     private PlatformEventsImpl() {}
+    private static final PlatformEventsImpl INSTANCE = new PlatformEventsImpl();
 
-    public static void whenServerStarting(Consumer<MinecraftServer> callback) {
+    @SuppressWarnings("unused")
+    public static PlatformEvents getInstance() {    // ACTUAL
+        return INSTANCE;
+    }
+
+    @Override
+    public void whenServerStarting(Consumer<MinecraftServer> callback) {
         ServerLifecycleEvents.SERVER_STARTING.register(callback::accept);
     }
 
-    public static void whenServerStopped(Consumer<MinecraftServer> callback) {
+    public void whenServerStopped(Consumer<MinecraftServer> callback) {
         ServerLifecycleEvents.SERVER_STOPPED.register(callback::accept);
     }
 
@@ -41,12 +49,12 @@ public final class PlatformEventsImpl {
             }
     );
 
-    public static void prePlayerTick(Consumer<Player> callback) {
+    public void prePlayerTick(Consumer<Player> callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
         EVENT_PRE_PLAYER_TICK.register(callback);
     }
 
-    public static void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback) {
+    public void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandBuildContext, commandSelection) -> {
             // In NeoSpeedZero, we only need the dispatcher
@@ -54,24 +62,24 @@ public final class PlatformEventsImpl {
         });
     }
 
-    public static void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
+    public void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
         ResourceLoader.get(PackType.SERVER_DATA).registerReloader(
                 Objects.requireNonNull(id, "id cannot be null."),
                 new RegistryResourceReloadListener(factory)
         );
     }
 
-    public static <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type) {
+    public <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type) {
         return GameRuleRegistry.register(name, category, type);
     }
 
     @Environment(EnvType.CLIENT)
-    public static void registerKeyMapping(KeyMapping keyMapping) {
+    public void registerKeyMapping(KeyMapping keyMapping) {
         KeyBindingHelper.registerKeyBinding(keyMapping);
     }
 
     @Environment(EnvType.CLIENT)
-    public static void postClientTick(Runnable callback) {
+    public void postClientTick(Runnable callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
         ClientTickEvents.END_CLIENT_TICK.register(client -> callback.run());
     }

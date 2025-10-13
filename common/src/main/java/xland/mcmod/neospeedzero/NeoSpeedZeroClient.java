@@ -21,10 +21,10 @@ public final class NeoSpeedZeroClient {
 
     public static void initClient() {
         // Key
-        PlatformEvents.registerKeyMapping(KEY_VIEW);
-        PlatformEvents.postClientTick(() -> {
+        PlatformEvents.getInstance().registerKeyMapping(KEY_VIEW);
+        PlatformEvents.getInstance().postClientTick(() -> {
             if (KEY_VIEW.consumeClick()) {
-                PlatformNetwork.sendToServer(ViewPackets.Request.INSTANCE);
+                PlatformNetwork.getInstance().sendToServer(ViewPackets.Request.INSTANCE);
             }
         });
         // Time format
