@@ -5,7 +5,7 @@ import net.minecraft.world.level.GameRules;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
-public class NeoSpeedGameRules {
+public final class NeoSpeedGameRules {
     public static final GameRules.Key<GameRules.BooleanValue> ANNOUNCE_SPEEDRUNS;
 
     static {
@@ -13,4 +13,6 @@ public class NeoSpeedGameRules {
     }
 
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    private NeoSpeedGameRules() {}
 }

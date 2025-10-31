@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 
 import static net.minecraft.commands.Commands.*;
 
-public class NeoSpeedCommands {
+public final class NeoSpeedCommands {
     public static void register() {
         //CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
         PlatformEvents.getInstance().registerCommand(dispatcher -> {
@@ -152,4 +152,6 @@ public class NeoSpeedCommands {
     private static Consumer<Component> sendFailure(CommandContext<CommandSourceStack> context) {
         return component -> context.getSource().sendFailure(component);
     }
+
+    private NeoSpeedCommands() {}
 }
