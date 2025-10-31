@@ -75,14 +75,23 @@
   "message.neospeedzero.item.mod_given": "Speedrunners Only",
 
   "message.neospeedzero.difficulty.empty": "Start From Zero",
+  "message.neospeedzero.difficulty.empty.desc": "No initial equipments will be provided.",
   "message.neospeedzero.difficulty.firework": "Fireworks Only",
+  "message.neospeedzero.difficulty.firework.desc": "A stack of Firework Rocket will be provided.",
   "message.neospeedzero.difficulty.inf_firework": "Infinite Fireworks Only",
+  "message.neospeedzero.difficulty.inf_firework.desc": "Infinite Firework Rocket will be provided.",
   "message.neospeedzero.difficulty.elytra": "Elytra Travel",
+  "message.neospeedzero.difficulty.elytra.desc": "An Elytra will be provided.",
   "message.neospeedzero.difficulty.firework_elytra": "Basic Travel",
+  "message.neospeedzero.difficulty.firework_elytra.desc": "An Elytra and a stack of Firework Rocket will be provided.",
   "message.neospeedzero.difficulty.inf_firework_elytra": "Advanced Travel",
+  "message.neospeedzero.difficulty.inf_firework_elytra.desc": "An Elytra and infinite Firework Rocket will be provided.",
   "message.neospeedzero.difficulty.inf_elytra": "Unbreakable Wings",
+  "message.neospeedzero.difficulty.inf_elytra.desc": "An unbreakable Elytra will be provided.",
   "message.neospeedzero.difficulty.firework_inf_elytra": "Infinite Adventure",
+  "message.neospeedzero.difficulty.firework_inf_elytra.desc": "An unbreakable Elytra and a stack of Firework Rocket will be provided.",
   "message.neospeedzero.difficulty.inf_firework_inf_elytra": "Classic",
+  "message.neospeedzero.difficulty.inf_firework_inf_elytra.desc": "An unbreakable Elytra and infinite Firework Rocket will be provided.",
 
   "key.neospeedzero.view": "Show Speedrun Progress",
 

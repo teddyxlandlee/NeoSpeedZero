@@ -92,7 +92,7 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
                         // initial: default
                         return new SingleOptionInput.Entry(
                                 entry.getKey().toString(),
-                                Optional.of(entry.getValue().displayedName()),
+                                Optional.of(entry.getValue().displayedNameHoverable()),
                                 entry.getValue() == SpeedrunDifficulty.getDefault()
                         );
                     })

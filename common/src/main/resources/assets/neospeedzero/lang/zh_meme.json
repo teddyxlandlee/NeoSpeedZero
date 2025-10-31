@@ -13,7 +13,7 @@
 
   "message.neospeedzero.join.success": "%1$s 成功加入速通纪录 %2$s",
   "message.neospeedzero.join.unjoined": "%1$s 已退出速通纪录 %2$s",
-  "message.neospeedzero.stop.no_host": "不能中止发起者的速通纪录。若想退出速通，键入 `/neospeed quit`。",
+  "message.neospeedzero.stop.no_host": "你 想 篡 位 吗？若想退出速通，键入 `/neospeed quit`。",
 
   "message.neospeedzero.view.host": "发起者：%s",
   "message.neospeedzero.view.participants": "参与者：%s",
@@ -22,7 +22,7 @@
   "message.neospeedzero.record.invalid_ref": "无效的纪录引用：%s",
   "message.neospeedzero.record.ambiguous": "纪录引用 %s 对应多个速通纪录，请使用完整的速通纪录 ID。",
 
-  "gamerule.announceSpeedruns": "广播速通信息",
+  "gamerule.announceSpeedruns": "向全世界大声宣布速通信息",
 
   "gui.neospeedzero.goals": "NeoSpeedZero 速通目标列表",
   "message.neospeedzero.challenge.finished_in": "用时：%s",
@@ -31,7 +31,7 @@
 
   "message.neospeedzero.record.snapshot.goal_id": "目标：%s",
   "message.neospeedzero.record.snapshot.difficulty": "难度：%s",
-  "message.neospeedzero.record.snapshot.progress": "进度：%s",
+  "message.neospeedzero.record.snapshot.progress": "进步：%s",
   "message.neospeedzero.record.snapshot.progress.data": "%d/%d",
   "message.neospeedzero.record.snapshot.finish_time": "耗时：%s",
   "message.neospeedzero.record.snapshot.id": "速通纪录 ID: %s",
@@ -55,7 +55,7 @@
   "message.neospeedzero.duration.final_separator": "",
   "message.neospeedzero.duration.zero": "0秒",
 
-  "item_predicate.neospeedzero.extra_req.items.any": "任一物品",
+  "item_predicate.neospeedzero.extra_req.items.any": "啥都彳亍",
   "item_predicate.neospeedzero.extra_req.count": "需要 %s 个",
   "item_predicate.neospeedzero.extra_req.count.exact": "%d",
   "item_predicate.neospeedzero.extra_req.count.min": "≥%d",
@@ -63,39 +63,39 @@
   "item_predicate.neospeedzero.extra_req.count.between": "%1$d~$2$d",
   "item_predicate.neospeedzero.extra_req.damage": "损坏 %s 点耐久",
   "item_predicate.neospeedzero.extra_req.durability": "耐久：%s",
-  "item_predicate.neospeedzero.extra_req.enchantments.any": "任意 %s 级附魔",
-  "item_predicate.neospeedzero.extra_req.bundle": "对收纳袋内容物有额外要求",
+  "item_predicate.neospeedzero.extra_req.enchantments.any": "任意 %s 级膜法",
+  "item_predicate.neospeedzero.extra_req.bundle": "对捆绑包内容物有额外要求",
   "item_predicate.neospeedzero.extra_req.custom_data": "对自定义数据 (NBT) 有额外要求",
   "item_predicate.neospeedzero.extra_req.items": "是以下任一物品：",
   "item_predicate.neospeedzero.extra_req.song": "是以下任一唱片：",
-  "item_predicate.neospeedzero.extra_req.potion": "是以下任一药水：",
+  "item_predicate.neospeedzero.extra_req.potion": "是以下任一溶液：",
   "item_predicate.neospeedzero.extra_req.trim.material": "含以下纹饰材料：",
   "item_predicate.neospeedzero.extra_req.trim.patterns": "含以下纹饰图案：",
 
   "message.neospeedzero.item.mod_given": "速通专用",
 
-  "message.neospeedzero.difficulty.empty": "从零开始",
-  "message.neospeedzero.difficulty.empty.desc": "不提供任何初始装备。",
-  "message.neospeedzero.difficulty.firework": "开局烟花",
-  "message.neospeedzero.difficulty.firework.desc": "提供一组烟花火箭。",
-  "message.neospeedzero.difficulty.inf_firework": "无限烟花",
-  "message.neospeedzero.difficulty.inf_firework.desc": "提供无限烟花火箭。",
-  "message.neospeedzero.difficulty.elytra": "鞘翅旅行",
-  "message.neospeedzero.difficulty.elytra.desc": "提供一个鞘翅。",
-  "message.neospeedzero.difficulty.firework_elytra": "基础旅行",
-  "message.neospeedzero.difficulty.firework_elytra.desc": "提供一个鞘翅和一组烟花火箭。",
-  "message.neospeedzero.difficulty.inf_firework_elytra": "无尽旅行",
-  "message.neospeedzero.difficulty.inf_firework_elytra.desc": "提供一个鞘翅和无限烟花火箭。",
-  "message.neospeedzero.difficulty.inf_elytra": "永恒之翼",
-  "message.neospeedzero.difficulty.inf_elytra.desc": "提供一个不可破坏的鞘翅。",
-  "message.neospeedzero.difficulty.firework_inf_elytra": "无限探索",
-  "message.neospeedzero.difficulty.firework_inf_elytra.desc": "提供一个不可破坏的鞘翅和一组烟花火箭。",
-  "message.neospeedzero.difficulty.inf_firework_inf_elytra": "经典",
-  "message.neospeedzero.difficulty.inf_firework_inf_elytra.desc": "提供一个不可破坏的鞘翅和无限烟花火箭。",
+  "message.neospeedzero.difficulty.empty": "白手起家",
+  "message.neospeedzero.difficulty.empty.desc": "开局啥都不给。",
+  "message.neospeedzero.difficulty.firework": "一组小火箭",
+  "message.neospeedzero.difficulty.firework.desc": "开局给一组窜天猴。",
+  "message.neospeedzero.difficulty.inf_firework": "亿组小火箭",
+  "message.neospeedzero.difficulty.inf_firework.desc": "开局给一组用不完的窜天猴。",
+  "message.neospeedzero.difficulty.elytra": "插 翅 难 逃",
+  "message.neospeedzero.difficulty.elytra.desc": "开局给一个鞘翅（记得打耐久3）。",
+  "message.neospeedzero.difficulty.firework_elytra": "凑合能飞",
+  "message.neospeedzero.difficulty.firework_elytra.desc": "开局给一个鞘翅和一组窜天猴。",
+  "message.neospeedzero.difficulty.inf_firework_elytra": "核动力飞机也有坏的一天",
+  "message.neospeedzero.difficulty.inf_firework_elytra.desc": "开局给一个鞘翅和一组用不完的窜天猴。",
+  "message.neospeedzero.difficulty.inf_elytra": "翅膀硬了是吧",
+  "message.neospeedzero.difficulty.inf_elytra.desc": "开局给一个用不坏的鞘翅。",
+  "message.neospeedzero.difficulty.firework_inf_elytra": "完全能飞",
+  "message.neospeedzero.difficulty.firework_inf_elytra.desc": "开局给一个用不坏的鞘翅和一组窜天猴。",
+  "message.neospeedzero.difficulty.inf_firework_inf_elytra": "典",
+  "message.neospeedzero.difficulty.inf_firework_inf_elytra.desc": "开局给一个用不完的鞘翅和一组用不完的窜天猴。全球可飞！（小心别亖了）",
 
-  "key.neospeedzero.view": "查看速通进度",
+  "key.neospeedzero.view": "查看速通进步",
 
   "pack.neospeedzero.meta": "NeoSpeed Zero：内置包",
 
-  "speedrun_goals.speedabc.vanilla_all": "原版全物品速通"
+  "speedrun_goals.speedabc.vanilla_all": "香草全物品速通"
 }
