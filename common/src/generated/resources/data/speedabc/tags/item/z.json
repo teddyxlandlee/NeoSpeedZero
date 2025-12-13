@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:zombie_head"
+    "minecraft:zombie_head",
+    "minecraft:zombie_nautilus_spawn_egg"
   ]
 }

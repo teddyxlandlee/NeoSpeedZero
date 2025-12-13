@@ -17,6 +17,7 @@
     "minecraft:lime_stained_glass_pane",
     "minecraft:magenta_concrete_powder",
     "minecraft:magenta_stained_glass_pane",
+    "minecraft:netherite_nautilus_armor",
     "minecraft:oak_hanging_sign",
     "minecraft:oxidized_cut_copper_slab",
     "minecraft:oxidized_cut_copper_stairs",
@@ -42,6 +43,7 @@
     "minecraft:waxed_weathered_copper_lantern",
     "minecraft:waxed_weathered_lightning_rod",
     "minecraft:weathered_cut_copper_slab",
-    "minecraft:weathered_cut_copper_stairs"
+    "minecraft:weathered_cut_copper_stairs",
+    "minecraft:zombie_nautilus_spawn_egg"
   ]
 }
