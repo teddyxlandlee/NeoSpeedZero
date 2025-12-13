@@ -19,6 +19,9 @@
     ],
     "client": [
       "xland.mcmod.neospeedzero.fabric.client.NeoSpeedZeroFabricClient"
+    ],
+    "enchlevel-langpatch.init": [
+      "xland.mcmod.neospeedzero.NeoSpeedZeroClient::initLangPatch"
     ]
   },
   "mixins": [
@@ -27,13 +30,14 @@
   ],
   "depends": {
     "fabricloader": ">=0.17",
-    "minecraft": ">=1.21.9- <1.21.11",
+    "minecraft": ">=1.21.11 <26",
     "java": ">=21",
     "fabric-api": "*"
   },
   "breaks": {
     "alphabet_speedrun": "<5",
     "fireworksnodec": "<5",
-    "speedabc": "<5"
+    "speedabc": "<5",
+    "enchlevel-langpatch": "3.4.x"
   }
 }

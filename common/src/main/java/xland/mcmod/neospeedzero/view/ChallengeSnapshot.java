@@ -41,7 +41,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         );
     }
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, ChallengeSnapshot> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull ChallengeSnapshot> STREAM_CODEC = StreamCodec.composite(
             UUIDUtil.STREAM_CODEC, ChallengeSnapshot::recordId,
             ComponentSerialization.STREAM_CODEC, ChallengeSnapshot::title,
             ByteBufCodecs.<RegistryFriendlyByteBuf, ItemStack>list().apply(ItemStack.STREAM_CODEC), ChallengeSnapshot::challenges,
@@ -54,7 +54,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     }
 
     @Override
-    public @NotNull Type<ChallengeSnapshot> type() {
+    public @NotNull Type<@NotNull ChallengeSnapshot> type() {
         return ViewPackets.TYPE_SNAPSHOT;
     }
 
@@ -76,7 +76,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     }
 
     public record Change(UUID recordId, int index, long newValue) implements ServerToClientPayload {
-        public static final StreamCodec<RegistryFriendlyByteBuf, Change> STREAM_CODEC = StreamCodec.composite(
+        public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull Change> STREAM_CODEC = StreamCodec.composite(
                 UUIDUtil.STREAM_CODEC, Change::recordId,
                 ByteBufCodecs.VAR_INT, Change::index,
                 ByteBufCodecs.LONG, Change::newValue,
@@ -99,7 +99,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         }
 
         @Override
-        public @NotNull Type<Change> type() {
+        public @NotNull Type<@NotNull Change> type() {
             return ViewPackets.TYPE_CHANGE;
         }
 

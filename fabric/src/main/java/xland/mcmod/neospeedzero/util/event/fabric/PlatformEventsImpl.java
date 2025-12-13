@@ -1,5 +1,6 @@
 package xland.mcmod.neospeedzero.util.event.fabric;
 
+import com.google.common.base.Suppliers;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,7 +8,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
@@ -17,13 +18,17 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
+import org.jetbrains.annotations.NotNull;
+import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.event.Event;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class PlatformEventsImpl extends PlatformEvents {
     private PlatformEventsImpl() {}
@@ -69,8 +74,10 @@ public final class PlatformEventsImpl extends PlatformEvents {
         );
     }
 
-    public <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type) {
-        return GameRuleRegistry.register(name, category, type);
+    @Override
+    public Supplier<GameRule<@NotNull Boolean>> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
+        var gameRule = GameRuleBuilder.forBoolean(defaultValue).category(category).buildAndRegister(Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, id));
+        return Suppliers.ofInstance(gameRule);
     }
 
     @Environment(EnvType.CLIENT)

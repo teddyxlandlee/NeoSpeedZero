@@ -16,6 +16,7 @@ import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Map;
 
+@org.jspecify.annotations.NullMarked
 public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<SpeedrunGoal> {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final Identifier GOAL_KEY_ID = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");

@@ -4,13 +4,14 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 
@@ -27,6 +28,7 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
         private final @Nullable StatedIcon statedIcon;
         protected final @Nullable ItemPredicate subPredicate;
 
+        @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
         protected OfItemPredicate(Optional<StatedIcon> statedIcon, Optional<ItemPredicate> subPredicate) {
             this.statedIcon = statedIcon.orElse(null);
             this.subPredicate = subPredicate.orElse(null);
@@ -54,6 +56,7 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
         }
 
         static final class Basic extends OfItemPredicate {
+            @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
             Basic(Optional<StatedIcon> statedIcon, Optional<ItemPredicate> subPredicate) {
                 super(statedIcon, subPredicate);
             }
@@ -74,7 +77,7 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
         ));
     }
 
-    record OfAdvancement(ResourceKey<Advancement> advancementKey, @Override Optional<StatedIcon> icon) implements GoalPredicate {
+    record OfAdvancement(ResourceKey<@NotNull Advancement> advancementKey, @Override Optional<StatedIcon> icon) implements GoalPredicate {
         public static final Codec<OfAdvancement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceKey.codec(Registries.ADVANCEMENT).fieldOf("advancement").forGetter(OfAdvancement::advancementKey),
                 StatedIcon.CODEC.optionalFieldOf("icon").forGetter(OfAdvancement::icon)

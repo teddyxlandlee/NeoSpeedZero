@@ -1,10 +1,12 @@
 package xland.mcmod.neospeedzero;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -21,7 +23,7 @@ public final class NeoSpeedMessages {
     private static void announce(ServerPlayer serverPlayer, Component component) {
         @SuppressWarnings("resource")
         final MinecraftServer server = serverPlayer.level().getServer();
-        final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
+        final boolean announceSpeedruns = server.getWorldData().getGameRules().get(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS.get());
 
         if (announceSpeedruns) {
             server.getPlayerList().broadcastSystemMessage(component, false);
@@ -67,7 +69,7 @@ public final class NeoSpeedMessages {
 
         @SuppressWarnings("resource")
         final MinecraftServer server = serverPlayer.level().getServer();
-        final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
+        final boolean announceSpeedruns = server.getWorldData().getGameRules().get(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS.get());
 
         final Component component = Component.translatable(
                 "message.neospeedzero.challenge.complete",
@@ -90,7 +92,7 @@ public final class NeoSpeedMessages {
     static void announceRecordComplete(ServerPlayer serverPlayer, SpeedrunRecord record, long currentTime) {
         @SuppressWarnings("resource")
         final MinecraftServer server = serverPlayer.level().getServer();
-        final boolean announceSpeedruns = server.getGameRules().getBoolean(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS);
+        final boolean announceSpeedruns = server.getWorldData().getGameRules().get(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS.get());
 
         final Component component = Component.translatable(
                 "message.neospeedzero.record.complete",
@@ -110,7 +112,17 @@ public final class NeoSpeedMessages {
 
     private static void playSound(ServerPlayer serverPlayer, boolean myWin) {
         final SoundEvent soundEvent = myWin ? SoundEvents.UI_TOAST_CHALLENGE_COMPLETE : SoundEvents.EXPERIENCE_ORB_PICKUP;
-        serverPlayer.playNotifySound(soundEvent, SoundSource.MASTER, .8F, 1.0F);
+        playNotifySound(serverPlayer, soundEvent);
+    }
+
+    private static void playNotifySound(ServerPlayer player, SoundEvent soundEvent) {
+        player.connection.send(new ClientboundSoundPacket(
+                BuiltInRegistries.SOUND_EVENT.wrapAsHolder(soundEvent),
+                SoundSource.MASTER,
+                player.getX(), player.getY(), player.getZ(),
+                /*volume=*/.8F, /*pitch=*/1.0F,
+                /*seed=*/player.getRandom().nextLong()
+        ));
     }
 
     @ApiStatus.Internal

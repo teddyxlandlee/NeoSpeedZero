@@ -1,17 +1,23 @@
 package xland.mcmod.neospeedzero.neoforge;
 
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import net.neoforged.fml.common.Mod;
 import xland.mcmod.neospeedzero.NeoSpeedZeroClient;
+import xland.mcmod.neospeedzero.util.event.neoforge.PlatformEventsImpl;
 
 @Mod(NeoSpeedZero.MOD_ID)
 public final class NeoSpeedZeroNeoForge {
-    public NeoSpeedZeroNeoForge(IEventBus modBus) {
+    public NeoSpeedZeroNeoForge(IEventBus modBus, Dist dist) {
         // Run our common setup.
         NeoSpeedZero.init();
         modBus.addListener(FMLClientSetupEvent.class, NeoSpeedZeroNeoForge::onClientSetup);
+        PlatformEventsImpl.GAME_RULE_REG.register(modBus);
+        if (dist.isClient()) {
+            NeoSpeedZeroClient.initLangPatch();
+        }
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {

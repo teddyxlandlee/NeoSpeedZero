@@ -17,6 +17,7 @@ import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+@org.jspecify.annotations.NullMarked
 public final class PlatformNetworkImpl extends PlatformNetwork {
     private PlatformNetworkImpl() {}
     private static final PlatformNetworkImpl INSTANCE = new PlatformNetworkImpl();

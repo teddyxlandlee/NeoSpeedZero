@@ -1,14 +1,18 @@
 package xland.mcmod.neospeedzero.util.event.neoforge;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.serialization.Codec;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.level.gamerules.*;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
@@ -22,12 +26,17 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import org.apache.commons.lang3.BooleanUtils;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class PlatformEventsImpl extends PlatformEvents {
     private PlatformEventsImpl() {}
@@ -67,10 +76,17 @@ public final class PlatformEventsImpl extends PlatformEvents {
         );
     }
 
-    public <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type) {
-        return GameRules.register(name, category, type);
+    @ApiStatus.Internal
+    public static final DeferredRegister<@NotNull GameRule<?>> GAME_RULE_REG = DeferredRegister.create(Registries.GAME_RULE, NeoSpeedZero.MOD_ID);
+
+    @Override
+    public Supplier<GameRule<@NotNull Boolean>> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
+
+        return GAME_RULE_REG.register(id, () -> new GameRule<@NotNull Boolean>(
+                category, GameRuleType.BOOL, BoolArgumentType.bool(), GameRuleTypeVisitor::visitBoolean, Codec.BOOL, BooleanUtils::toInteger, defaultValue, FeatureFlagSet.of()
+        ));
     }
-    
+
     @OnlyIn(Dist.CLIENT)
     public void registerKeyMapping(KeyMapping keyMapping) {
         Objects.requireNonNull(keyMapping, "keyMapping cannot be null.");

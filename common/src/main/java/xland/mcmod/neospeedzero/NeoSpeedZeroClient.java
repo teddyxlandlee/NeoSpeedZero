@@ -27,6 +27,9 @@ public final class NeoSpeedZeroClient {
                 PlatformNetwork.getInstance().sendToServer(ViewPackets.Request.INSTANCE);
             }
         });
+    }
+
+    public static void initLangPatch() {
         // Time format
         DurationLocalizer.bootstrap();
     }

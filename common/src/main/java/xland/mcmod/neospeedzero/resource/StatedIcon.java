@@ -40,6 +40,6 @@ public record StatedIcon(IconState iconState, ItemStack icon) {
             return id;
         }
 
-        public static final StringRepresentable.EnumCodec<IconState> CODEC = StringRepresentable.fromEnum(IconState::values);
+        public static final StringRepresentable.EnumCodec<@NotNull IconState> CODEC = StringRepresentable.fromEnum(IconState::values);
     }
 }

@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+@org.jspecify.annotations.NullMarked
+@SuppressWarnings("unused")
 public final class PlatformNetworkImpl extends PlatformNetwork {
     private PlatformNetworkImpl() {}
     private static final PlatformNetworkImpl INSTANCE = new PlatformNetworkImpl();

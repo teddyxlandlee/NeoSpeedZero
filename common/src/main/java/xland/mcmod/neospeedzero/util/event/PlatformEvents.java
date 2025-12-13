@@ -12,11 +12,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @ApiStatus.Internal
 public abstract class PlatformEvents {
@@ -43,7 +46,7 @@ public abstract class PlatformEvents {
 
     public abstract void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory);
 
-    public abstract  <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type);
+    public abstract Supplier<GameRule<@NotNull Boolean>> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue);
 
     @Environment(EnvType.CLIENT)
     public abstract void registerKeyMapping(KeyMapping keyMapping);

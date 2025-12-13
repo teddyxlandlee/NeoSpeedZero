@@ -192,7 +192,7 @@ public class RecordManager {
             manager.playerToRecordMap.putAll(this.playerToRecordIdMap());
         }
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, Snapshot> STREAM_CODEC = StreamCodec.composite(
+        public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull Snapshot> STREAM_CODEC = StreamCodec.composite(
                 SaveInfo.STREAM_CODEC, Snapshot::saveInfo,
                 StreamIoUtil.ofMap(UUIDUtil.STREAM_CODEC, SpeedrunPlayerInfo.STREAM_CODEC), Snapshot::infos,
                 StreamIoUtil.ofMap(UUIDUtil.STREAM_CODEC, UUIDUtil.STREAM_CODEC), Snapshot::playerToRecordIdMap,
@@ -270,7 +270,7 @@ public class RecordManager {
             try (var output = new BufferedOutputStream(new GZIPOutputStream(new BufferedOutputStream(Files.newOutputStream(tempFile))))) {
                 output.write(bytes);
             }
-            net.minecraft.Util.safeReplaceFile(path, tempFile, backup);
+            net.minecraft.util.Util.safeReplaceFile(path, tempFile, backup);
         } catch (Exception e) {
             LOGGER.error("Failed to save NeoSpeed Zero player records", e);
         }

@@ -185,7 +185,7 @@ public final class NeoSpeedLifecycle {
 
             final int idx = i;
             challenge.challenge().ifRight(advancementKey -> {
-                if (advancement.id().equals(advancementKey.location())) {
+                if (advancement.id().equals(advancementKey.identifier())) {
                     // Matched advancement
                     onCompleteSingleChallenge(player, record, idx);
                 }

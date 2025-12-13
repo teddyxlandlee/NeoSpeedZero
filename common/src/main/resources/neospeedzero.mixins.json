@@ -9,11 +9,11 @@
     "CustomDataAccessor",
     "EnchantmentsPredicateAccessor",
     "FireworkRocketItemMixin",
+    "InventoryChangeTriggerMixin",
     "LevelResourceAccessor",
     "MinecraftServerMixin",
     "PlayerAdvancementsAccessor",
     "PlayerAdvancementsMixin",
-    "ServerPlayerContainerListenerMixin",
     "ServerPlayerMixin"
   ],
   "injectors": {

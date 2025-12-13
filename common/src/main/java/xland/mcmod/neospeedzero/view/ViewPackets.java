@@ -13,13 +13,13 @@ import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 
 public interface ViewPackets {
     Identifier ID_SNAPSHOT = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "view_challenge");
-    CustomPacketPayload.Type<ChallengeSnapshot> TYPE_SNAPSHOT = new CustomPacketPayload.Type<>(ID_SNAPSHOT);
+    CustomPacketPayload.Type<@NotNull ChallengeSnapshot> TYPE_SNAPSHOT = new CustomPacketPayload.Type<>(ID_SNAPSHOT);
 
     Identifier ID_CHANGE = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "sync_challenge");
-    CustomPacketPayload.Type<ChallengeSnapshot.Change> TYPE_CHANGE = new CustomPacketPayload.Type<>(ID_CHANGE);
+    CustomPacketPayload.Type<ChallengeSnapshot.@NotNull Change> TYPE_CHANGE = new CustomPacketPayload.Type<>(ID_CHANGE);
 
     Identifier ID_C2S_REQUEST = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "request_view_challenge");
-    CustomPacketPayload.Type<Request> TYPE_C2S_REQUEST = new CustomPacketPayload.Type<>(ID_C2S_REQUEST);
+    CustomPacketPayload.Type<@NotNull Request> TYPE_C2S_REQUEST = new CustomPacketPayload.Type<>(ID_C2S_REQUEST);
 
     static void register() {
         xland.mcmod.neospeedzero.util.ABSDebug.debug(4, l -> l.info("ViewPackets registering (1/2)"));
@@ -49,10 +49,10 @@ public interface ViewPackets {
         private Request() {}
         public static final Request INSTANCE = new Request();
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, Request> STREAM_CODEC = StreamCodec.unit(Request.INSTANCE);
+        public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull Request> STREAM_CODEC = StreamCodec.unit(Request.INSTANCE);
 
         @Override
-        public @NotNull Type<? extends CustomPacketPayload> type() {
+        public @NotNull Type<? extends @NotNull CustomPacketPayload> type() {
             return TYPE_C2S_REQUEST;
         }
 

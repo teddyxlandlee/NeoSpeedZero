@@ -40,7 +40,7 @@ abstract class AbstractSlottedScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         final int leftPos = this.leftPos;
         final int topPos = this.topPos;
@@ -58,7 +58,7 @@ abstract class AbstractSlottedScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void renderBackground(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
         this.renderExtraBackground(guiGraphics, mouseX, mouseY, partialTick);
     }
@@ -119,7 +119,6 @@ abstract class AbstractSlottedScreen extends Screen {
         if (cachedHoveredSlot != null) {
             ItemStack itemStack = cachedHoveredSlot.getItemStack();
             if (itemStack.isEmpty()) return;
-            assert this.minecraft != null;
             guiGraphics.setTooltipForNextFrame(
                     this.font, getTooltipFromItem(this.minecraft, itemStack), itemStack.getTooltipImage(), x, y, itemStack.get(DataComponents.TOOLTIP_STYLE)
             );

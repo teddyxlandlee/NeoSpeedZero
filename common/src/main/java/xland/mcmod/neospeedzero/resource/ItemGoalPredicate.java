@@ -3,32 +3,33 @@ package xland.mcmod.neospeedzero.resource;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.DataComponentMatchers;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.DataComponentMatchers;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@org.jspecify.annotations.NullMarked
 final class ItemGoalPredicate extends GoalPredicate.OfItemPredicate {
-    private final @NotNull HolderSet<Item> items;
-    private final @NotNull Select select;
+    private final HolderSet<Item> items;
+    private final Select select;
 
-    ItemGoalPredicate(@NotNull HolderSet<Item> items, @NotNull Select select, Optional<StatedIcon> statedIcon, Optional<ItemPredicate> subPredicate) {
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    ItemGoalPredicate(HolderSet<Item> items, Select select, Optional<StatedIcon> statedIcon, Optional<ItemPredicate> subPredicate) {
         super(statedIcon, subPredicate);
         this.items = items;
         this.select = select;
     }
 
-    static ItemGoalPredicate of(@NotNull HolderSet<Item> items) {
+    static ItemGoalPredicate of(HolderSet<Item> items) {
         return new ItemGoalPredicate(items, Select.ALL, Optional.empty(), Optional.empty());
     }
 
@@ -45,7 +46,7 @@ final class ItemGoalPredicate extends GoalPredicate.OfItemPredicate {
         return Codec.withAlternative(baseCodec, RegistryCodecs.homogeneousList(Registries.ITEM), ItemGoalPredicate::of);
     }
 
-    private @NotNull HolderSet<Item> items() {
+    private HolderSet<Item> items() {
         return items;
     }
 
@@ -87,7 +88,7 @@ final class ItemGoalPredicate extends GoalPredicate.OfItemPredicate {
         }
 
         @Override
-        public @NotNull String getSerializedName() {
+        public String getSerializedName() {
             return id;
         }
 

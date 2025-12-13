@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+@org.jspecify.annotations.NullMarked
 public abstract class PlatformNetwork {
     @ExpectPlatform
     public static PlatformNetwork getInstance() {

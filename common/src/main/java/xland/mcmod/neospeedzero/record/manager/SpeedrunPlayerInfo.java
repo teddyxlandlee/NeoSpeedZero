@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public record SpeedrunPlayerInfo(UUID host, Set<UUID> participants) {
-    public static final StreamCodec<ByteBuf, SpeedrunPlayerInfo> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<@NotNull ByteBuf, @NotNull SpeedrunPlayerInfo> STREAM_CODEC = StreamCodec.composite(
             UUIDUtil.STREAM_CODEC, SpeedrunPlayerInfo::host,
             ByteBufCodecs.collection(LinkedHashSet::new, UUIDUtil.STREAM_CODEC), SpeedrunPlayerInfo::participants,
             SpeedrunPlayerInfo::new

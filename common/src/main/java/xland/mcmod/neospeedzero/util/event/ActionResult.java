@@ -26,6 +26,7 @@ public sealed interface ActionResult permits ActionResultImpl {
         return asTriState() != null;
     }
 
+    @SuppressWarnings("BooleanVariableAlwaysNegated")
     default boolean getResult(boolean defaultValue) {
         @Nullable Boolean nullable = asTriState();
         return nullable == null ? defaultValue : nullable;

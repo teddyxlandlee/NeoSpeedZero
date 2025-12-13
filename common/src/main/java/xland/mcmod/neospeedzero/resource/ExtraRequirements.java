@@ -2,9 +2,9 @@ package xland.mcmod.neospeedzero.resource;
 
 import com.google.common.base.Preconditions;
 import com.mojang.datafixers.util.Either;
-import net.minecraft.advancements.critereon.CollectionPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.CollectionPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentPatch;
@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@org.jspecify.annotations.NullMarked
 final class ExtraRequirements {
     static void fillExtraRequirements(ItemStack stack,
                                       @Nullable Either<TagKey<Item>, HolderSet<Item>> ofAny,

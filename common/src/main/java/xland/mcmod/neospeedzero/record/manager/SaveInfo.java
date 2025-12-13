@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
+@org.jspecify.annotations.NullMarked
 public record SaveInfo(boolean onServerSave, long timestamp) {
     public SaveInfo(boolean onServerSave) {
         this(onServerSave, System.currentTimeMillis());

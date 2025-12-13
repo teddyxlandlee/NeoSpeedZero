@@ -6,17 +6,17 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.resource.StatedIcon;
 
 import java.util.Optional;
 
+@org.jspecify.annotations.NullMarked
 public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStack icon) {
     public static final Codec<SpeedrunChallenge> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Type.CODEC.dispatch(Type::fromEither, Type::toMapCodec).fieldOf("challenge").forGetter(SpeedrunChallenge::challenge),
@@ -47,11 +47,11 @@ public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> 
         }
 
         @Override
-        public @NotNull String getSerializedName() {
+        public String getSerializedName() {
             return id;
         }
 
-        private static @NotNull Type fromEither(Either<ItemPredicate, ResourceKey<Advancement>> either) {
+        private static Type fromEither(Either<ItemPredicate, ResourceKey<Advancement>> either) {
             return either.left().isPresent() ? ITEM_PREDICATE : ADVANCEMENT;
         }
 

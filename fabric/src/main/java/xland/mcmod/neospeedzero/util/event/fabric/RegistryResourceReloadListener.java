@@ -3,7 +3,6 @@ package xland.mcmod.neospeedzero.util.event.fabric;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +19,8 @@ final class RegistryResourceReloadListener implements PreparableReloadListener {
     }
 
     @Override
-    public @NotNull CompletableFuture<Void> reload(SharedState sharedState, Executor executor, PreparationBarrier preparationBarrier, Executor executor2) {
+    @org.jspecify.annotations.NullMarked
+    public CompletableFuture<Void> reload(SharedState sharedState, Executor executor, PreparationBarrier preparationBarrier, Executor executor2) {
         HolderLookup.Provider provider = sharedState.get(ResourceLoader.RELOADER_REGISTRY_LOOKUP_KEY);
         return factory.apply(provider).reload(sharedState, executor, preparationBarrier, executor2);
     }
