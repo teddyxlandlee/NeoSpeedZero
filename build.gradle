@@ -1,5 +1,5 @@
 plugins {
-    id 'dev.architectury.loom' version '1.11-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.13-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "com.modrinth.minotaur" version "2.+" apply false
@@ -54,7 +54,7 @@ subprojects {
         minecraft "net.minecraft:minecraft:${rootProject.minecraft_version}"
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}@zip")
+//            parchment("org.parchmentmc.data:parchment-${rootProject.parchment_version}@zip")
         }
     }
 

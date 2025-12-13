@@ -6,9 +6,9 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
@@ -28,11 +28,11 @@ public final class NeoSpeedCommands {
             // Register commands here...
             dispatcher.register(literal("neospeed")
                     .then(literal("start")
-                            .then(argument("goal", ResourceLocationArgument.id())
+                            .then(argument("goal", IdentifierArgument.id())
                                     .suggests((context, builder) ->
                                             SharedSuggestionProvider.suggestResource(SpeedrunGoal.Holder.holders().keySet(), builder))
                                     .executes(context -> {
-                                        ResourceLocation goalId = ResourceLocationArgument.getId(context, "goal");
+                                        Identifier goalId = IdentifierArgument.getId(context, "goal");
                                         ServerPlayer player = context.getSource().getPlayerOrException();
 
                                         SpeedrunStartupConfig startupConfig = SpeedrunStartupConfig.builder()
@@ -41,12 +41,12 @@ public final class NeoSpeedCommands {
                                         NeoSpeedLifecycle.startSpeedrun(player, startupConfig).ifPresent(sendFailure(context));
                                         return Command.SINGLE_SUCCESS;
                                     })
-                                    .then(argument("difficulty", ResourceLocationArgument.id())
+                                    .then(argument("difficulty", IdentifierArgument.id())
                                             .suggests((context, builder) ->
                                                     SharedSuggestionProvider.suggestResource(SpeedrunDifficulties.keys(), builder))
                                             .executes(context -> {
-                                                ResourceLocation goalId = ResourceLocationArgument.getId(context, "goal");
-                                                ResourceLocation difficultyId = ResourceLocationArgument.getId(context, "difficulty");
+                                                Identifier goalId = IdentifierArgument.getId(context, "goal");
+                                                Identifier difficultyId = IdentifierArgument.getId(context, "difficulty");
                                                 ServerPlayer player = context.getSource().getPlayerOrException();
 
                                                 SpeedrunStartupConfig startupConfig = SpeedrunStartupConfig.builder()

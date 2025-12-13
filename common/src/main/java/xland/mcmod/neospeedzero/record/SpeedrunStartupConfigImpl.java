@@ -3,7 +3,7 @@ package xland.mcmod.neospeedzero.record;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
@@ -63,14 +63,14 @@ public record SpeedrunStartupConfigImpl(
         );
 
         @Override
-        public Builder goal(ResourceLocation id) throws CommandSyntaxException {
+        public Builder goal(Identifier id) throws CommandSyntaxException {
             SpeedrunGoal.Holder holder = SpeedrunGoal.Holder.holders().get(id);
             if (holder == null) throw EX_INVALID_GOAL.create(id);
             return this.goal(holder);
         }
 
         @Override
-        public Builder difficulty(ResourceLocation id) throws CommandSyntaxException {
+        public Builder difficulty(Identifier id) throws CommandSyntaxException {
             SpeedrunDifficulty speedrunDifficulty = SpeedrunDifficulties.get(id);
             if (speedrunDifficulty == null) throw EX_INVALID_DIFFICULTY.create(id);
             return this.difficulty(speedrunDifficulty);

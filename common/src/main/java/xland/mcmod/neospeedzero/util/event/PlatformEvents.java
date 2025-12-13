@@ -7,7 +7,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -41,7 +41,7 @@ public abstract class PlatformEvents {
 
     public abstract void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback);
 
-    public abstract void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory);
+    public abstract void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory);
 
     public abstract  <T extends GameRules.Value<T>> GameRules.Key<T> registerGameRule(String name, GameRules.Category category, GameRules.Type<T> type);
 

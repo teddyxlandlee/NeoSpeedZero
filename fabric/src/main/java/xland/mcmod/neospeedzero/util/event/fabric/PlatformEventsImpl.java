@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -62,7 +62,7 @@ public final class PlatformEventsImpl extends PlatformEvents {
         });
     }
 
-    public void registerResourceReloadListener(ResourceLocation id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
+    public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
         ResourceLoader.get(PackType.SERVER_DATA).registerReloader(
                 Objects.requireNonNull(id, "id cannot be null."),
                 new RegistryResourceReloadListener(factory)

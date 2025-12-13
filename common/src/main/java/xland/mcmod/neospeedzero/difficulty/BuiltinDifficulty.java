@@ -2,7 +2,7 @@ package xland.mcmod.neospeedzero.difficulty;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -36,8 +36,8 @@ public enum BuiltinDifficulty implements SpeedrunDifficulty {
     }
 
     @Override
-    public @NotNull ResourceLocation id() {
-        return ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, rawId);
+    public @NotNull Identifier id() {
+        return Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, rawId);
     }
 
     @Override

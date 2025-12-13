@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
@@ -26,8 +26,8 @@ abstract class AbstractSlottedScreen extends Screen {
     protected final List<@NotNull FakeSlot> slots = Lists.newArrayList();
     protected int hoveredSlotIndex = -1;
 
-    private static final ResourceLocation SLOT_HIGHLIGHT_BACK_SPRITE = ResourceLocation.withDefaultNamespace("container/slot_highlight_back");
-    private static final ResourceLocation SLOT_HIGHLIGHT_FRONT_SPRITE = ResourceLocation.withDefaultNamespace("container/slot_highlight_front");
+    private static final Identifier SLOT_HIGHLIGHT_BACK_SPRITE = Identifier.withDefaultNamespace("container/slot_highlight_back");
+    private static final Identifier SLOT_HIGHLIGHT_FRONT_SPRITE = Identifier.withDefaultNamespace("container/slot_highlight_front");
 
     protected AbstractSlottedScreen(Component title) {
         super(title);

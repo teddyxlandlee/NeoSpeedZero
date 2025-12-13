@@ -1,7 +1,7 @@
 package xland.mcmod.neospeedzero.api;
 
 import com.google.common.collect.Maps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.difficulty.BuiltinDifficulty;
@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
 public final class SpeedrunDifficulties {
-    private static final ConcurrentMap<ResourceLocation, SpeedrunDifficulty> REGISTRY_MAP = Maps.newConcurrentMap();
+    private static final ConcurrentMap<Identifier, SpeedrunDifficulty> REGISTRY_MAP = Maps.newConcurrentMap();
 
     public static void register(SpeedrunDifficulty difficulty) {
         if (REGISTRY_MAP.put(difficulty.id(), difficulty) != null) {
@@ -22,7 +22,7 @@ public final class SpeedrunDifficulties {
     }
 
     @Nullable
-    public static SpeedrunDifficulty get(ResourceLocation id) {
+    public static SpeedrunDifficulty get(Identifier id) {
         return REGISTRY_MAP.get(id);
     }
 
@@ -33,11 +33,11 @@ public final class SpeedrunDifficulties {
         }
     }
 
-    public static Set<ResourceLocation> keys() {
+    public static Set<Identifier> keys() {
         return Collections.unmodifiableSet(REGISTRY_MAP.keySet());
     }
 
-    public static Set<Map.Entry<ResourceLocation, SpeedrunDifficulty>> entries() {
+    public static Set<Map.Entry<Identifier, SpeedrunDifficulty>> entries() {
         return Collections.unmodifiableSet(REGISTRY_MAP.entrySet());
     }
 }

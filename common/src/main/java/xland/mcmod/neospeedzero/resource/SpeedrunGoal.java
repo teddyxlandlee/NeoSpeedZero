@@ -7,7 +7,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.DialogBody;
@@ -30,7 +30,7 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
 
     public static final Codec<Holder> HOLDER_CODEC = Codec.lazyInitialized(() -> {
         // Stored as a resource location
-        return ResourceLocation.CODEC.comapFlatMap(
+        return Identifier.CODEC.comapFlatMap(
                 id -> Optional.ofNullable(Holder.holders().get(id))
                         .map(DataResult::success)
                         .orElseGet(() -> DataResult.error(() -> "Can't find SpeedrunGoal.Holder " + id)),
@@ -38,10 +38,10 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
         );
     });
 
-    public record Holder(ResourceLocation id, SpeedrunGoal goal) implements Comparable<Holder> {
-        private static volatile Map<ResourceLocation, Holder> wrappedHolders = Collections.emptyMap();
+    public record Holder(Identifier id, SpeedrunGoal goal) implements Comparable<Holder> {
+        private static volatile Map<Identifier, Holder> wrappedHolders = Collections.emptyMap();
 
-        public static @Unmodifiable Map<ResourceLocation, Holder> holders() {
+        public static @Unmodifiable Map<Identifier, Holder> holders() {
             return Collections.unmodifiableMap(wrappedHolders);
         }
 
@@ -49,7 +49,7 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
             wrappedHolders = Collections.emptyMap();
         }
 
-        public static void setHolders(Map<ResourceLocation, Holder> holders) {
+        public static void setHolders(Map<Identifier, Holder> holders) {
             wrappedHolders = holders;
         }
 

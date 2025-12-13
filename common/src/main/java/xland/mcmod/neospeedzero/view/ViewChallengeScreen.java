@@ -5,7 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TriState;
 import net.minecraft.world.item.ItemStack;
@@ -15,9 +15,9 @@ import java.util.Arrays;
 
 @Environment(EnvType.CLIENT)
 public class ViewChallengeScreen extends AbstractSlottedScreen {
-    private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "textures/gui/view.png");
-    private static final ResourceLocation SPRITE_YES = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "yes");
-    private static final ResourceLocation SPRITE_NO = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "no");
+    private static final Identifier BACKGROUND = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "textures/gui/view.png");
+    private static final Identifier SPRITE_YES = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "yes");
+    private static final Identifier SPRITE_NO = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "no");
 
     private final ChallengeSnapshot snapshot;
     int page;
@@ -128,7 +128,7 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
         }
     }
 
-    private void blitSprite(GuiGraphics guiGraphics, ResourceLocation sprite, int x, int y) {
+    private void blitSprite(GuiGraphics guiGraphics, Identifier sprite, int x, int y) {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, 16, 16, 0, 0, leftPos + x, topPos + y, 16, 16);
     }
 }

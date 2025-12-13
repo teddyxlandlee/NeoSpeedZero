@@ -1,7 +1,7 @@
 package xland.mcmod.neospeedzero.api;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
@@ -20,9 +20,9 @@ public interface SpeedrunStartupConfig {
 
         SpeedrunStartupConfig build();
 
-        Builder goal(ResourceLocation id) throws CommandSyntaxException;
+        Builder goal(Identifier id) throws CommandSyntaxException;
 
-        Builder difficulty(ResourceLocation id) throws CommandSyntaxException;
+        Builder difficulty(Identifier id) throws CommandSyntaxException;
     }
 
     static Builder builder() {

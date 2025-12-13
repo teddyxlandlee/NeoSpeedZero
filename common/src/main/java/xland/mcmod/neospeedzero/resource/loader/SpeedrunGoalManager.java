@@ -5,7 +5,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<SpeedrunGoal> {
     private static final Logger LOGGER = LogUtils.getLogger();
-    public static final ResourceLocation GOAL_KEY_ID = ResourceLocation.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");
+    public static final Identifier GOAL_KEY_ID = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");
     public static final ResourceKey<Registry<SpeedrunGoal>> GOAL_KEY = ResourceKey.createRegistryKey(GOAL_KEY_ID);
 
     private SpeedrunGoalManager(HolderLookup.Provider provider) {
@@ -30,8 +30,8 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, SpeedrunGoal> map, ResourceManager resourceManager, ProfilerFiller profiler) {
-        final ImmutableMap.Builder<ResourceLocation, SpeedrunGoal.Holder> builder = ImmutableMap.builder();
+    protected void apply(Map<Identifier, SpeedrunGoal> map, ResourceManager resourceManager, ProfilerFiller profiler) {
+        final ImmutableMap.Builder<Identifier, SpeedrunGoal.Holder> builder = ImmutableMap.builder();
         map.forEach((id, goal) -> builder.put(id, new SpeedrunGoal.Holder(id, goal)));
         SpeedrunGoal.Holder.setHolders(builder.buildOrThrow());
         LOGGER.info("Updated SpeedrunGoal.Holder");
