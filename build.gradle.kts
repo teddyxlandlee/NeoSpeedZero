@@ -49,16 +49,13 @@ private fun subprojectArchives(taskName: String) : Iterable<Configuration> = sub
     p.configurations.create("universalShadowCandidate_${taskName}_subproject_${p.name}").withDependency(files)
 }
 
-private fun subprojectBinaries() : Iterable<Configuration> = subprojects.map { p ->
-    val files : FileCollection = p.sourceSets.main.get().output
-    p.configurations.create("subprojectBinaries_${p.name}").withDependency(files)
-}
-
 tasks.register("shadowJar", ShadowJar::class) {
     configurations.set(subprojectArchives("jar"))
-//    configurations.set(subprojectBinaries())
     archiveClassifier.set("universal")
+
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
     mergeServiceFiles()
+
     doFirst {
         println(configurations.get().map { it.files })
     }

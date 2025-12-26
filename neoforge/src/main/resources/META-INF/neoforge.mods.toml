@@ -17,14 +17,14 @@ logoBlur = false
 [[dependencies.neospeedzero]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21,)"
+versionRange = "[26,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.neospeedzero]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,)"
+versionRange = "[26,)"
 ordering = "NONE"
 side = "BOTH"
 
