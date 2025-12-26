@@ -103,5 +103,5 @@ extensions.getByName<com.modrinth.minotaur.ModrinthExtension>("modrinth").apply 
     uploadFile.set(provider { tasks["shadowJar"] })
     additionalFiles.add(provider { tasks["shadowSourcesJar"] })    // shadowSources
 
-    debugMode.set(providers.environmentVariable("MR_DEBUG_MODE").map { "1" == it })
+    debugMode.set(providers.environmentVariable("MR_DEBUG_MODE").map { "1" == it }.orElse(false))
 }
