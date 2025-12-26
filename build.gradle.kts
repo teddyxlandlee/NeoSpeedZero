@@ -73,7 +73,7 @@ tasks.build {
 
 extensions.getByName<com.modrinth.minotaur.ModrinthExtension>("modrinth").apply {
     loaders.set(providers.gradleProperty("mr_loaders").map { it.split(',') })
-    token.set(providers.systemProperty("MR_TOKEN"))
+    token.set(providers.environmentVariable("MR_TOKEN"))
     projectId.set(providers.gradleProperty("mr_project_id"))
     versionNumber.set(provider {
         "${project.version}+${providers.gradleProperty("minecraft_version").get()}-universal"
@@ -88,7 +88,7 @@ extensions.getByName<com.modrinth.minotaur.ModrinthExtension>("modrinth").apply 
         )
     })
 
-    changelog.set(providers.systemProperty("MR_CHANGELOG").map {
+    changelog.set(providers.environmentVariable("MR_CHANGELOG").map {
         it.removePrefix("[ci publish] ").trim()
     })
     versionType.set(providers.gradleProperty("mr_version_type"))
@@ -103,5 +103,5 @@ extensions.getByName<com.modrinth.minotaur.ModrinthExtension>("modrinth").apply 
     uploadFile.set(provider { tasks["shadowJar"] })
     additionalFiles.add(provider { tasks["shadowSourcesJar"] })    // shadowSources
 
-    debugMode.set(providers.systemProperty("MR_DEBUG_MODE").map { "1" == it })
+    debugMode.set(providers.environmentVariable("MR_DEBUG_MODE").map { "1" == it })
 }
