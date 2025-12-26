@@ -1,4 +1,4 @@
-package xland.mcmod.neospeedzero.util.network.neoforge;
+package xland.mcmod.neospeedzero.neoforge.network;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
@@ -14,6 +14,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
+import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
@@ -22,15 +23,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 @org.jspecify.annotations.NullMarked
-@SuppressWarnings("unused")
-public final class PlatformNetworkImpl extends PlatformNetwork {
-    private PlatformNetworkImpl() {}
-    private static final PlatformNetworkImpl INSTANCE = new PlatformNetworkImpl();
-
-    @SuppressWarnings("unused")
-    public static PlatformNetwork getInstance() {
-        return INSTANCE;
-    }
+@PlatformDependent(PlatformDependent.Platform.NEO)
+public final class PlatformNetworkNeoForge extends PlatformNetwork {
+    public PlatformNetworkNeoForge() {}
 
     public <P extends CustomPacketPayload> void registerC2SImpl(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,
@@ -42,7 +37,7 @@ public final class PlatformNetworkImpl extends PlatformNetwork {
             // According to architectury
             event.registrar(typeAndCodec.type().id().getNamespace()).optional().playToServer(
                     typeAndCodec.type(), typeAndCodec.codec(),
-                    (payload, context) -> callback.accept((ServerPlayer) context.player())
+                    (_, context) -> callback.accept((ServerPlayer) context.player())
             );
         });
     }
@@ -55,7 +50,7 @@ public final class PlatformNetworkImpl extends PlatformNetwork {
             if (FMLEnvironment.getDist() != Dist.CLIENT) {
                 registrar.playToClient(typeAndCodec.type(), typeAndCodec.codec());
             } else {
-                registrar.playToClient(typeAndCodec.type(), typeAndCodec.codec(), (payload, context) -> payload.onClientReceive());
+                registrar.playToClient(typeAndCodec.type(), typeAndCodec.codec(), (payload, _) -> payload.onClientReceive());
             }
         });
     }

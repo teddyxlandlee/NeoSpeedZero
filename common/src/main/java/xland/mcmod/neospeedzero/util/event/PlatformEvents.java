@@ -1,7 +1,6 @@
 package xland.mcmod.neospeedzero.util.event;
 
 import com.mojang.brigadier.CommandDispatcher;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.KeyMapping;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import xland.mcmod.neospeedzero.util.PlatformDependent;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -23,9 +23,11 @@ import java.util.function.Supplier;
 
 @ApiStatus.Internal
 public abstract class PlatformEvents {
-    @ExpectPlatform
     public static PlatformEvents getInstance() {
-        throw new AssertionError("ExpectPlatform");
+        class Holder {
+            static final PlatformEvents INSTANCE = PlatformDependent.Platform.probe(PlatformEvents.class);
+        }
+        return Holder.INSTANCE;
     }
 
     public abstract void whenServerStarting(Consumer<MinecraftServer> callback);

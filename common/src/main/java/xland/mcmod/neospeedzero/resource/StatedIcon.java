@@ -16,7 +16,7 @@ public record StatedIcon(IconState iconState, ItemStack icon) {
     ).apply(instance, StatedIcon::new));
 
     public enum IconState implements BiConsumer<ItemStack, ItemStack>, StringRepresentable {
-        ICON("icon", (icon, gen) -> {}),
+        ICON("icon", (_, _) -> {}),
         // icon first
         COVERS_GEN("covers_gen", (icon, gen) -> icon.applyComponents(DataComponentMap.composite(/*alternative=*/gen.getComponents(), /*primary=*/icon.getComponents()))),
         // generated first

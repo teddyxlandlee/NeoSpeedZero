@@ -32,6 +32,7 @@ public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> 
         return new SpeedrunChallenge(challenge, statedIconStack);
     }
 
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static SpeedrunChallenge of(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStack generatedIcon, Optional<StatedIcon> statedIcon) {
         return of(challenge, generatedIcon, statedIcon.orElse(null));
     }
@@ -59,11 +60,11 @@ public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> 
             return switch (this) {
                 case ITEM_PREDICATE -> ItemPredicate.CODEC.<Either<ItemPredicate, ResourceKey<Advancement>>>flatComapMap(
                         Either::left,
-                        either -> either.map(DataResult::success, r -> errorResult())
+                        either -> either.map(DataResult::success, _ -> errorResult())
                 ).fieldOf("item");
                 case ADVANCEMENT -> ResourceKey.codec(Registries.ADVANCEMENT).<Either<ItemPredicate, ResourceKey<Advancement>>>flatComapMap(
                         Either::right,
-                        either -> either.map(l -> errorResult(), DataResult::success)
+                        either -> either.map(_ -> errorResult(), DataResult::success)
                 ).fieldOf("advancement");
             };
         }

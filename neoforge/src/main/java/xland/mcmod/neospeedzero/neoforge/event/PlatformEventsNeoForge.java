@@ -1,4 +1,4 @@
-package xland.mcmod.neospeedzero.util.event.neoforge;
+package xland.mcmod.neospeedzero.neoforge.event;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
@@ -31,6 +31,7 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
+import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
@@ -38,14 +39,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public final class PlatformEventsImpl extends PlatformEvents {
-    private PlatformEventsImpl() {}
-    private static final PlatformEventsImpl INSTANCE = new PlatformEventsImpl();
-
-    @SuppressWarnings("unused")
-    public static PlatformEvents getInstance() {
-        return INSTANCE;
-    }
+@PlatformDependent(PlatformDependent.Platform.NEO)
+public final class PlatformEventsNeoForge extends PlatformEvents {
+    public PlatformEventsNeoForge() {}
 
     public void whenServerStarting(Consumer<MinecraftServer> callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
@@ -81,7 +77,6 @@ public final class PlatformEventsImpl extends PlatformEvents {
 
     @Override
     public Supplier<GameRule<@NotNull Boolean>> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
-
         return GAME_RULE_REG.register(id, () -> new GameRule<@NotNull Boolean>(
                 category, GameRuleType.BOOL, BoolArgumentType.bool(), GameRuleTypeVisitor::visitBoolean, Codec.BOOL, BooleanUtils::toInteger, defaultValue, FeatureFlagSet.of()
         ));
@@ -97,6 +92,6 @@ public final class PlatformEventsImpl extends PlatformEvents {
     @OnlyIn(Dist.CLIENT)
     public void postClientTick(Runnable callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
-        NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, event -> callback.run());
+        NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, _ -> callback.run());
     }
 }

@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xland.mcmod.neospeedzero.record.manager.NeoSpeedPlayer;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
+import xland.mcmod.neospeedzero.record.manager.NeoSpeedServer;
 
 import java.util.Optional;
 
@@ -23,7 +24,7 @@ abstract class ServerPlayerMixin implements NeoSpeedPlayer {
         if (optionalLegacyRecord.isPresent()) {
             @SuppressWarnings("resource")
             MinecraftServer server = ((ServerPlayer)(Object)this).level().getServer();
-            server.ns0$recordManager().registerLegacyRecord(this, optionalLegacyRecord.get());
+            NeoSpeedServer.of(server).ns0$recordManager().registerLegacyRecord(this, optionalLegacyRecord.get());
         }
     }
 }

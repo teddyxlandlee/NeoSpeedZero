@@ -10,17 +10,25 @@ public interface NeoSpeedPlayer {
     @Nullable
     //@Deprecated
     default SpeedrunRecord ns0$currentRecord() {
-        SpeedrunRecordHolder holder = ns0$serverRecordManager().findRecordByPlayer((ServerPlayer) this);
+        SpeedrunRecordHolder holder = ns0$serverRecordManager().findRecordByPlayer(self());
         return holder == null ? null : holder.record();
     }
 
     default long ns0$time() {
         //noinspection resource
-        return ((ServerPlayer) this).level().getServer().overworld().getGameTime();
+        return self().level().getServer().overworld().getGameTime();
     }
 
     default RecordManager ns0$serverRecordManager() {
         //noinspection resource
-        return ((ServerPlayer) this).level().getServer().ns0$recordManager();
+        return NeoSpeedServer.of(self().level().getServer()).ns0$recordManager();
+    }
+
+    static NeoSpeedPlayer of(ServerPlayer player) {
+        return (NeoSpeedPlayer) player;
+    }
+
+    private ServerPlayer self() {
+        return (ServerPlayer) this;
     }
 }

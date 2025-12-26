@@ -69,18 +69,21 @@ public enum BuiltinDifficulty implements SpeedrunDifficulty {
     }
 
     private enum GiveItem {
-        NONE(recordId -> null, recordId -> null),
+        NONE(nil(), nil()),
         COMMON(ItemExtensions::commonFireworks, ItemExtensions::commonElytra),
         UNBREAKABLE(ItemExtensions::infiniteFireworks, ItemExtensions::infiniteElytra),
         ;
         
         private final Function<UUID, @Nullable ItemStack> fireworkFactory, elytraFactory;
 
+        private static Function<UUID, @Nullable ItemStack> nil() {
+            return _ -> null;
+        }
+
         GiveItem(Function<UUID, @Nullable ItemStack> fireworkFactory, Function<UUID, @Nullable ItemStack> elytraFactory) {
             this.fireworkFactory = fireworkFactory;
             this.elytraFactory = elytraFactory;
         }
-
 
         @NotNull ItemStack createFirework(UUID recordId) {
             return Objects.requireNonNullElse(fireworkFactory.apply(recordId), ItemStack.EMPTY);

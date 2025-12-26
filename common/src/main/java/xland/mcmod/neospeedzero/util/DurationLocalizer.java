@@ -1,9 +1,9 @@
 package xland.mcmod.neospeedzero.util;
 
 import com.mojang.logging.LogUtils;
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import xland.mcmod.enchlevellangpatch.api.EnchantmentLevelLangPatch;
@@ -31,7 +31,7 @@ public final class DurationLocalizer {
             LOGGER.debug("Found LangPatch. Applying patch.");
             EnchantmentLevelLangPatch.registerPatch(
                     Predicate.isEqual(TimeUtil.PLACEHOLDER_KEY),
-                    EnchantmentLevelLangPatch.withFallback((translations, key, fallback) -> {
+                    EnchantmentLevelLangPatch.withFallback((translations, _, fallback) -> {
                         if (!Boolean.parseBoolean(translations.get(PREFIX + "apply_localizer"))) {
                             // Use fallback format
                             return null;
@@ -51,8 +51,18 @@ public final class DurationLocalizer {
         }
     }
 
-    @ExpectPlatform
-    private static boolean isLangPatchAvailable() { throw new AssertionError("Not implemented"); }
+    @ApiStatus.Internal
+    public interface LangPatchProber {
+        boolean isLangPatchAvailable();
+    }
+
+    private static boolean isLangPatchAvailable() {
+        class Holder {
+            // avoid circular classloading
+            static final LangPatchProber PROBER = PlatformDependent.Platform.probe(LangPatchProber.class);
+        }
+        return Holder.PROBER.isLangPatchAvailable();
+    }
     
     private DurationLocalizer(@NotNull Map<String, String> translations) {
         Objects.requireNonNull(translations, "translations");

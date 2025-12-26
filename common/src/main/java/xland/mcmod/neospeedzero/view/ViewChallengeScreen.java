@@ -43,8 +43,8 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
     protected void init() {
         super.init();
         addSlots();
-        prevButton = this.addRenderableWidget(new PageButton(leftPos + 7, topPos + 149, false, button -> this.previousPage(), false));
-        nextButton = this.addRenderableWidget(new PageButton(leftPos + 151, topPos + 149, true, button -> this.nextPage(), false));
+        prevButton = this.addRenderableWidget(new PageButton(leftPos + 7, topPos + 149, false, _ -> this.previousPage(), false));
+        nextButton = this.addRenderableWidget(new PageButton(leftPos + 151, topPos + 149, true, _ -> this.nextPage(), false));
         updateThisPage();
     }
 

@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
+import xland.mcmod.neospeedzero.record.manager.NeoSpeedPlayer;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 
 public interface ViewPackets {
@@ -33,7 +34,7 @@ public interface ViewPackets {
         PlatformNetwork.getInstance().registerC2S(
                 new CustomPacketPayload.TypeAndCodec<>(TYPE_C2S_REQUEST, Request.STREAM_CODEC),
                 serverPlayer -> {
-                    SpeedrunRecord record = serverPlayer.ns0$currentRecord();
+                    SpeedrunRecord record = NeoSpeedPlayer.of(serverPlayer).ns0$currentRecord();
                     if (record != null) {
                         NeoSpeedLifecycle.viewRecord(serverPlayer, record);
                     } else {

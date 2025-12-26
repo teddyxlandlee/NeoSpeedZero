@@ -1,4 +1,4 @@
-package xland.mcmod.neospeedzero.util.event.fabric;
+package xland.mcmod.neospeedzero.fabric.event;
 
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.core.HolderLookup;

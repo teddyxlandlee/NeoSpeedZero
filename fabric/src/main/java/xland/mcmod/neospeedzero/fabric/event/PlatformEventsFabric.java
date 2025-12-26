@@ -1,4 +1,4 @@
-package xland.mcmod.neospeedzero.util.event.fabric;
+package xland.mcmod.neospeedzero.fabric.event;
 
 import com.google.common.base.Suppliers;
 import com.mojang.brigadier.CommandDispatcher;
@@ -22,6 +22,7 @@ import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
+import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.event.Event;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
@@ -30,14 +31,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public final class PlatformEventsImpl extends PlatformEvents {
-    private PlatformEventsImpl() {}
-    private static final PlatformEventsImpl INSTANCE = new PlatformEventsImpl();
-
-    @SuppressWarnings("unused")
-    public static PlatformEvents getInstance() {    // ACTUAL
-        return INSTANCE;
-    }
+@PlatformDependent(PlatformDependent.Platform.FABRIC)
+public final class PlatformEventsFabric extends PlatformEvents {
+    public PlatformEventsFabric() {}
 
     @Override
     public void whenServerStarting(Consumer<MinecraftServer> callback) {

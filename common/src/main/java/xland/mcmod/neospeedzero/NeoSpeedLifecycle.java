@@ -16,9 +16,7 @@ import xland.mcmod.neospeedzero.itemext.ItemExtensions;
 import xland.mcmod.neospeedzero.mixin.PlayerAdvancementsAccessor;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
-import xland.mcmod.neospeedzero.record.manager.PlayerRole;
-import xland.mcmod.neospeedzero.record.manager.RecordManager;
-import xland.mcmod.neospeedzero.record.manager.SpeedrunRecordHolder;
+import xland.mcmod.neospeedzero.record.manager.*;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.util.event.ActionResult;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
@@ -31,7 +29,7 @@ public final class NeoSpeedLifecycle {
     private NeoSpeedLifecycle() {}
 
     public static Optional<Component> startSpeedrun(ServerPlayer player, SpeedrunStartupConfig startupConfig) {
-        SpeedrunRecord record = player.ns0$currentRecord();
+        SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
         if (record != null) {
             return Optional.of(Component.translatable(
                     "message.neospeedzero.record.start.started",
@@ -45,8 +43,8 @@ public final class NeoSpeedLifecycle {
             // Do not start
             return Optional.of(Component.translatable("message.neospeedzero.record.start.cancel"));
         }
-        record = startupConfig.createRecord(player.ns0$time());
-        Component message = player.ns0$serverRecordManager().startHosting(record, player);
+        record = startupConfig.createRecord(NeoSpeedPlayer.of(player).ns0$time());
+        Component message = NeoSpeedPlayer.of(player).ns0$serverRecordManager().startHosting(record, player);
         if (message != null) return Optional.of(message);
 
         NeoSpeedMessages.announceRecordStart(player, record);
@@ -73,12 +71,12 @@ public final class NeoSpeedLifecycle {
     }
 
     public static Optional<Component> stopSpeedrun(ServerPlayer player) {
-        SpeedrunRecord previousRecord = player.ns0$currentRecord();
+        SpeedrunRecord previousRecord = NeoSpeedPlayer.of(player).ns0$currentRecord();
         if (previousRecord == null) {
             return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
         }
 
-        if (player.ns0$serverRecordManager().getPlayerRole(previousRecord.recordId(), player) != PlayerRole.HOST) {
+        if (NeoSpeedPlayer.of(player).ns0$serverRecordManager().getPlayerRole(previousRecord.recordId(), player) != PlayerRole.HOST) {
             return Optional.of(Component.translatable("message.neospeedzero.stop.no_host"));
         }
 
@@ -88,7 +86,7 @@ public final class NeoSpeedLifecycle {
             return Optional.of(Component.translatable("message.neospeedzero.record.stop.force.cancel"));
         }
 
-        SpeedrunRecordHolder prevHolder = player.ns0$serverRecordManager().endRecord(previousRecord.recordId());
+        SpeedrunRecordHolder prevHolder = NeoSpeedPlayer.of(player).ns0$serverRecordManager().endRecord(previousRecord.recordId());
         if (prevHolder == null) {
             return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
         }
@@ -98,7 +96,7 @@ public final class NeoSpeedLifecycle {
     }
 
     public static Optional<Component> quitSpeedrun(ServerPlayer player) {
-        SpeedrunRecordHolder holder = player.ns0$serverRecordManager().leaveRecord(player);
+        SpeedrunRecordHolder holder = NeoSpeedPlayer.of(player).ns0$serverRecordManager().leaveRecord(player);
         if (holder != null) {
             // was running
             NeoSpeedMessages.announceRecordQuit(player, holder.record());
@@ -109,7 +107,7 @@ public final class NeoSpeedLifecycle {
     }
 
     public static Optional<Component> joinSpeedrun(ServerPlayer player, RecordReference ref) {
-        SpeedrunRecord record = player.ns0$currentRecord();
+        SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
         if (record != null) {
             return Optional.of(Component.translatable(
                     "message.neospeedzero.record.start.started",
@@ -118,7 +116,7 @@ public final class NeoSpeedLifecycle {
             ));
         }
 
-        RecordManager manager = player.ns0$serverRecordManager();
+        RecordManager manager = NeoSpeedPlayer.of(player).ns0$serverRecordManager();
         return ref.parse(manager).map(
                 uuid -> {
                     Component msg = manager.joinRecord(uuid, player);
@@ -157,7 +155,7 @@ public final class NeoSpeedLifecycle {
     public static void onInventoryChange(ServerPlayer player, ItemStack stack) {
         if (stack.isEmpty() || ItemExtensions.isModGivenItem(stack)) return;
 
-        SpeedrunRecord record = player.ns0$currentRecord();
+        SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
         if (record == null) return;
 
         for (int i = 0, size = record.challenges().size(); i < size; i++) {
@@ -176,7 +174,7 @@ public final class NeoSpeedLifecycle {
 
     // will be called by the mixin
     public static void onAdvancementMade(ServerPlayer player, AdvancementHolder advancement) {
-        SpeedrunRecord record = player.ns0$currentRecord();
+        SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
         if (record == null) return;
 
         for (int i = 0, size = record.challenges().size(); i < size; i++) {
@@ -194,7 +192,7 @@ public final class NeoSpeedLifecycle {
     }
 
     public static void onCompleteSingleChallenge(ServerPlayer serverPlayer, SpeedrunRecord record, int index) {
-        final long currentTime = serverPlayer.ns0$time();
+        final long currentTime = NeoSpeedPlayer.of(serverPlayer).ns0$time();
         record.markComplete(index, currentTime);
 
         // sync to client
@@ -210,19 +208,19 @@ public final class NeoSpeedLifecycle {
     }
 
     static void completeRecord(ServerPlayer serverPlayer, SpeedrunRecord record) {
-        final long currentTime = serverPlayer.ns0$time();
+        final long currentTime = NeoSpeedPlayer.of(serverPlayer).ns0$time();
         record.finishTime().setValue(currentTime);
 
-        serverPlayer.ns0$serverRecordManager().endRecord(record.recordId());
+        NeoSpeedPlayer.of(serverPlayer).ns0$serverRecordManager().endRecord(record.recordId());
         NeoSpeedMessages.announceRecordComplete(serverPlayer, record, currentTime);
         NeoSpeedLifecycleEvents.COMPLETE_RECORD.invoker().onComplete(serverPlayer, record);
     }
 
     public static void register() {
         // Server lifecycle events
-        PlatformEvents.getInstance().whenServerStarting(server -> server.ns0$recordManager().loadFromServer());
+        PlatformEvents.getInstance().whenServerStarting(server -> NeoSpeedServer.of(server).ns0$recordManager().loadFromServer());
         PlatformEvents.getInstance().whenServerStopped(server -> {
-            server.ns0$recordManager().saveToServer();
+            NeoSpeedServer.of(server).ns0$recordManager().saveToServer();
             // Then, remove cached holders
             LOGGER.info("Clearing SpeedRunGoal.Holder");
             SpeedrunGoal.Holder.clearHolders();
@@ -230,7 +228,7 @@ public final class NeoSpeedLifecycle {
 
         // Prevent irrelevant players from obtaining marked items
         PlatformEvents.getInstance().preServerPlayerTick(serverPlayer -> {
-            final @Nullable UUID uuid = serverPlayer.ns0$serverRecordManager().findRecordIdByPlayer(serverPlayer);
+            final @Nullable UUID uuid = NeoSpeedPlayer.of(serverPlayer).ns0$serverRecordManager().findRecordIdByPlayer(serverPlayer);
 
             serverPlayer.getInventory().forEach(stack -> {
                 if (stack.isEmpty()) return;

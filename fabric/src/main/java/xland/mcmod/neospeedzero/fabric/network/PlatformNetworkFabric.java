@@ -1,4 +1,4 @@
-package xland.mcmod.neospeedzero.util.network.fabric;
+package xland.mcmod.neospeedzero.fabric.network;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
@@ -18,14 +19,9 @@ import java.util.Collection;
 import java.util.function.Consumer;
 
 @org.jspecify.annotations.NullMarked
-public final class PlatformNetworkImpl extends PlatformNetwork {
-    private PlatformNetworkImpl() {}
-    private static final PlatformNetworkImpl INSTANCE = new PlatformNetworkImpl();
-
-    @SuppressWarnings("unused")
-    public static PlatformNetwork getInstance() {
-        return INSTANCE;
-    }
+@PlatformDependent(PlatformDependent.Platform.FABRIC)
+public final class PlatformNetworkFabric extends PlatformNetwork {
+    public PlatformNetworkFabric() {}
 
     public <P extends CustomPacketPayload> void registerC2SImpl(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,
@@ -33,7 +29,7 @@ public final class PlatformNetworkImpl extends PlatformNetwork {
     ) {
         PayloadTypeRegistry.playC2S().register(typeAndCodec.type(), typeAndCodec.codec());
         ServerPlayNetworking.registerGlobalReceiver(
-                typeAndCodec.type(), (payload, context) -> callback.accept(context.player())
+                typeAndCodec.type(), (_, context) -> callback.accept(context.player())
         );
     }
 
@@ -48,7 +44,7 @@ public final class PlatformNetworkImpl extends PlatformNetwork {
     private static void registerS2CReceiver(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, ? extends ServerToClientPayload> typeAndCodec) {
         ClientPlayNetworking.registerGlobalReceiver(
                 typeAndCodec.type(),
-                (payload, context) -> payload.onClientReceive()
+                (payload, _) -> payload.onClientReceive()
         );
     }
 

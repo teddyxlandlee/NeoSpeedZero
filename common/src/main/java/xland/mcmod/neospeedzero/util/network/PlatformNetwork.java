@@ -1,6 +1,5 @@
 package xland.mcmod.neospeedzero.util.network;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
@@ -10,16 +9,18 @@ import net.minecraft.network.VarInt;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.NotNull;
+import xland.mcmod.neospeedzero.util.PlatformDependent;
 
 import java.util.Collection;
 import java.util.function.Consumer;
 
 @org.jspecify.annotations.NullMarked
 public abstract class PlatformNetwork {
-    @ExpectPlatform
     public static PlatformNetwork getInstance() {
-        throw new AssertionError("ExpectPlatform");
+        class Holder {
+            static final PlatformNetwork INSTANCE = PlatformDependent.Platform.probe(PlatformNetwork.class);
+        }
+        return Holder.INSTANCE;
     }
 
     public <P extends CustomPacketPayload> void registerC2S(
@@ -77,7 +78,7 @@ public abstract class PlatformNetwork {
         }
 
         @Override
-        public @NotNull T decode(RegistryFriendlyByteBuf buf) {
+        public T decode(RegistryFriendlyByteBuf buf) {
             ByteBuf localBufCache = BUF_CACHE.get();
             try {
                 unpackByteArray(localBufCache, buf);

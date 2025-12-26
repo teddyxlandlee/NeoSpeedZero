@@ -14,6 +14,8 @@ import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
+import xland.mcmod.neospeedzero.record.manager.NeoSpeedPlayer;
+import xland.mcmod.neospeedzero.record.manager.NeoSpeedServer;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
@@ -29,7 +31,7 @@ public final class NeoSpeedCommands {
             dispatcher.register(literal("neospeed")
                     .then(literal("start")
                             .then(argument("goal", IdentifierArgument.id())
-                                    .suggests((context, builder) ->
+                                    .suggests((_, builder) ->
                                             SharedSuggestionProvider.suggestResource(SpeedrunGoal.Holder.holders().keySet(), builder))
                                     .executes(context -> {
                                         Identifier goalId = IdentifierArgument.getId(context, "goal");
@@ -42,7 +44,7 @@ public final class NeoSpeedCommands {
                                         return Command.SINGLE_SUCCESS;
                                     })
                                     .then(argument("difficulty", IdentifierArgument.id())
-                                            .suggests((context, builder) ->
+                                            .suggests((_, builder) ->
                                                     SharedSuggestionProvider.suggestResource(SpeedrunDifficulties.keys(), builder))
                                             .executes(context -> {
                                                 Identifier goalId = IdentifierArgument.getId(context, "goal");
@@ -68,7 +70,7 @@ public final class NeoSpeedCommands {
                     .then(literal("view")
                             .executes(context -> {
                                 final ServerPlayer player = context.getSource().getPlayerOrException();
-                                final SpeedrunRecord record = player.ns0$currentRecord();
+                                final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
                                 if (record == null) {
                                     context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                     return 0;
@@ -79,7 +81,7 @@ public final class NeoSpeedCommands {
                             .then(literal("raw")
                                     .executes(context -> {
                                         final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = player.ns0$currentRecord();
+                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
                                         if (record == null) {
                                             context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                             return 0;
@@ -91,7 +93,7 @@ public final class NeoSpeedCommands {
                             .then(literal("dialog")
                                     .executes(context -> {
                                         final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = player.ns0$currentRecord();
+                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
                                         if (record == null) {
                                             context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                             return 0;
@@ -123,7 +125,7 @@ public final class NeoSpeedCommands {
                             .then(literal("record")
                                     .then(argument("reference", StringArgumentType.word())
                                             .suggests((context, builder) -> {
-                                                context.getSource().getServer().ns0$recordManager().getAllRecordIds().forEach(uuid -> {
+                                                NeoSpeedServer.of(context.getSource().getServer()).ns0$recordManager().getAllRecordIds().forEach(uuid -> {
                                                     // Due to performance concerns, detailed tooltips won't be suggested so far
                                                     builder.suggest(uuid.toString());
                                                 });
