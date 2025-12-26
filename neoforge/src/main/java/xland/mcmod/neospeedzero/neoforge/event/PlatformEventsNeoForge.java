@@ -13,8 +13,6 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.gamerules.*;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -82,14 +80,14 @@ public final class PlatformEventsNeoForge extends PlatformEvents {
         ));
     }
 
-    @OnlyIn(Dist.CLIENT)
+//    @OnlyIn(Dist.CLIENT)
     public void registerKeyMapping(KeyMapping keyMapping) {
         Objects.requireNonNull(keyMapping, "keyMapping cannot be null.");
         IEventBus bus = ModList.get().getModContainerById(NeoSpeedZero.MOD_ID).map(ModContainer::getEventBus).orElseThrow();
         bus.addListener(RegisterKeyMappingsEvent.class, event -> event.register(keyMapping));
     }
     
-    @OnlyIn(Dist.CLIENT)
+//    @OnlyIn(Dist.CLIENT)
     public void postClientTick(Runnable callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
         NeoForge.EVENT_BUS.addListener(ClientTickEvent.Post.class, _ -> callback.run());

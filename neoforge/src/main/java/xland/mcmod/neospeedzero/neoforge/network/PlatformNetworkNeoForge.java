@@ -5,7 +5,6 @@ import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -59,7 +58,7 @@ public final class PlatformNetworkNeoForge extends PlatformNetwork {
         ModList.get().getModContainerById(NeoSpeedZero.MOD_ID).map(ModContainer::getEventBus).orElseThrow().addListener(RegisterPayloadHandlersEvent.class, consumer);
     }
 
-    @OnlyIn(Dist.CLIENT)
+//    @OnlyIn(Dist.CLIENT)
     public void sendToServer(CustomPacketPayload payload) {
         ClientPacketDistributor.sendToServer(payload);
     }
