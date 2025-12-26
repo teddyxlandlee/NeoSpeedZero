@@ -44,7 +44,7 @@ jobs:
           distribution: 'microsoft' 
 
       - name: Publish to Modrinth
-        run: ./gradlew modrinth
+        run: ./gradlew build modrinth
         env:
           MR_TOKEN: '${{ secrets.MR_TOKEN }}'
           MR_CHANGELOG: '${{ github.event.head_commit.message }}'
@@ -53,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: publish-artifacts
-          path: 'build/libs/*'
+          path: '**/build/libs/*'
           if-no-files-found: ignore
