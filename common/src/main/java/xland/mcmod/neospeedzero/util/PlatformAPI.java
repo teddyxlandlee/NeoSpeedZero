@@ -66,6 +66,7 @@ public abstract class PlatformAPI {
         FABRIC("net.fabricmc.loader.api.FabricLoader"),
         FORGE("net.minecraftforge.versions.forge.ForgeVersion"),
         NEO("net.neoforged.fml.ModLoader"),
+        PAPER("io.papermc.paper.ServerBuildInfo"),
         ;
         private final String declaredClass;
 
