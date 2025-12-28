@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Unmodifiable;
 import xland.mcmod.neospeedzero.NeoSpeedMessages;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
-import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.util.DialogUtil;
 import xland.mcmod.neospeedzero.util.TimeUtil;
 
@@ -30,7 +29,7 @@ import java.util.UUID;
 import java.util.stream.LongStream;
 
 public record SpeedrunRecord(
-        SpeedrunGoal.Holder goal,
+        SpeedrunGoalInfo goal,
         UUID recordId,
         @Unmodifiable List<SpeedrunChallenge> challenges,
         long[] collectedTimes,
@@ -70,10 +69,11 @@ public record SpeedrunRecord(
 
     @ApiStatus.Internal
     public SpeedrunRecord {
+        goal = SpeedrunGoalInfo.Impl.of(goal);  // to stabilize the info
     }
 
     public SpeedrunRecord(
-            SpeedrunGoal.Holder goal,
+            SpeedrunGoalInfo goal,
             UUID recordId,
             List<SpeedrunChallenge> challenges,
             long startTime,
@@ -101,7 +101,7 @@ public record SpeedrunRecord(
         final Codec<MutableLong> mutableLongCodec = Codec.LONG.xmap(MutableLong::new, MutableLong::toLong);
 
         return RecordCodecBuilder.mapCodec(instance -> instance.group(
-                SpeedrunGoal.HOLDER_CODEC.fieldOf("goal").forGetter(SpeedrunRecord::goal),
+                SpeedrunGoalInfo.Impl.MAP_CODEC.forGetter(SpeedrunRecord::goal),
                 UUIDUtil.STRING_CODEC.fieldOf("recordId").forGetter(SpeedrunRecord::recordId),
                 SpeedrunChallenge.CODEC.listOf(1, Integer.MAX_VALUE).fieldOf("challenges").forGetter(SpeedrunRecord::challenges),
                 Codec.LONG_STREAM.xmap(LongStream::toArray, LongStream::of).fieldOf("collectedTimes").forGetter(SpeedrunRecord::collectedTimes),

@@ -128,7 +128,7 @@ public final class NeoSpeedMessages {
     @ApiStatus.Internal
     public static Component snapshotFor(SpeedrunRecord record, boolean brackets) {
         MutableComponent component = Component.empty()
-                .append(record.goal().goal().display().copy())
+                .append(record.goal().display().copy())
                 .append(Component.literal("#" + record.recordId().toString().substring(0, 4)).withStyle(ChatFormatting.GRAY));
         if (brackets) component = ComponentUtils.wrapInSquareBrackets(component);
         return component.withStyle(style -> style.withHoverEvent(new HoverEvent.ShowText(snapshotHover(record))));

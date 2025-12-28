@@ -35,7 +35,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     public static ChallengeSnapshot fromRecord(@NotNull SpeedrunRecord record) {
         return new ChallengeSnapshot(
                 record.recordId(),
-                record.goal().goal().display().copy(),
+                record.goal().display().copy(),
                 record.challenges().stream().map(SpeedrunChallenge::icon).toList(),
                 record.collectedTimes().clone()
         );

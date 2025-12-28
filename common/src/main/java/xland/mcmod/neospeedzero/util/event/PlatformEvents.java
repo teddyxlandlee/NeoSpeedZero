@@ -15,7 +15,7 @@ import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import xland.mcmod.neospeedzero.util.PlatformDependent;
+import xland.mcmod.neospeedzero.util.PlatformAPI;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -24,10 +24,7 @@ import java.util.function.Supplier;
 @ApiStatus.Internal
 public abstract class PlatformEvents {
     public static PlatformEvents getInstance() {
-        class Holder {
-            static final PlatformEvents INSTANCE = PlatformDependent.Platform.probe(PlatformEvents.class);
-        }
-        return Holder.INSTANCE;
+        return PlatformAPI.getInstance().events();
     }
 
     public abstract void whenServerStarting(Consumer<MinecraftServer> callback);

@@ -3,7 +3,6 @@ package xland.mcmod.neospeedzero.util;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import xland.mcmod.enchlevellangpatch.api.EnchantmentLevelLangPatch;
@@ -51,17 +50,8 @@ public final class DurationLocalizer {
         }
     }
 
-    @ApiStatus.Internal
-    public interface LangPatchProber {
-        boolean isLangPatchAvailable();
-    }
-
     private static boolean isLangPatchAvailable() {
-        class Holder {
-            // avoid circular classloading
-            static final LangPatchProber PROBER = PlatformDependent.Platform.probe(LangPatchProber.class);
-        }
-        return Holder.PROBER.isLangPatchAvailable();
+        return PlatformAPI.getInstance().isLangPatchAvailable();
     }
     
     private DurationLocalizer(@NotNull Map<String, String> translations) {
@@ -73,6 +63,7 @@ public final class DurationLocalizer {
         Objects.requireNonNull(duration, "duration");
         // Fetch config
         int maxUnits = getIntConfig(MAX_UNITS_KEY, Integer.MAX_VALUE);
+        if (maxUnits < 0) maxUnits = Integer.MAX_VALUE;
         boolean showZeroValues = getBooleanConfig(SHOW_ZERO_KEY, false);
         String separator = getStringConfig(SEPARATOR_KEY, ", ");
         String finalSeparator = getStringConfig(FINAL_SEPARATOR_KEY, " and ");
@@ -80,13 +71,9 @@ public final class DurationLocalizer {
         // Split into time units
         List<TimeUnitValue> units = decomposeDuration(duration, showZeroValues);
         
-        // Limit unit count
-        if (units.size() > maxUnits) {
-            units = units.subList(0, maxUnits);
-        }
-        
         // Localize each unit
         List<String> localizedUnits = units.stream()
+                .limit(maxUnits)    // Limit unit count
                 .map(this::localizeUnit)
                 .toList();
 
@@ -103,19 +90,19 @@ public final class DurationLocalizer {
         long secs = seconds % 60;
         long millis = duration.getNano() / 1_000_000;
         
-        if (days > 0 || showZeroValues) {
+        if (showZeroValues || days > 0) {
             units.add(new TimeUnitValue("days", days));
         }
-        if (hours > 0 || showZeroValues) {
+        if (showZeroValues || hours > 0) {
             units.add(new TimeUnitValue("hours", hours));
         }
-        if (minutes > 0 || showZeroValues) {
+        if (showZeroValues || minutes > 0) {
             units.add(new TimeUnitValue("minutes", minutes));
         }
-        if (secs > 0 || showZeroValues) {
+        if (showZeroValues || secs > 0) {
             units.add(new TimeUnitValue("seconds", secs));
         }
-        if (millis > 0 || showZeroValues) {
+        if (showZeroValues || millis > 0) {
             units.add(new TimeUnitValue("millis", millis));
         }
         
@@ -153,21 +140,15 @@ public final class DurationLocalizer {
     }
     
     private String joinUnits(List<String> units, String separator, String finalSeparator) {
-        if (units.isEmpty()) {
-            return getStringConfig(PREFIX + "zero", "0");
-        }
-        
-        if (units.size() == 1) {
-            return units.getFirst();
-        }
-        
-        if (units.size() == 2) {
-            return units.get(0) + finalSeparator + units.get(1);
-        }
-        
-        // 三个及以上单位的情况
-        String joined = String.join(separator, units.subList(0, units.size() - 1));
-        return joined + finalSeparator + units.getLast();
+        return switch (units.size()) {
+            case 0 -> getStringConfig(PREFIX + "zero", "0");
+            case 1 -> units.getFirst();
+            case 2 -> units.get(0) + finalSeparator + units.get(1);
+            default -> {
+                String joined = String.join(separator, units.subList(0, units.size() - 1));
+                yield joined + finalSeparator + units.getLast();
+            }
+        };
     }
     
     public int getIntConfig(String key, int defaultValue) {

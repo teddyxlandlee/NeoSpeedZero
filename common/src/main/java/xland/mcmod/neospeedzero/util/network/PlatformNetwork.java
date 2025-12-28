@@ -9,7 +9,7 @@ import net.minecraft.network.VarInt;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import xland.mcmod.neospeedzero.util.PlatformDependent;
+import xland.mcmod.neospeedzero.util.PlatformAPI;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -17,10 +17,7 @@ import java.util.function.Consumer;
 @org.jspecify.annotations.NullMarked
 public abstract class PlatformNetwork {
     public static PlatformNetwork getInstance() {
-        class Holder {
-            static final PlatformNetwork INSTANCE = PlatformDependent.Platform.probe(PlatformNetwork.class);
-        }
-        return Holder.INSTANCE;
+        return PlatformAPI.getInstance().network();
     }
 
     public <P extends CustomPacketPayload> void registerC2S(

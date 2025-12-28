@@ -22,7 +22,6 @@ import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
-import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.event.Event;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
@@ -31,9 +30,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@PlatformDependent(PlatformDependent.Platform.FABRIC)
 public final class PlatformEventsFabric extends PlatformEvents {
-    public PlatformEventsFabric() {}
+    private PlatformEventsFabric() {}
+    private static final PlatformEventsFabric INSTANCE = new PlatformEventsFabric();
+    public static PlatformEventsFabric getInstance() { return INSTANCE; }
 
     @Override
     public void whenServerStarting(Consumer<MinecraftServer> callback) {
@@ -57,7 +57,7 @@ public final class PlatformEventsFabric extends PlatformEvents {
 
     public void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
-        CommandRegistrationCallback.EVENT.register((commandDispatcher, commandBuildContext, commandSelection) -> {
+        CommandRegistrationCallback.EVENT.register((commandDispatcher, _, _) -> {
             // In NeoSpeedZero, we only need the dispatcher
             callback.accept(commandDispatcher);
         });
@@ -84,6 +84,6 @@ public final class PlatformEventsFabric extends PlatformEvents {
     @Environment(EnvType.CLIENT)
     public void postClientTick(Runnable callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
-        ClientTickEvents.END_CLIENT_TICK.register(client -> callback.run());
+        ClientTickEvents.END_CLIENT_TICK.register(_ -> callback.run());
     }
 }

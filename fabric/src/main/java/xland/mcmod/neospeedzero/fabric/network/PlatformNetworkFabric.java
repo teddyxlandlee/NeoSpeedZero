@@ -11,7 +11,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
@@ -19,9 +18,10 @@ import java.util.Collection;
 import java.util.function.Consumer;
 
 @org.jspecify.annotations.NullMarked
-@PlatformDependent(PlatformDependent.Platform.FABRIC)
 public final class PlatformNetworkFabric extends PlatformNetwork {
-    public PlatformNetworkFabric() {}
+    private PlatformNetworkFabric() {}
+    private static final PlatformNetworkFabric INSTANCE = new PlatformNetworkFabric();
+    public static PlatformNetworkFabric getInstance() { return INSTANCE; }
 
     public <P extends CustomPacketPayload> void registerC2SImpl(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,

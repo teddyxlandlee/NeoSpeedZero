@@ -13,7 +13,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
-import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
@@ -22,9 +21,10 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 @org.jspecify.annotations.NullMarked
-@PlatformDependent(PlatformDependent.Platform.NEO)
 public final class PlatformNetworkNeoForge extends PlatformNetwork {
-    public PlatformNetworkNeoForge() {}
+    private PlatformNetworkNeoForge() {}
+    private static final PlatformNetworkNeoForge INSTANCE = new PlatformNetworkNeoForge();
+    public static PlatformNetworkNeoForge getInstance() { return INSTANCE; }
 
     public <P extends CustomPacketPayload> void registerC2SImpl(
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,

@@ -29,7 +29,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
-import xland.mcmod.neospeedzero.util.PlatformDependent;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
@@ -37,9 +36,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@PlatformDependent(PlatformDependent.Platform.NEO)
 public final class PlatformEventsNeoForge extends PlatformEvents {
-    public PlatformEventsNeoForge() {}
+    private PlatformEventsNeoForge() {}
+    private static final PlatformEventsNeoForge INSTANCE = new PlatformEventsNeoForge();
+    public static PlatformEventsNeoForge getInstance() { return INSTANCE; }
 
     public void whenServerStarting(Consumer<MinecraftServer> callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");

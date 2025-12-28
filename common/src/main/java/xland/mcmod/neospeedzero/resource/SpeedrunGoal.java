@@ -1,7 +1,6 @@
 package xland.mcmod.neospeedzero.resource;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
@@ -17,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
+import xland.mcmod.neospeedzero.record.SpeedrunGoalInfo;
 import xland.mcmod.neospeedzero.util.DialogUtil;
 
 import java.util.*;
@@ -28,17 +28,7 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
             GoalPredicate.CODEC.listOf().fieldOf("predicates").forGetter(SpeedrunGoal::predicates)
     ).apply(instance, SpeedrunGoal::new));
 
-    public static final Codec<Holder> HOLDER_CODEC = Codec.lazyInitialized(() -> {
-        // Stored as a resource location
-        return Identifier.CODEC.comapFlatMap(
-                id -> Optional.ofNullable(Holder.holders().get(id))
-                        .map(DataResult::success)
-                        .orElseGet(() -> DataResult.error(() -> "Can't find SpeedrunGoal.Holder " + id)),
-                Holder::id
-        );
-    });
-
-    public record Holder(Identifier id, SpeedrunGoal goal) implements Comparable<Holder> {
+    public record Holder(@Override Identifier id, SpeedrunGoal goal) implements Comparable<Holder>, SpeedrunGoalInfo {
         private static volatile Map<Identifier, Holder> wrappedHolders = Collections.emptyMap();
 
         public static @Unmodifiable Map<Identifier, Holder> holders() {
@@ -59,6 +49,16 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
             int result = id.getNamespace().compareTo(o.id.getNamespace());
             if (result == 0) result = id.getPath().compareTo(o.id.getPath());
             return result;
+        }
+
+        @Override
+        public Component display() {
+            return goal().display();
+        }
+
+        @Override
+        public ItemStack icon() {
+            return goal().icon();
         }
 
         public static Dialog toDialog() {
