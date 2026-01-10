@@ -27,14 +27,14 @@ public final class PlatformNetworkFabric extends PlatformNetwork {
             CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec,
             Consumer<ServerPlayer> callback
     ) {
-        PayloadTypeRegistry.playC2S().register(typeAndCodec.type(), typeAndCodec.codec());
+        PayloadTypeRegistry.serverboundPlay().register(typeAndCodec.type(), typeAndCodec.codec());
         ServerPlayNetworking.registerGlobalReceiver(
                 typeAndCodec.type(), (_, context) -> callback.accept(context.player())
         );
     }
 
     public <C extends ServerToClientPayload> void registerS2CImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, C> typeAndCodec) {
-        PayloadTypeRegistry.playS2C().register(typeAndCodec.type(), typeAndCodec.codec());
+        PayloadTypeRegistry.clientboundPlay().register(typeAndCodec.type(), typeAndCodec.codec());
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             registerS2CReceiver(typeAndCodec);
         }
@@ -58,7 +58,7 @@ public final class PlatformNetworkFabric extends PlatformNetwork {
     }
 
     public void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players) {
-        Packet<ClientCommonPacketListener> packet = ServerPlayNetworking.createS2CPacket(payload);
+        Packet<ClientCommonPacketListener> packet = ServerPlayNetworking.createClientboundPacket(payload);
         players.forEach(p -> p.connection.send(packet));
     }
 }

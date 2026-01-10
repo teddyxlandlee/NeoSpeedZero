@@ -21,7 +21,7 @@ final class RegistryResourceReloadListener implements PreparableReloadListener {
     @Override
     @org.jspecify.annotations.NullMarked
     public CompletableFuture<Void> reload(SharedState sharedState, Executor executor, PreparationBarrier preparationBarrier, Executor executor2) {
-        HolderLookup.Provider provider = sharedState.get(ResourceLoader.RELOADER_REGISTRY_LOOKUP_KEY);
+        HolderLookup.Provider provider = sharedState.get(ResourceLoader.REGISTRY_LOOKUP_KEY);
         return factory.apply(provider).reload(sharedState, executor, preparationBarrier, executor2);
     }
 }
