@@ -5,7 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
@@ -64,7 +64,7 @@ public final class PlatformEventsFabric extends PlatformEvents {
     }
 
     public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
-        ResourceLoader.get(PackType.SERVER_DATA).registerReloader(
+        ResourceLoader.get(PackType.SERVER_DATA).registerReloadListener(
                 Objects.requireNonNull(id, "id cannot be null."),
                 new RegistryResourceReloadListener(factory)
         );
@@ -78,7 +78,7 @@ public final class PlatformEventsFabric extends PlatformEvents {
 
     @Environment(EnvType.CLIENT)
     public void registerKeyMapping(KeyMapping keyMapping) {
-        KeyBindingHelper.registerKeyBinding(keyMapping);
+        KeyMappingHelper.registerKeyMapping(keyMapping);
     }
 
     @Environment(EnvType.CLIENT)
