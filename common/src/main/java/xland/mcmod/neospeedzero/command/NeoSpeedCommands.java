@@ -70,7 +70,7 @@ public final class NeoSpeedCommands {
                     .then(literal("view")
                             .executes(context -> {
                                 final ServerPlayer player = context.getSource().getPlayerOrException();
-                                final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
+                                final SpeedrunRecord record = NeoSpeedPlayer.of(player).getCurrentRecord();
                                 if (record == null) {
                                     context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                     return 0;
@@ -81,7 +81,7 @@ public final class NeoSpeedCommands {
                             .then(literal("raw")
                                     .executes(context -> {
                                         final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
+                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).getCurrentRecord();
                                         if (record == null) {
                                             context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                             return 0;
@@ -93,7 +93,7 @@ public final class NeoSpeedCommands {
                             .then(literal("dialog")
                                     .executes(context -> {
                                         final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
+                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).getCurrentRecord();
                                         if (record == null) {
                                             context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                             return 0;
@@ -125,7 +125,7 @@ public final class NeoSpeedCommands {
                             .then(literal("record")
                                     .then(argument("reference", StringArgumentType.word())
                                             .suggests((context, builder) -> {
-                                                NeoSpeedServer.of(context.getSource().getServer()).ns0$recordManager().getAllRecordIds().forEach(uuid -> {
+                                                NeoSpeedServer.getRecordManager(context.getSource().getServer()).getAllRecordIds().forEach(uuid -> {
                                                     // Due to performance concerns, detailed tooltips won't be suggested so far
                                                     builder.suggest(uuid.toString());
                                                 });

@@ -23,7 +23,8 @@ import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
-import xland.mcmod.neospeedzero.mixin.EnchantmentsPredicateAccessor;
+import xland.mcmod.neospeedzero.util.access.EnchantmentPredicateListProvider;
+import xland.mcmod.neospeedzero.util.access.PlatformAccess;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -128,7 +129,8 @@ final class ExtraRequirements {
 
     private static void readEnchantments(@Nullable DataComponentPredicate componentPredicate,
                                          Consumer<Component> loreAdder) {
-        if (componentPredicate instanceof EnchantmentsPredicateAccessor enchantmentsPredicate) {
+        if (componentPredicate instanceof EnchantmentsPredicate predicate) {
+            EnchantmentPredicateListProvider enchantmentsPredicate = PlatformAccess.wrap(predicate);
             enchantmentsPredicate.ns0$getEnchantments().forEach(enchantmentPredicate -> {
                 Optional<HolderSet<Enchantment>> enchantments = enchantmentPredicate.enchantments();
                 MinMaxBounds.Ints levels = enchantmentPredicate.level();

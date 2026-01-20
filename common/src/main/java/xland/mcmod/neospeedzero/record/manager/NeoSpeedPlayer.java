@@ -6,29 +6,31 @@ import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
 @ApiStatus.NonExtendable
+@ApiStatus.Obsolete
+@FunctionalInterface
 public interface NeoSpeedPlayer {
     @Nullable
     //@Deprecated
-    default SpeedrunRecord ns0$currentRecord() {
-        SpeedrunRecordHolder holder = ns0$serverRecordManager().findRecordByPlayer(self());
+    default SpeedrunRecord getCurrentRecord() {
+        SpeedrunRecordHolder holder = getServerRecordManager().findRecordByPlayer(ns0$self());
         return holder == null ? null : holder.record();
     }
 
-    default long ns0$time() {
+    default long getTime() {
         //noinspection resource
-        return self().level().getServer().overworld().getGameTime();
+        return ns0$self().level().getServer().overworld().getGameTime();
     }
 
-    default RecordManager ns0$serverRecordManager() {
+    default RecordManager getServerRecordManager() {
         //noinspection resource
-        return NeoSpeedServer.of(self().level().getServer()).ns0$recordManager();
+        return NeoSpeedServer.getRecordManager(ns0$self().level().getServer());
     }
 
     static NeoSpeedPlayer of(ServerPlayer player) {
-        return (NeoSpeedPlayer) player;
+        return () -> player;
     }
 
-    private ServerPlayer self() {
-        return (ServerPlayer) this;
-    }
+    @ApiStatus.Internal
+    @ApiStatus.OverrideOnly
+    ServerPlayer ns0$self();
 }
