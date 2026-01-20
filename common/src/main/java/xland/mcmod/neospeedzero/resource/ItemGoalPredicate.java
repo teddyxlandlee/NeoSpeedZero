@@ -8,10 +8,11 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 
 import java.util.Optional;
@@ -59,19 +60,19 @@ final class ItemGoalPredicate extends GoalPredicate.OfItemPredicate {
                         subPredicate != null ? subPredicate.count() : MinMaxBounds.Ints.ANY,
                         subPredicate != null ? subPredicate.components() : DataComponentMatchers.ANY
                 );
-                ItemStack generatedIcon = theAnyApple();
-                ExtraRequirements.fillExtraRequirements(generatedIcon, items().unwrap().mapRight(HolderSet::direct), subPredicate);
+                ItemStackTemplate generatedIcon = theAnyApple();
+                generatedIcon = ExtraRequirements.fillExtraRequirements(generatedIcon, items().unwrap().mapRight(HolderSet::direct), subPredicate);
                 yield Stream.of(SpeedrunChallenge.of(Either.left(newPredicate), generatedIcon, this.icon()));
             }
             case ALL -> this.items().stream().map(itemHolder -> {
-                ItemStack generatedIcon = new ItemStack(itemHolder);
+                ItemStackTemplate generatedIcon = new ItemStackTemplate(itemHolder, 1, DataComponentPatch.EMPTY);
                 HolderSet.Direct<Item> holderSet = HolderSet.direct(itemHolder);
                 ItemPredicate newPredicate = new ItemPredicate(
                         Optional.of(holderSet),
                         subPredicate != null ? subPredicate.count() : MinMaxBounds.Ints.ANY,
                         subPredicate != null ? subPredicate.components() : DataComponentMatchers.ANY
                 );
-                ExtraRequirements.fillExtraRequirements(generatedIcon, null, subPredicate);
+                generatedIcon = ExtraRequirements.fillExtraRequirements(generatedIcon, null, subPredicate);
                 return SpeedrunChallenge.of(Either.left(newPredicate), generatedIcon, this.icon());
             });
         };

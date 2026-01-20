@@ -5,11 +5,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,10 +40,13 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
             return Optional.ofNullable(statedIcon);
         }
 
-        public static ItemStack theAnyApple() {
-            ItemStack stack = new ItemStack(Items.APPLE);
-            stack.set(DataComponents.ITEM_NAME, Component.translatable("item_predicate.neospeedzero.extra_req.items.any"));
-            return stack;
+        public static ItemStackTemplate theAnyApple() {
+            return new ItemStackTemplate(
+                    Items.APPLE,
+                    DataComponentPatch.builder()
+                            .set(DataComponents.ITEM_NAME, Component.translatable("item_predicate.neospeedzero.extra_req.items.any"))
+                            .build()
+            );
         }
 
         @Override
@@ -83,8 +87,8 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
                 StatedIcon.CODEC.optionalFieldOf("icon").forGetter(OfAdvancement::icon)
         ).apply(instance, OfAdvancement::new));
 
-        public static ItemStack generatedIcon() {
-            return Items.GRASS_BLOCK.getDefaultInstance();
+        public static ItemStackTemplate generatedIcon() {
+            return new ItemStackTemplate(Items.GRASS_BLOCK);
         }
 
         @Override

@@ -12,6 +12,7 @@ import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.dialog.NoticeDialog;
 import net.minecraft.server.dialog.body.DialogBody;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.apache.commons.lang3.mutable.MutableLong;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
@@ -127,7 +128,7 @@ public record SpeedrunRecord(
             final long time = timeMap[index++];
             ChatFormatting color = time >= 0 ? ChatFormatting.GREEN : ChatFormatting.RED;
             dialogBodies.add(DialogUtil.itemBody(
-                    icon,
+                    ItemStackTemplate.fromNonEmptyStack(icon),
                     Component.empty().append(icon.getHoverName()).withStyle(style -> {
                         style = style.withColor(color);
                         if (time >= 0) {

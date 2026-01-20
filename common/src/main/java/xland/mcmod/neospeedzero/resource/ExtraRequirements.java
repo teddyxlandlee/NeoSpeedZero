@@ -7,6 +7,7 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -14,9 +15,7 @@ import net.minecraft.core.component.predicates.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.JukeboxSong;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -33,11 +32,12 @@ import java.util.stream.Stream;
 
 @org.jspecify.annotations.NullMarked
 final class ExtraRequirements {
-    static void fillExtraRequirements(ItemStack stack,
-                                      @Nullable Either<TagKey<Item>, HolderSet<Item>> ofAny,
-                                      @Nullable ItemPredicate predicate
+    static ItemStackTemplate fillExtraRequirements(ItemStackTemplate template,
+                                                   @Nullable Either<TagKey<Item>, HolderSet<Item>> ofAny,
+                                                   @Nullable ItemPredicate predicate
     ) {
         List<Component> appendedLores = new ArrayList<>();
+        ItemStack instance = template.create();
 
         if (predicate != null) {
             // Count
@@ -46,14 +46,13 @@ final class ExtraRequirements {
                 appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.count", formatIntRange(count)));
 
             // Component
-
-            DataComponentPatch componentChanges = predicate.components().exact().asPatch();
-            Map<DataComponentPredicate.Type<?>, DataComponentPredicate> partial = predicate.components().partial();
-            stack.applyComponents(componentChanges);
+            final DataComponentPatch componentChanges = predicate.components().exact().asPatch();
+            final Map<DataComponentPredicate.Type<?>, DataComponentPredicate> partial = predicate.components().partial();
+            instance.applyComponents(componentChanges);
 
             // Damage - [E,P]minecraft:damage
-            stack.remove(DataComponents.DAMAGE);
-            componentFromChanges(componentChanges, DataComponents.DAMAGE).ifPresentOrElse(damage -> {
+            instance.remove(DataComponents.DAMAGE);
+            componentFromChanges(instance, DataComponents.DAMAGE).ifPresentOrElse(damage -> {
                 // Exact damage predicate
                 appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.damage", formatNumber(damage, damage)));
             }, () -> {
@@ -71,7 +70,7 @@ final class ExtraRequirements {
             // Bundle Contents - [P]minecraft:bundle_contents
             // [E]minecraft:bundle_contents will be handled by ItemStack.components
             if (partial.get(DataComponentPredicates.BUNDLE_CONTENTS) instanceof BundlePredicate(
-                    Optional<CollectionPredicate<ItemStack, ItemPredicate>> items
+                    Optional<CollectionPredicate<ItemInstance, ItemPredicate>> items
             ) && items.isPresent()) {
                 // Too complicated
                 // Similar for [P]minecraft:container
@@ -79,7 +78,7 @@ final class ExtraRequirements {
             }
 
             // Custom Data - [E,P]minecraft:custom_data
-            if (partial.containsKey(DataComponentPredicates.CUSTOM_DATA) || componentFromChanges(componentChanges, DataComponents.CUSTOM_DATA).isPresent()) {
+            if (partial.containsKey(DataComponentPredicates.CUSTOM_DATA) || componentFromChanges(instance, DataComponents.CUSTOM_DATA).isPresent()) {
                 appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.custom_data"));
             }
 
@@ -117,13 +116,14 @@ final class ExtraRequirements {
         }
 
         if (!appendedLores.isEmpty()) {
-            List<Component> lines = Optional.ofNullable(stack.get(DataComponents.LORE))
+            List<Component> lines = Optional.ofNullable(instance.get(DataComponents.LORE))
                     .map(ItemLore::lines)
                     .orElse(Collections.emptyList());
             lines = new ArrayList<>(lines);
             lines.addAll(appendedLores);
-            stack.set(DataComponents.LORE, new ItemLore(lines));
+            instance.set(DataComponents.LORE, new ItemLore(lines));
         }
+        return ItemStackTemplate.fromNonEmptyStack(instance);
     }
 
     private static void readEnchantments(@Nullable DataComponentPredicate componentPredicate,
@@ -163,11 +163,8 @@ final class ExtraRequirements {
         return Component.translatable("item_predicate.neospeedzero.extra_req.count.between", min, max);
     }
 
-    @SuppressWarnings("OptionalAssignedToNull") // This is what Stupid Mojang does
-    private static <T> Optional<? extends T> componentFromChanges(DataComponentPatch changes, DataComponentType<? extends T> componentType) {
-        Optional<? extends T> t = changes.get(componentType);
-        if (t == null /*sic*/) return Optional.empty();
-        return t;
+    private static <T> Optional<? extends T> componentFromChanges(DataComponentGetter changes, DataComponentType<? extends T> componentType) {
+        return Optional.ofNullable(changes.get(componentType));
     }
 
     private static <T> Stream<String> formatHomogenousSet(Either<TagKey<T>, HolderSet<T>> unwrapped) {

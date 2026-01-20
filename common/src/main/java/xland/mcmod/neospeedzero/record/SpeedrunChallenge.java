@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.resource.StatedIcon;
 
@@ -23,17 +24,17 @@ public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> 
         ItemStack.CODEC.fieldOf("icon").forGetter(SpeedrunChallenge::icon)
     ).apply(instance, SpeedrunChallenge::new));
 
-    public static SpeedrunChallenge of(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStack generatedIcon, @Nullable StatedIcon statedIcon) {
-        if (statedIcon == null) return new SpeedrunChallenge(challenge, generatedIcon);
+    public static SpeedrunChallenge of(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStackTemplate generatedIcon, @Nullable StatedIcon statedIcon) {
+        if (statedIcon == null) return new SpeedrunChallenge(challenge, generatedIcon.create());
 
-        ItemStack statedIconStack = statedIcon.icon().copy();
-        statedIcon.iconState().accept(statedIconStack, generatedIcon);
+        ItemStackTemplate statedTemplate = statedIcon.icon();
+        ItemStack statedIconState = statedIcon.iconState().apply(statedTemplate, generatedIcon);
 
-        return new SpeedrunChallenge(challenge, statedIconStack);
+        return new SpeedrunChallenge(challenge, statedIconState);
     }
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public static SpeedrunChallenge of(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStack generatedIcon, Optional<StatedIcon> statedIcon) {
+    public static SpeedrunChallenge of(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStackTemplate generatedIcon, Optional<StatedIcon> statedIcon) {
         return of(challenge, generatedIcon, statedIcon.orElse(null));
     }
 

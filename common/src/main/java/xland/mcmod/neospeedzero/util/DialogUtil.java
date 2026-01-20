@@ -13,13 +13,14 @@ import net.minecraft.server.dialog.body.ItemBody;
 import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.dialog.input.SingleOptionInput;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public final class DialogUtil {
-    public static ItemBody itemBody(ItemStack icon, Component description) {
+    public static ItemBody itemBody(ItemStackTemplate icon, Component description) {
         PlainMessage plainMessage = new PlainMessage(description, PlainMessage.DEFAULT_WIDTH);
         return new ItemBody(icon, Optional.of(plainMessage), true, true, 16, 16);
     }

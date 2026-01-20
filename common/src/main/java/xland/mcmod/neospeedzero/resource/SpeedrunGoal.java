@@ -12,6 +12,7 @@ import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.DialogBody;
 import net.minecraft.server.dialog.input.SingleOptionInput;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
@@ -21,9 +22,9 @@ import xland.mcmod.neospeedzero.util.DialogUtil;
 
 import java.util.*;
 
-public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate> predicates) {
+public record SpeedrunGoal(ItemStackTemplate icon, Component display, List<GoalPredicate> predicates) {
     public static final Codec<SpeedrunGoal> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ItemStack.CODEC.fieldOf("icon").forGetter(SpeedrunGoal::icon),
+            ItemStackTemplate.CODEC.fieldOf("icon").forGetter(SpeedrunGoal::icon),
             ComponentSerialization.CODEC.fieldOf("display").forGetter(SpeedrunGoal::display),
             GoalPredicate.CODEC.listOf().fieldOf("predicates").forGetter(SpeedrunGoal::predicates)
     ).apply(instance, SpeedrunGoal::new));
@@ -58,7 +59,7 @@ public record SpeedrunGoal(ItemStack icon, Component display, List<GoalPredicate
 
         @Override
         public ItemStack icon() {
-            return goal().icon();
+            return goal().icon().create();
         }
 
         public static Dialog toDialog() {

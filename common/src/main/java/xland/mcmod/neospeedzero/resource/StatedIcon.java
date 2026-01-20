@@ -5,34 +5,45 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
-public record StatedIcon(IconState iconState, ItemStack icon) {
+public record StatedIcon(IconState iconState, ItemStackTemplate icon) {
     public static final Codec<StatedIcon> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             IconState.CODEC.lenientOptionalFieldOf("replace", IconState.COVERS_GEN).forGetter(StatedIcon::iconState),
-            ItemStack.MAP_CODEC.forGetter(StatedIcon::icon)
+            ItemStackTemplate.MAP_CODEC.forGetter(StatedIcon::icon)
     ).apply(instance, StatedIcon::new));
 
-    public enum IconState implements BiConsumer<ItemStack, ItemStack>, StringRepresentable {
-        ICON("icon", (_, _) -> {}),
+    public enum IconState implements BiFunction<ItemStackTemplate, ItemStackTemplate, ItemStack>, StringRepresentable {
+        ICON("icon"),
         // icon first
-        COVERS_GEN("covers_gen", (icon, gen) -> icon.applyComponents(DataComponentMap.composite(/*alternative=*/gen.getComponents(), /*primary=*/icon.getComponents()))),
+        COVERS_GEN("covers_gen") {
+            @Override
+            public ItemStack apply(ItemStackTemplate icon, ItemStackTemplate gen) {
+                return icon.apply(gen.components());
+            }
+        },
         // generated first
-        COVERS_ICON("covers_icon", (icon, gen) -> icon.applyComponents(DataComponentMap.composite(/*alternative=*/icon.getComponents(), /*primary=*/gen.getComponents()))),
+        COVERS_ICON("covers_icon") {
+            @Override
+            public ItemStack apply(ItemStackTemplate icon, ItemStackTemplate gen) {
+                ItemStackTemplate template = new ItemStackTemplate(icon.item(), icon.count(), gen.components());
+                return template.apply(icon.components());
+            }
+        },
         ;
         private final String id;
-        private final BiConsumer<ItemStack, ItemStack> wrappedConsumer;
 
-        IconState(String id, BiConsumer<ItemStack, ItemStack> wrappedConsumer) {
+        IconState(String id) {
             this.id = id;
-            this.wrappedConsumer = wrappedConsumer;
         }
 
         @Override
-        public void accept(ItemStack icon, ItemStack gen) {
-            wrappedConsumer.accept(icon, gen);
+        public ItemStack apply(ItemStackTemplate icon, ItemStackTemplate gen) {
+            return icon.create();
         }
 
         @Override
