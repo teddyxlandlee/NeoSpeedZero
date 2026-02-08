@@ -1,12 +1,3 @@
-import hashlib
-import os
-import json
-import requests
-import subprocess
-import argparse
-from collections import defaultdict
-import shutil
-
 from generate_pack import *
 
 def setup_directories():
@@ -21,6 +12,10 @@ def compare_items(version1, data1, version2, data2):
         "removed": {},    # 删除物品: {id: 翻译键}
         "modified": {}    # 修改物品: {id: (旧翻译键, 新翻译键)}
     }
+    if not isinstance(data1, dict):
+        data1 = dict(data1)
+    if not isinstance(data2, dict):
+        data2 = dict(data2)
     
     # 检测新增和修改
     for item_id, trans_key2 in data2.items():
@@ -34,7 +29,7 @@ def compare_items(version1, data1, version2, data2):
         if item_id not in data2:
             results["removed"][item_id] = trans_key1
 
-    if (results['added'] or results['removed'] or results['modified']):
+    if results['added'] or results['removed'] or results['modified']:
         results['translations'] = {
             'old': load_chinese_translations(version1),
             'new': load_chinese_translations(version2)
@@ -54,22 +49,22 @@ def print_comparison(results, version1, version2, output):
     # 输出新增物品
     if results["added"]:
         print(f"\n🟢 新增物品 ({len(results['added'])}):", file=output)
-        for id, key in results["added"].items():
-            print(f"  - {id}: {key} ({results['translations']['new'].get(key)})", file=output)
+        for _id, key in results["added"].items():
+            print(f"  - {_id}: {key} ({results['translations']['new'].get(key)})", file=output)
     
     # 输出删除物品
     if results["removed"]:
         print(f"\n🔴 删除物品 ({len(results['removed'])}):", file=output)
-        for id, key in results["removed"].items():
-            print(f"  - {id}: {key} ({results['translations']['old'].get(key)})", file=output)
+        for _id, key in results["removed"].items():
+            print(f"  - {_id}: {key} ({results['translations']['old'].get(key)})", file=output)
     
     # 输出修改物品
     if results["modified"]:
         print(f"\n🟡 修改翻译键 ({len(results['modified'])}):", file=output)
-        for id, (old_key, new_key) in results["modified"].items():
-            print(f"  - {id}:")
-            print(f"     旧: {old_key} ({results['translations']['old'].get(key)})", file=output)
-            print(f"     新: {new_key} ({results['translations']['new'].get(key)})", file=output)
+        for _id, (old_key, new_key) in results["modified"].items():
+            print(f"  - {_id}:")
+            print(f"     旧: {old_key} ({results['translations']['old'].get(old_key)})", file=output)
+            print(f"     新: {new_key} ({results['translations']['new'].get(new_key)})", file=output)
     
     # 统计总结
     total_changes = sum(len(v) for v in (results['added'], results['removed'], results['modified']))
@@ -87,14 +82,12 @@ def main():
         
         # 处理版本1
         jar1 = download_server_jar(args.version1)
-        report1_path = generate_item_report(args.version1, jar1)
-        data1 = load_item_data(report1_path)
-        
+        data1 = generate_item_report(args.version1, jar1)
+
         # 处理版本2
         jar2 = download_server_jar(args.version2)
-        report2_path = generate_item_report(args.version2, jar2)
-        data2 = load_item_data(report2_path)
-        
+        data2 = generate_item_report(args.version2, jar2)
+
         # 比较并输出结果
         results = compare_items(args.version1, data1, args.version2, data2)
         print_comparison(results, args.version1, args.version2, args.output)

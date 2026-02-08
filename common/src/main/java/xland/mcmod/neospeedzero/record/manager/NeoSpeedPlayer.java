@@ -1,36 +1,55 @@
 package xland.mcmod.neospeedzero.record.manager;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
 @ApiStatus.NonExtendable
-@ApiStatus.Obsolete
-@FunctionalInterface
 public interface NeoSpeedPlayer {
-    @Nullable
-    //@Deprecated
-    default SpeedrunRecord getCurrentRecord() {
-        SpeedrunRecordHolder holder = getServerRecordManager().findRecordByPlayer(ns0$self());
+    static @Nullable SpeedrunRecord getCurrentRecord(ServerPlayer player) {
+        SpeedrunRecordHolder holder = getServerRecordManager(player).findRecordByPlayer(player);
         return holder == null ? null : holder.record();
     }
 
+    static RecordManager getServerRecordManager(ServerPlayer player) {
+        return NeoSpeedServer.getRecordManager(getServer(player));
+    }
+
+    static long getTime(ServerPlayer player) {
+        //noinspection resource
+        return getServer(player).overworld().getGameTime();
+    }
+
+    @Nullable
+    @Deprecated
+    default SpeedrunRecord getCurrentRecord() {
+        return getCurrentRecord(ns0$self());
+    }
+
+    @Deprecated
     default long getTime() {
-        //noinspection resource
-        return ns0$self().level().getServer().overworld().getGameTime();
+        return getTime(ns0$self());
     }
 
+    @Deprecated
     default RecordManager getServerRecordManager() {
-        //noinspection resource
-        return NeoSpeedServer.getRecordManager(ns0$self().level().getServer());
+        return getServerRecordManager(ns0$self());
     }
 
+    @Deprecated
     static NeoSpeedPlayer of(ServerPlayer player) {
         return () -> player;
     }
 
     @ApiStatus.Internal
     @ApiStatus.OverrideOnly
+    @Deprecated
     ServerPlayer ns0$self();
+
+    @SuppressWarnings("resource")
+    static MinecraftServer getServer(ServerPlayer player) {
+        return player.level().getServer();
+    }
 }

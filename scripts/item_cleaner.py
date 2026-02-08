@@ -1,6 +1,4 @@
-import csv
 import pandas as pd
-from collections import defaultdict
 
 def generate_avoid_list(original_csv, modified_csv, output_csv):
     """生成避坑列表：对比两个CSV的差异"""
@@ -79,7 +77,8 @@ def auto_remove_pitfalls(original_csv, avoid_csv, output_csv):
                 'id': item_id,
                 'reason': '原始CSV中不存在此ID'
             })
-    
+
+    cleaned_rows.sort(key=lambda x: x['id'])
     # 保存清理结果
     pd.DataFrame(cleaned_rows).to_csv(output_csv, index=False)
     
@@ -87,6 +86,7 @@ def auto_remove_pitfalls(original_csv, avoid_csv, output_csv):
     print("\n=== 清理结果报告 ===")
     if success_removed:
         print(f"✅ 成功避坑项 ({len(success_removed)}个):")
+        success_removed.sort(key=lambda x: x['id'])
         for item in success_removed:
             print(f"   - {item['id']} ({item['name']}) 风险类型: {item['risk_type']}")
     else:
@@ -94,6 +94,7 @@ def auto_remove_pitfalls(original_csv, avoid_csv, output_csv):
     
     if unmatched:
         print(f"❌ 未匹配项 ({len(unmatched)}个):")
+        unmatched.sort(key=lambda x: x['id'])
         for item in unmatched:
             print(f"   - {item['id']}: {item['reason']}")
     
