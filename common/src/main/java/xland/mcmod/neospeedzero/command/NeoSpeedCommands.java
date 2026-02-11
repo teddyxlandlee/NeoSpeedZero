@@ -25,10 +25,9 @@ import static net.minecraft.commands.Commands.*;
 
 public final class NeoSpeedCommands {
     public static void register() {
-        //CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
-        PlatformEvents.getInstance().registerCommand(dispatcher -> {
+        PlatformEvents.getInstance().registerCommand(() -> {
             // Register commands here...
-            dispatcher.register(literal("neospeed")
+            return literal("neospeed")
                     .then(literal("start")
                             .then(argument("goal", IdentifierArgument.id())
                                     .suggests((_, builder) ->
@@ -146,8 +145,7 @@ public final class NeoSpeedCommands {
                                 NeoSpeedLifecycle.quitSpeedrun(context.getSource().getPlayerOrException()).ifPresent(sendFailure(context));
                                 return Command.SINGLE_SUCCESS;
                             })
-                    )
-            );
+                    );
         });
     }
 

@@ -32,6 +32,10 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
 
     @Override
     protected void apply(Map<Identifier, SpeedrunGoal> map, ResourceManager resourceManager, ProfilerFiller profiler) {
+        this.applyMap(map);
+    }
+
+    public void applyMap(Map<Identifier, SpeedrunGoal> map) {
         final ImmutableMap.Builder<Identifier, SpeedrunGoal.Holder> builder = ImmutableMap.builder();
         map.forEach((id, goal) -> builder.put(id, new SpeedrunGoal.Holder(id, goal)));
         SpeedrunGoal.Holder.setHolders(builder.buildOrThrow());

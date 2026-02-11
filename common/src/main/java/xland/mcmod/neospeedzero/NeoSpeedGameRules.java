@@ -1,20 +1,22 @@
 package xland.mcmod.neospeedzero;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
-import java.util.function.Supplier;
+import java.util.function.Predicate;
 
 public final class NeoSpeedGameRules {
-
-    public static final Supplier<GameRule<@NotNull Boolean>> ANNOUNCE_SPEEDRUNS;
+    private static final Predicate<? super MinecraftServer> PRE_announceSpeedruns;
 
     static {
-        ANNOUNCE_SPEEDRUNS = PlatformEvents.getInstance().registerBooleanGameRule("announce_speedruns", GameRuleCategory.CHAT, true);
+        PRE_announceSpeedruns = PlatformEvents.getInstance().registerBooleanGameRule("announce_speedruns", GameRuleCategory.CHAT, true);
+    }
+
+    public static boolean announcesSpeedruns(MinecraftServer server) {
+        return PRE_announceSpeedruns.test(server);
     }
 
     public static final Logger LOGGER = LogUtils.getLogger();

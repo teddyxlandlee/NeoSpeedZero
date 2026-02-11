@@ -23,7 +23,7 @@ public final class NeoSpeedMessages {
     private static void announce(ServerPlayer serverPlayer, Component component) {
         @SuppressWarnings("resource")
         final MinecraftServer server = serverPlayer.level().getServer();
-        final boolean announceSpeedruns = server.getGameRules().get(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS.get());
+        final boolean announceSpeedruns = NeoSpeedGameRules.announcesSpeedruns(server);
 
         if (announceSpeedruns) {
             server.getPlayerList().broadcastSystemMessage(component, false);
@@ -69,7 +69,7 @@ public final class NeoSpeedMessages {
 
         @SuppressWarnings("resource")
         final MinecraftServer server = serverPlayer.level().getServer();
-        final boolean announceSpeedruns = server.getGameRules().get(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS.get());
+        final boolean announceSpeedruns = NeoSpeedGameRules.announcesSpeedruns(server);
 
         final Component component = Component.translatable(
                 "message.neospeedzero.challenge.complete",
@@ -92,7 +92,7 @@ public final class NeoSpeedMessages {
     static void announceRecordComplete(ServerPlayer serverPlayer, SpeedrunRecord record, long currentTime) {
         @SuppressWarnings("resource")
         final MinecraftServer server = serverPlayer.level().getServer();
-        final boolean announceSpeedruns = server.getGameRules().get(NeoSpeedGameRules.ANNOUNCE_SPEEDRUNS.get());
+        final boolean announceSpeedruns = NeoSpeedGameRules.announcesSpeedruns(server);
 
         final Component component = Component.translatable(
                 "message.neospeedzero.record.complete",

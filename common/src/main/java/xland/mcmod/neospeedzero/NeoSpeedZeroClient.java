@@ -1,5 +1,6 @@
 package xland.mcmod.neospeedzero;
 
+import com.google.common.base.Suppliers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.KeyMapping;
@@ -21,7 +22,7 @@ public final class NeoSpeedZeroClient {
 
     public static void initClient() {
         // Key
-        PlatformEvents.getInstance().registerKeyMapping(KEY_VIEW);
+        PlatformEvents.getInstance().registerKeyMapping(Suppliers.ofInstance(KEY_VIEW));
         PlatformEvents.getInstance().postClientTick(() -> {
             if (KEY_VIEW.consumeClick()) {
                 PlatformNetwork.getInstance().sendToServer(ViewPackets.Request.INSTANCE);

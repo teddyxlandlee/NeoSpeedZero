@@ -1,7 +1,6 @@
 package xland.mcmod.neospeedzero.fabric.event;
 
-import com.google.common.base.Suppliers;
-import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -18,9 +17,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
-import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.event.Event;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
@@ -28,6 +25,7 @@ import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public final class PlatformEventsFabric extends PlatformEvents {
@@ -55,11 +53,11 @@ public final class PlatformEventsFabric extends PlatformEvents {
         EVENT_PRE_PLAYER_TICK.register(callback);
     }
 
-    public void registerCommand(Consumer<CommandDispatcher<CommandSourceStack>> callback) {
-        Objects.requireNonNull(callback, "callback cannot be null.");
+    public void registerCommand(Supplier<LiteralArgumentBuilder<CommandSourceStack>> nodeBuilder) {
+        Objects.requireNonNull(nodeBuilder, "nodeBuilder cannot be null.");
         CommandRegistrationCallback.EVENT.register((commandDispatcher, _, _) -> {
             // In NeoSpeedZero, we only need the dispatcher
-            callback.accept(commandDispatcher);
+            commandDispatcher.register(nodeBuilder.get());
         });
     }
 
@@ -71,14 +69,14 @@ public final class PlatformEventsFabric extends PlatformEvents {
     }
 
     @Override
-    public Supplier<GameRule<@NotNull Boolean>> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
+    public Predicate<? super MinecraftServer> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
         var gameRule = GameRuleBuilder.forBoolean(defaultValue).category(category).buildAndRegister(Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, id));
-        return Suppliers.ofInstance(gameRule);
+        return server -> server.getGameRules().get(gameRule);
     }
 
     @Environment(EnvType.CLIENT)
-    public void registerKeyMapping(KeyMapping keyMapping) {
-        KeyMappingHelper.registerKeyMapping(keyMapping);
+    public void registerKeyMapping(Supplier<KeyMapping> keyMapping) {
+        KeyMappingHelper.registerKeyMapping(keyMapping.get());
     }
 
     @Environment(EnvType.CLIENT)
