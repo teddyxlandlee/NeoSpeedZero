@@ -34,7 +34,7 @@ public interface ViewPackets {
         PlatformNetwork.getInstance().registerC2S(
                 new CustomPacketPayload.TypeAndCodec<>(TYPE_C2S_REQUEST, Request.STREAM_CODEC),
                 serverPlayer -> {
-                    SpeedrunRecord record = NeoSpeedPlayer.of(serverPlayer).ns0$currentRecord();
+                    SpeedrunRecord record = NeoSpeedPlayer.getCurrentRecord(serverPlayer);
                     if (record != null) {
                         NeoSpeedLifecycle.viewRecord(serverPlayer, record);
                     } else {

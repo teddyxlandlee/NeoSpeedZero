@@ -13,7 +13,7 @@ import net.minecraft.world.item.component.ItemLore;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
-import xland.mcmod.neospeedzero.mixin.CustomDataAccessor;
+import xland.mcmod.neospeedzero.util.access.PlatformAccess;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -66,7 +66,7 @@ public interface ItemExtensions {
         if (customData == null) return true;    // Not marked
 
         // we just read, not write
-        CompoundTag rawTag = cast(customData).ns0$getUnsafe();
+        CompoundTag rawTag = PlatformAccess.wrap(customData).ns0$getUnsafe();
         Optional<int[]> intArray = rawTag.getIntArray(TAG_MOD_GIVEN);
         return intArray.map(
                         // If marked, then a record must be present and matched.
@@ -79,7 +79,7 @@ public interface ItemExtensions {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData == null) return false;
 
-        return cast(customData).ns0$getUnsafe().contains(TAG_MOD_GIVEN);
+        return PlatformAccess.wrap(customData).ns0$getUnsafe().contains(TAG_MOD_GIVEN);
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -89,7 +89,7 @@ public interface ItemExtensions {
         if (customData == null) return false;
 
         // we just read, not write
-        CompoundTag rawTag = cast(customData).ns0$getUnsafe();
+        CompoundTag rawTag = PlatformAccess.wrap(customData).ns0$getUnsafe();
         return rawTag.getBooleanOr(TAG_INFINITE_FIREWORK, false);
     }
 
@@ -97,9 +97,5 @@ public interface ItemExtensions {
         if (!player.addItem(stack)) {
             player.drop(stack, true);
         }
-    }
-
-    private static CustomDataAccessor cast(CustomData value) {
-        return (CustomDataAccessor) (Object) value;
     }
 }

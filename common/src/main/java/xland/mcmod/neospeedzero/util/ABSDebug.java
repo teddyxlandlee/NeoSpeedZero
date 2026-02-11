@@ -13,7 +13,7 @@ public final class ABSDebug {
     private static final int DEBUG = Integer.getInteger("ns0.debug", 0);
 
     public static boolean enabled(int x) {
-        return ((1 << x) & DEBUG) != 0;
+        return DEBUG != 0 && ((1 << x) & DEBUG) != 0;
     }
 
     public static void debug(int x, Consumer<Logger> log) {

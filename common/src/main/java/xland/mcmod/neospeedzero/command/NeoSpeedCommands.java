@@ -25,10 +25,9 @@ import static net.minecraft.commands.Commands.*;
 
 public final class NeoSpeedCommands {
     public static void register() {
-        //CommandRegistrationEvent.EVENT.register((dispatcher, registry, selection) -> {
-        PlatformEvents.getInstance().registerCommand(dispatcher -> {
+        PlatformEvents.getInstance().registerCommand(() -> {
             // Register commands here...
-            dispatcher.register(literal("neospeed")
+            return literal("neospeed")
                     .then(literal("start")
                             .then(argument("goal", IdentifierArgument.id())
                                     .suggests((_, builder) ->
@@ -70,7 +69,7 @@ public final class NeoSpeedCommands {
                     .then(literal("view")
                             .executes(context -> {
                                 final ServerPlayer player = context.getSource().getPlayerOrException();
-                                final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
+                                final SpeedrunRecord record = NeoSpeedPlayer.getCurrentRecord(player);
                                 if (record == null) {
                                     context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                     return 0;
@@ -81,7 +80,7 @@ public final class NeoSpeedCommands {
                             .then(literal("raw")
                                     .executes(context -> {
                                         final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
+                                        final SpeedrunRecord record = NeoSpeedPlayer.getCurrentRecord(player);
                                         if (record == null) {
                                             context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                             return 0;
@@ -93,7 +92,7 @@ public final class NeoSpeedCommands {
                             .then(literal("dialog")
                                     .executes(context -> {
                                         final ServerPlayer player = context.getSource().getPlayerOrException();
-                                        final SpeedrunRecord record = NeoSpeedPlayer.of(player).ns0$currentRecord();
+                                        final SpeedrunRecord record = NeoSpeedPlayer.getCurrentRecord(player);
                                         if (record == null) {
                                             context.getSource().sendFailure(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
                                             return 0;
@@ -125,7 +124,7 @@ public final class NeoSpeedCommands {
                             .then(literal("record")
                                     .then(argument("reference", StringArgumentType.word())
                                             .suggests((context, builder) -> {
-                                                NeoSpeedServer.of(context.getSource().getServer()).ns0$recordManager().getAllRecordIds().forEach(uuid -> {
+                                                NeoSpeedServer.getRecordManager(context.getSource().getServer()).getAllRecordIds().forEach(uuid -> {
                                                     // Due to performance concerns, detailed tooltips won't be suggested so far
                                                     builder.suggest(uuid.toString());
                                                 });
@@ -146,8 +145,7 @@ public final class NeoSpeedCommands {
                                 NeoSpeedLifecycle.quitSpeedrun(context.getSource().getPlayerOrException()).ifPresent(sendFailure(context));
                                 return Command.SINGLE_SUCCESS;
                             })
-                    )
-            );
+                    );
         });
     }
 

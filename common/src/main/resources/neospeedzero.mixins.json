@@ -10,7 +10,6 @@
     "EnchantmentsPredicateAccessor",
     "FireworkRocketItemMixin",
     "InventoryChangeTriggerMixin",
-    "LevelResourceAccessor",
     "MinecraftServerMixin",
     "PlayerAdvancementsAccessor",
     "PlayerAdvancementsMixin",

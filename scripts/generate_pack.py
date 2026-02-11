@@ -81,11 +81,13 @@ def download_server_jar(version):
 
     return jar_path
 
+
 def generate_item_report(version, jar_path):
     """生成物品报告"""
-    report_dir = os.path.join(REPORTS_DIR, version)
-    mkdir_dummy(report_dir)
-    report_path = os.path.join(report_dir, "reports", "items.json")
+    report_root_dir = os.path.join(REPORTS_DIR, version)
+    mkdir_dummy(report_root_dir)
+    report_file = os.path.join(report_root_dir, "reports", "items.json")
+    report_folder = os.path.join(report_root_dir, "reports", "minecraft", "components", "item")
 
     # 执行server.jar生成报告
     print(f"⏳ 生成 {version} 的物品报告...")
@@ -94,20 +96,43 @@ def generate_item_report(version, jar_path):
         "-DbundlerMainClass=net.minecraft.data.Main",
         "-jar", jar_path,
         "--reports",
-        "--output", report_dir
+        "--output", report_root_dir
     ]
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL)
-    print(f"✅ 报告已生成: {report_path}")
-    return report_path
 
-def load_item_data(report_path):
+    if os.path.exists(report_file):
+        print(f"✅ 报告已生成: {report_file}")
+        return _load_whole_file(report_file)
+    elif os.path.isdir(report_folder):
+        print(f"✅ 报告已生成: {report_folder}")
+        return _load_separate_files(report_folder)
+    else:
+        raise FileNotFoundError('未知的报告格式')
+
+
+def _get_translation(data: dict) -> str:
+    return data["components"]["minecraft:item_name"]["translate"]
+
+def _load_separate_files(report_folder):
+    sub_dirs = os.listdir(report_folder)
+    return (
+        (filename.removesuffix('.json'), _load_single_file(os.path.join(report_folder, filename)))
+        for filename in sub_dirs
+    )
+
+def _load_single_file(report_path):
+    with open(report_path, "r", encoding='utf8') as f:
+        data = json.load(f)
+    return _get_translation(data)
+
+def _load_whole_file(report_path):
     """解析物品报告"""
     with open(report_path, "r", encoding='utf8') as f:
         data = json.load(f)
-    return {
-        item_id.split(":")[1]: item_data["components"]["minecraft:item_name"]["translate"]
+    return (
+        (item_id.split(":")[1], _get_translation(item_data))
         for item_id, item_data in data.items()
-    }
+    )
 
 def load_chinese_translations(version):
     manifest_url = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
@@ -134,7 +159,7 @@ def generate_csv(version, output_csv):
     server_jar = download_server_jar(version)
 
     # 1. 调用server.jar生成物品报告
-    items_report_path = generate_item_report(version, server_jar)
+    items_report = generate_item_report(version, server_jar)
 
     # 2. 获取中文翻译文件
     print("⏳ 正在获取中文翻译文件...")
@@ -149,7 +174,7 @@ def generate_csv(version, output_csv):
     print("⏳ 正在处理物品数据生成CSV...")
     csv_data = []
 
-    for base_id, translate_key in load_item_data(items_report_path).items():
+    for base_id, translate_key in items_report:
         chinese_name = zh_cn_data.get(translate_key, '')
 
         if chinese_name:
@@ -222,6 +247,8 @@ def generate_datapack(input_csv, output_dir):
         safe_letter = ''.join(c for c in letter if c.isalnum())
         if not safe_letter:
             safe_letter = 'OTHER'
+
+        ids = sorted(ids)
 
         file_path = os.path.join(speedabc_dir, f"{safe_letter}.json")
         with open(file_path, 'w', encoding='utf-8') as f:

@@ -17,3 +17,4 @@ rootProject.name = "neospeedzero"
 include("common")
 include("fabric")
 include("neoforge")
+include("paper")

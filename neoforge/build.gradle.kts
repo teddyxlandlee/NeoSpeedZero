@@ -1,5 +1,5 @@
 plugins {
-    id("net.neoforged.moddev") version "2.0.138"
+    id("net.neoforged.moddev") version "2.0.140"
 }
 
 dependencies {
@@ -7,7 +7,10 @@ dependencies {
 }
 
 neoForge {
-    version = rootProject.ext["neoforge_version"].toString()
+    enable {
+        version = rootProject.ext["neoforge_version"].toString()
+        isDisableRecompilation = true
+    }
 }
 
 tasks.processResources {

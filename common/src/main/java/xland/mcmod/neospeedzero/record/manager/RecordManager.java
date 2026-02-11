@@ -16,7 +16,6 @@ import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.*;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
-import xland.mcmod.neospeedzero.mixin.LevelResourceAccessor;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.util.StreamIoUtil;
 
@@ -229,8 +228,8 @@ public class RecordManager {
 
 
     @ApiStatus.Internal
-    public void registerLegacyRecord(NeoSpeedPlayer player, SpeedrunRecord record) {
-        startHosting(record, (ServerPlayer) player);
+    public void registerLegacyRecord(ServerPlayer player, SpeedrunRecord record) {
+        startHosting(record, player);
     }
 
     public void loadFromServer() {
@@ -276,9 +275,7 @@ public class RecordManager {
         }
     }
     
-    private static final LevelResource LEVEL_RESOURCE = LevelResourceAccessor.ns0$create(NeoSpeedZero.MOD_ID);
-    
     private Path serverDir() {
-        return this.server.getWorldPath(LEVEL_RESOURCE);
+        return this.server.getWorldPath(LevelResource.ROOT).resolve(NeoSpeedZero.MOD_ID);
     }
 }
