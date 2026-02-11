@@ -35,7 +35,7 @@ public final class PaperEvents extends PlatformEvents {
 
     private static final ComponentLogger LOGGER = ComponentLogger.logger();
 
-    private static <T> Function<? super Iterable<? extends Consumer<T>>, ? extends Consumer<T>> consumerInvoker() {
+    private static <T> Function<Iterable<? extends Consumer<T>>, Consumer<T>> consumerInvoker() {
         return l -> t -> {
             for (var x: l) x.accept(t);
         };
@@ -73,11 +73,12 @@ public final class PaperEvents extends PlatformEvents {
             Event.of(Function.identity());
 
     @Override
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void registerCommand(Supplier<LiteralArgumentBuilder<CommandSourceStack>> nodeBuilder) {
         Validate.validState(io.papermc.paper.command.brigadier.CommandSourceStack.class.isAssignableFrom(CommandSourceStack.class));
-        @SuppressWarnings("unchecked")
-        Supplier<? extends LiteralArgumentBuilder<io.papermc.paper.command.brigadier.CommandSourceStack>> s = (Supplier<? extends LiteralArgumentBuilder<io.papermc.paper.command.brigadier.CommandSourceStack>>) nodeBuilder;
-        COMMANDS.register(s);
+        @SuppressWarnings("rawtypes")
+        Supplier s = nodeBuilder;
+        COMMANDS.register((Supplier<? extends LiteralArgumentBuilder<io.papermc.paper.command.brigadier.CommandSourceStack>>) s);
     }
 
     private static final AtomicReference<SpeedrunGoalManager> GOAL_MANAGER = new AtomicReference<>();

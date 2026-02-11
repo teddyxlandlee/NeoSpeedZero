@@ -9,7 +9,7 @@ dependencies {
 neoForge {
     enable {
         version = rootProject.ext["neoforge_version"].toString()
-        isDisableRecompilation = true
+        isDisableRecompilation = false
     }
 }
 
