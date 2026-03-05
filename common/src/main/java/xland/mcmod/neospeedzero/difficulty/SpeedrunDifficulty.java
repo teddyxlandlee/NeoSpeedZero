@@ -13,11 +13,14 @@ import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import java.util.Optional;
 
 public interface SpeedrunDifficulty {
-    Codec<SpeedrunDifficulty> CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.comapFlatMap(
+    Codec<@NotNull SpeedrunDifficulty> CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.flatXmap(
             id -> Optional.ofNullable(SpeedrunDifficulties.get(id))
                     .map(DataResult::success)
                     .orElseGet(() -> DataResult.error(() -> "SpeedrunDifficulty not found: " + id)),
-            SpeedrunDifficulty::id
+            speedrunDifficulty -> {
+                if (speedrunDifficulty == null) return DataResult.error(() -> "null difficulty, should not happen");
+                return DataResult.success(speedrunDifficulty.id());
+            }
     ));
 
     @NotNull Identifier id();

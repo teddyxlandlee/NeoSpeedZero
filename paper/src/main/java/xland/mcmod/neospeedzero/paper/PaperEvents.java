@@ -107,6 +107,8 @@ public final class PaperEvents extends PlatformEvents {
         PreparableReloadListener listener = factory.apply(registryAccess);
         if (listener instanceof SpeedrunGoalManager goalManager) {
             Object prev;
+            // Compared to compareAndSet(), getAndSet() rewrites the field when the check fails,
+            // which is what we want here - duplication just triggers an error-level warning.
             if ((prev = GOAL_MANAGER.getAndSet(goalManager)) != null) {
                 LOGGER.error("Duplicate SpeedrunGoalManager: {}", prev);
             }

@@ -2,13 +2,11 @@ package xland.mcmod.neospeedzero.resource;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 public record StatedIcon(IconState iconState, ItemStackTemplate icon) {

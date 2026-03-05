@@ -12,7 +12,6 @@ import net.minecraft.server.dialog.body.DialogBody;
 import net.minecraft.server.dialog.body.ItemBody;
 import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.dialog.input.SingleOptionInput;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.Collections;
