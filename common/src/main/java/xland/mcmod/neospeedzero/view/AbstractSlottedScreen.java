@@ -3,7 +3,7 @@ package xland.mcmod.neospeedzero.view;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.component.DataComponents;
@@ -40,14 +40,14 @@ abstract class AbstractSlottedScreen extends Screen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         final int leftPos = this.leftPos;
         final int topPos = this.topPos;
 
         guiGraphics.pose().pushMatrix();
         guiGraphics.pose().translate(leftPos, topPos);
-        guiGraphics.drawString(this.font, this.title, 8, 6, 0xff404040, false);
+        guiGraphics.text(this.font, this.title, 8, 6, 0xff404040, false);
         this.findHoveredSlot(mouseX, mouseY);
         renderSlotHighlightBack(guiGraphics);
         this.renderSlots(guiGraphics);
@@ -58,14 +58,14 @@ abstract class AbstractSlottedScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractBackground(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         this.renderExtraBackground(guiGraphics, mouseX, mouseY, partialTick);
     }
 
-    protected abstract void renderExtraBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
+    protected abstract void renderExtraBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick);
 
-    protected void renderSlots(GuiGraphics guiGraphics) {
+    protected void renderSlots(GuiGraphicsExtractor guiGraphics) {
         for (FakeSlot slot : this.slots) {
             slot.render(guiGraphics, getFont());
         }
@@ -100,21 +100,21 @@ abstract class AbstractSlottedScreen extends Screen {
         return slots.get(index);
     }
 
-    private void renderSlotHighlightBack(GuiGraphics guiGraphics) {
+    private void renderSlotHighlightBack(GuiGraphicsExtractor guiGraphics) {
         FakeSlot cachedHoveredSlot = this.getCachedHoveredSlot();
         if (cachedHoveredSlot != null) {
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_BACK_SPRITE, cachedHoveredSlot.x() - 4, cachedHoveredSlot.y() - 4, 24, 24);
         }
     }
 
-    private void renderSlotHighlightFront(GuiGraphics guiGraphics) {
+    private void renderSlotHighlightFront(GuiGraphicsExtractor guiGraphics) {
         FakeSlot cachedHoveredSlot = this.getCachedHoveredSlot();
         if (cachedHoveredSlot != null) {
             guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_FRONT_SPRITE, cachedHoveredSlot.x() - 4, cachedHoveredSlot.y() - 4, 24, 24);
         }
     }
 
-    protected void renderTooltip(GuiGraphics guiGraphics, int x, int y) {
+    protected void renderTooltip(GuiGraphicsExtractor guiGraphics, int x, int y) {
         FakeSlot cachedHoveredSlot = this.getCachedHoveredSlot();
         if (cachedHoveredSlot != null) {
             ItemStack itemStack = cachedHoveredSlot.getItemStack();
@@ -154,9 +154,9 @@ abstract class AbstractSlottedScreen extends Screen {
             this.itemStack = orEmpty(itemStack);
         }
 
-        public void render(GuiGraphics guiGraphics, Font font) {
-            guiGraphics.renderItem(getItemStack(), x(), y());
-            guiGraphics.renderItemDecorations(font, getItemStack(), x(), y());
+        public void render(GuiGraphicsExtractor guiGraphics, Font font) {
+            guiGraphics.item(getItemStack(), x(), y());
+            guiGraphics.itemDecorations(font, getItemStack(), x(), y());
         }
     }
 }

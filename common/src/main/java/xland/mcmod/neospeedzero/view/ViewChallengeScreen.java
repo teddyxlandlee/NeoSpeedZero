@@ -2,7 +2,7 @@ package xland.mcmod.neospeedzero.view;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -112,12 +112,12 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
     }
 
     @Override
-    protected void renderExtraBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    protected void renderExtraBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND, leftPos, topPos, 0F, 0F, imageWidth, imageHeight, 176, 166);
         // Coloring
         for (int i = 0; i < 63; i++) {
@@ -129,7 +129,7 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
         }
     }
 
-    private void blitSprite(GuiGraphics guiGraphics, Identifier sprite, int x, int y) {
+    private void blitSprite(GuiGraphicsExtractor guiGraphics, Identifier sprite, int x, int y) {
         guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, 16, 16, 0, 0, leftPos + x, topPos + y, 16, 16);
     }
 }
