@@ -13,6 +13,7 @@ import xland.mcmod.neospeedzero.record.manager.NeoSpeedServer;
 import xland.mcmod.neospeedzero.record.manager.RecordManager;
 
 import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandleProxies;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.AccessibleObject;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 final class PlatformWrapper<T, R> implements Function<T, R> {
     private final WeakHashMap<T, R> map = new WeakHashMap<>();
@@ -39,6 +41,12 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
     @SuppressWarnings("unchecked")  // Throwable -> T
     private static <T extends Throwable> Error sneakyThrow(Throwable t) throws T {
         throw (T) t;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> Supplier<T> uncheckedSupplierCast(MethodHandle handle) {
+        Preconditions.checkArgument(handle.type().parameterCount() == 0, "Expect method handle with zero parameters");
+        return (Supplier<T>) MethodHandleProxies.asInterfaceInstance(Supplier.class, handle);
     }
 
     private static void trySetAccessible(AccessibleObject member) throws IllegalStateException {
@@ -62,11 +70,11 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
     // These classes below are merely pre-computed wrappers. Not worth caching.
 
     static final class AdvancementProgressGetterImpl implements AdvancementProgressGetter {
-        private final PlayerAdvancements self;
+        private final Supplier<Map<AdvancementHolder, AdvancementProgress>> call;
         private static final MethodHandle MH_progress;
 
         AdvancementProgressGetterImpl(PlayerAdvancements self) {
-            this.self = self;
+            call = uncheckedSupplierCast(MH_progress.bindTo(self));
         }
 
         static {
@@ -83,22 +91,17 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
         public Map<AdvancementHolder, AdvancementProgress> ns0$progress() {
-            try {
-                return (Map<AdvancementHolder, AdvancementProgress>) MH_progress.invoke(self);
-            } catch (Throwable e) {
-                throw sneakyThrow(e);
-            }
+            return call.get();
         }
     }
 
     static final class EnchantmentPredicateListProviderImpl implements EnchantmentPredicateListProvider {
-        private final EnchantmentsPredicate self;
+        private final Supplier<List<EnchantmentPredicate>> call;
         private static final MethodHandle MH_enchantments;
 
         EnchantmentPredicateListProviderImpl(EnchantmentsPredicate self) {
-            this.self = self;
+            call = uncheckedSupplierCast(MH_enchantments.bindTo(self));
         }
 
         static {
@@ -115,22 +118,17 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
         public List<EnchantmentPredicate> ns0$getEnchantments() {
-            try {
-                return (List<EnchantmentPredicate>) MH_enchantments.invoke(self);
-            } catch (Throwable e) {
-                throw sneakyThrow(e);
-            }
+            return call.get();
         }
     }
 
     static final class CustomDataTagProviderImpl implements CustomDataTagProvider {
-        private final CustomData self;
+        private final Supplier<CompoundTag> call;
         private static final MethodHandle MH_getUnsafe;
 
         CustomDataTagProviderImpl(CustomData self) {
-            this.self = self;
+            call = uncheckedSupplierCast(MH_getUnsafe.bindTo(self));
         }
 
         static {
@@ -158,11 +156,7 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
 
         @Override
         public CompoundTag ns0$getUnsafe() {
-            try {
-                return (CompoundTag) MH_getUnsafe.invoke(self);
-            } catch (Throwable e) {
-                throw sneakyThrow(e);
-            }
+            return call.get();
         }
     }
 }
