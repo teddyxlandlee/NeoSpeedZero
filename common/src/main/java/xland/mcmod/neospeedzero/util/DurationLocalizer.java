@@ -1,8 +1,10 @@
 package xland.mcmod.neospeedzero.util;
 
+import com.google.common.base.Preconditions;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import xland.mcmod.enchlevellangpatch.api.EnchantmentLevelLangPatch;
@@ -37,7 +39,26 @@ public final class DurationLocalizer {
                         }
 
                         try {
-                            final Duration duration = Duration.ofMillis(Long.parseUnsignedLong(fallback));
+                            final String[] parts = StringUtils.split(fallback, ':');
+                            Preconditions.checkArgument(parts.length == 3, "Duration format must be HH:mm:ss[.SSS]");
+                            String[] millisSplit = StringUtils.split(parts[2], '.');
+                            parts[2] = millisSplit[0];
+
+                            // Long.parseUnsignedLong() allows padding zeros
+                            final long hours = Long.parseUnsignedLong(parts[0]);
+                            final int minutes = Integer.parseUnsignedInt(parts[1]);
+                            Preconditions.checkArgument(minutes < 60, "Minutes must be less than 60");
+                            final int seconds = Integer.parseUnsignedInt(parts[2]);
+                            Preconditions.checkArgument(seconds < 60, "Seconds must be less than 60");
+
+                            final int millis = switch (millisSplit.length) {
+                                case 1 -> 0;
+                                case 2 -> Integer.parseUnsignedInt(millisSplit[1]);
+                                default -> throw new IllegalArgumentException("Duration format must be HH:mm:ss[.SSS]");
+                            };
+                            Preconditions.checkArgument(millis <= 999, "Milliseconds must be less than 1000");
+
+                            final Duration duration = Duration.ofHours(hours).plusMillis((minutes * 60L + seconds) * 1000L + millis);
                             return new DurationLocalizer(translations).localize(duration);
                         } catch (Exception e) {
                             LOGGER.warn("Duration localization failed, using fallback", e);

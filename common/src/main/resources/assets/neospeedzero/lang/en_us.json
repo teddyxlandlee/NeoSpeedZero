@@ -42,6 +42,7 @@
   "command.neospeedzero.view_raw.complete.no": "Not completed (%d):",
 
   "message.neospeedzero.duration.placeholder": "%s",
+  "message.neospeedzero.duration.placeholder2": "%s",
   "message.neospeedzero.duration.apply_localizer": "true",
   "message.neospeedzero.duration.template": "{value} {unit}",
   "message.neospeedzero.duration.days": "day,days",
