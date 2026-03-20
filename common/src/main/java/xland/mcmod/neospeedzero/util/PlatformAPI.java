@@ -6,7 +6,9 @@ import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
@@ -42,8 +44,11 @@ public abstract class PlatformAPI {
 
     private static PlatformAPI probe() {
         final Platform currentPlatform = Platform.detect();
-        final List<ServiceLoader.Provider<PlatformAPI>> providers = ServiceLoader.load(PlatformAPI.class)
-                .stream()
+        // PaperPluginClassLoader can load service files from the JAR. This classloader loads the plugin class
+        // However, the context classloader can't.
+        final var serviceLoader = currentPlatform != Platform.PAPER ? ServiceLoader.load(PlatformAPI.class) :
+                ServiceLoader.load(PlatformAPI.class, lookupPaperClassLoader());
+        final List<ServiceLoader.Provider<PlatformAPI>> providers = serviceLoader.stream()
                 .filter(provider -> {
                     final Class<? extends PlatformAPI> implClass = provider.type();
                     final Implementation annotation = implClass.getDeclaredAnnotation(Implementation.class);
@@ -60,6 +65,23 @@ public abstract class PlatformAPI {
             );
         }
         return providers.getFirst().get();
+    }
+
+    private static ClassLoader lookupPaperClassLoader() {
+        final String pluginName = "NeoSpeedZero";   // see paper-plugin.yml
+
+        var lookup = MethodHandles.lookup();
+        try {
+            Class<?> bukkitClass = lookup.findClass("org.bukkit.Bukkit");
+            Class<?> pluginManagerClass = lookup.findClass("org.bukkit.plugin.PluginManager");
+            MethodHandle handle = lookup.unreflect(pluginManagerClass.getMethod("getPlugin", String.class));
+            handle = MethodHandles.collectArguments(handle, 0, lookup.findStatic(
+                    bukkitClass, "getPluginManager", MethodType.methodType(pluginManagerClass)
+            ));
+            return handle.invoke(pluginName).getClass().getClassLoader();
+        } catch (Throwable e) {
+            throw new RuntimeException("Failed to lookup Paper classloader", e);
+        }
     }
 
     public enum Platform {

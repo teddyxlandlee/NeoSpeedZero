@@ -90,7 +90,7 @@ public final class PaperEvents extends PlatformEvents {
     }
 
     static void applyGoalsFrom(MinecraftServer server) {
-        final var prefix = SpeedrunGoalManager.GOAL_KEY_ID.getNamespace() + '/' + SpeedrunGoalManager.GOAL_KEY_ID.getPath() + '/';
+        final var prefix = SpeedrunGoalManager.GOAL_KEY_ID.getNamespace() + '/' + SpeedrunGoalManager.GOAL_KEY_ID.getPath();
         final FileToIdConverter converter = FileToIdConverter.json(prefix);
 
         final var jsonOps = RegistryOps.create(JsonOps.INSTANCE, CraftBukkitReflections.getRegistryAccess());

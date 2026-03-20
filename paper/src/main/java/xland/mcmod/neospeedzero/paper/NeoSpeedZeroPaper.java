@@ -50,7 +50,7 @@ public class NeoSpeedZeroPaper extends JavaPlugin {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 playerTickTasks.computeIfAbsent(player, p -> schedulePlayerTickTask(p, playerTickTask));
             }
-        }, 0L, 1L);
+        }, 1L, 1L);
 
         // Network
         var messenger = this.getServer().getMessenger();
@@ -68,7 +68,7 @@ public class NeoSpeedZeroPaper extends JavaPlugin {
     private final WeakHashMap<Player, ScheduledTask> playerTickTasks = new WeakHashMap<>();
 
     private ScheduledTask schedulePlayerTickTask(Player player, Consumer<? super Player> task) {
-        return player.getScheduler().runAtFixedRate(this, _ -> task.accept(player), null, 0L, 1L);
+        return player.getScheduler().runAtFixedRate(this, _ -> task.accept(player), null, 1L, 1L);
     }
 
     @Override
