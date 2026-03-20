@@ -16,14 +16,13 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class NeoSpeedZeroPaper extends JavaPlugin {
-    private static final AtomicReference<NeoSpeedZeroPaper> INSTANCE = new AtomicReference<>();
+    private static final NeoSpeedZeroPaper INSTANCE = new NeoSpeedZeroPaper();
 
-    public NeoSpeedZeroPaper() {
-        Validate.validState(INSTANCE.compareAndSet(null, this), "Duplicate NS0-Paper instance");
+    private NeoSpeedZeroPaper() {
     }
 
     static NeoSpeedZeroPaper getInstance() {
-        return INSTANCE.get();
+        return INSTANCE;
     }
 
     @Override

@@ -59,6 +59,10 @@ tasks.register("shadowJar", ShadowJar::class) {
     doFirst {
         println(configurations.get().map { it.files })
     }
+
+    manifest.attributes(
+        "Implementation-Version" to project.version     // used by Paper port's data pack cache
+    )
 }
 
 tasks.register("shadowSourcesJar", ShadowJar::class) {
