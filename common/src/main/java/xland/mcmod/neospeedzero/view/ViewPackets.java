@@ -1,12 +1,12 @@
 package xland.mcmod.neospeedzero.view;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.record.manager.NeoSpeedPlayer;
@@ -38,9 +38,7 @@ public interface ViewPackets {
                     if (record != null) {
                         NeoSpeedLifecycle.viewRecord(serverPlayer, record);
                     } else {
-                        serverPlayer.sendSystemMessage(Component.translatable(
-                                "message.neospeedzero.record.stop.absent", serverPlayer.getDisplayName()
-                        ));
+                        serverPlayer.sendSystemMessage(NeoSpeedTranslations.PLAYER_NOT_SPEEDRUNNING.createWithArgs(serverPlayer.getDisplayName()));
                     }
                 }
         );

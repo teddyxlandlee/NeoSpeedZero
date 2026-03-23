@@ -17,6 +17,7 @@ import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
@@ -114,10 +115,8 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
 
     public Component toText() {
         final MutableComponent root = Component.empty();
-        root.append(Component.translatable(
-                "command.neospeedzero.view_raw.title", title()
-        ).withStyle(s -> s.withHoverEvent(new HoverEvent.ShowText(
-                Component.translatable("message.neospeedzero.record.snapshot.id", String.valueOf(recordId()))
+        root.append(NeoSpeedTranslations.VIEW_RAW_TITLE.createWithArgs(title()).withStyle(s -> s.withHoverEvent(new HoverEvent.ShowText(
+                NeoSpeedTranslations.RECORD_SNAPSHOT_ID.createWithArgs(String.valueOf(recordId()))
         )))).append("\n");
 
         final List<ItemStack> yes = new ArrayList<>();
@@ -132,18 +131,14 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         }
 
         // Yes
-        root.append(Component.translatable(
-                "command.neospeedzero.view_raw.complete.yes", yes.size()
-        ).withStyle(ChatFormatting.GREEN)).append("\n");
+        root.append(NeoSpeedTranslations.VIEW_RAW_COMPLETE.createWithArgs(yes.size()).withStyle(ChatFormatting.GREEN)).append("\n");
         root.append(join(yes.iterator()));
         root.append("\n");
         // No
-        root.append(Component.translatable(
-                "command.neospeedzero.view_raw.complete.no", no.size()
-        ).withStyle(ChatFormatting.RED)).append("\n");
+        root.append(NeoSpeedTranslations.VIEW_RAW_INCOMPLETE.createWithArgs(no.size()).withStyle(ChatFormatting.RED)).append("\n");
         root.append(join(no.iterator()));
 
-        root.append("\n\n").append(Component.translatable("message.neospeedzero.record.snapshot.non-synced"));
+        root.append("\n\n").append(NeoSpeedTranslations.RECORD_SNAPSHOT_NON_SYNCED.create());
 
         return root;
     }

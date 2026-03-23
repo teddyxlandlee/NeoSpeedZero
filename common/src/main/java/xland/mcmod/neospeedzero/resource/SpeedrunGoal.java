@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
 import xland.mcmod.neospeedzero.record.SpeedrunGoalInfo;
@@ -79,7 +80,7 @@ public record SpeedrunGoal(ItemStackTemplate icon, Component display, List<GoalP
                     .toList();
             return new NoticeDialog(
                     DialogUtil.commonDialogData(
-                            Component.translatable("gui.neospeedzero.goals"),
+                            NeoSpeedTranslations.DIALOG_GOALS.create(),
                             true,
                             dialogBodies
                     ),
@@ -100,11 +101,11 @@ public record SpeedrunGoal(ItemStackTemplate icon, Component display, List<GoalP
                     .toList();
             return new ConfirmationDialog(
                     DialogUtil.commonDialogData(
-                            Component.translatable("gui.neospeedzero.startup_goal", goal().display()),
+                            NeoSpeedTranslations.DIALOG_STARTUP_GOAL.createWithArgs(goal().display()),
                             Collections.singletonList(new Input(
                                     "difficulty",
                                     DialogUtil.singleOptionInput(
-                                            Component.translatable("gui.neospeedzero.select_difficulty"),
+                                            NeoSpeedTranslations.DIALOG_SELECT_DIFFICULTY.create(),
                                             entries
                                     )
                             ))

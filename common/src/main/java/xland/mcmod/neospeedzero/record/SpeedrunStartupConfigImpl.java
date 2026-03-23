@@ -2,9 +2,9 @@ package xland.mcmod.neospeedzero.record;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
@@ -56,10 +56,10 @@ public record SpeedrunStartupConfigImpl(
         }
 
         private static final DynamicCommandExceptionType EX_INVALID_GOAL = new DynamicCommandExceptionType(
-                obj -> Component.translatable("command.neospeedzero.not_found.goal", String.valueOf(obj))
+                obj -> NeoSpeedTranslations.COMMAND_MISSING_GOAL.createWithArgs(String.valueOf(obj))
         );
         private static final DynamicCommandExceptionType EX_INVALID_DIFFICULTY = new DynamicCommandExceptionType(
-                obj -> Component.translatable("command.neospeedzero.not_found.difficulty", String.valueOf(obj))
+                obj -> NeoSpeedTranslations.COMMAND_MISSING_DIFFICULTY.createWithArgs(String.valueOf(obj))
         );
 
         @Override

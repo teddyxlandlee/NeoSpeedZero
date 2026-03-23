@@ -23,6 +23,7 @@ import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.util.access.EnchantmentPredicateListProvider;
 import xland.mcmod.neospeedzero.util.access.PlatformAccess;
 
@@ -44,7 +45,7 @@ final class ExtraRequirements {
             // Count
             MinMaxBounds.Ints count = predicate.count();
             if (!count.isAny())
-                appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.count", formatIntRange(count)));
+                appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_COUNT.createWithArgs(formatIntRange(count)));
 
             // Component
             final DataComponentPatch componentChanges = predicate.components().exact().asPatch();
@@ -55,13 +56,13 @@ final class ExtraRequirements {
             instance.remove(DataComponents.DAMAGE);
             componentFromChanges(instance, DataComponents.DAMAGE).ifPresentOrElse(damage -> {
                 // Exact damage predicate
-                appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.damage", formatNumber(damage, damage)));
+                appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_DAMAGE.createWithArgs(formatNumber(damage, damage)));
             }, () -> {
                 if (partial.get(DataComponentPredicates.DAMAGE) instanceof DamagePredicate(
                         MinMaxBounds.Ints durability, MinMaxBounds.Ints damage
                 )) {
-                    appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.durability", formatIntRange(durability)));
-                    appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.damage", formatIntRange(damage)));
+                    appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_DURABILITY.createWithArgs(formatIntRange(durability)));
+                    appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_DAMAGE.createWithArgs(formatIntRange(damage)));
                 }
             });
             // Enchantments - [E,P]minecraft:stored_enchantments, minecraft:enchantments
@@ -75,12 +76,12 @@ final class ExtraRequirements {
             ) && items.isPresent()) {
                 // Too complicated
                 // Similar for [P]minecraft:container
-                appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.bundle"));
+                appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_BUNDLE.create());
             }
 
             // Custom Data - [E,P]minecraft:custom_data
             if (partial.containsKey(DataComponentPredicates.CUSTOM_DATA) || componentFromChanges(instance, DataComponents.CUSTOM_DATA).isPresent()) {
-                appendedLores.add(Component.translatable("item_predicate.neospeedzero.extra_req.custom_data"));
+                appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_CUSTOM_DATA.create());
             }
 
             // TODO: [E,P] firework_explosion, fireworks, writable_book_contents, written_book_contents
@@ -90,30 +91,30 @@ final class ExtraRequirements {
                     Optional<HolderSet<JukeboxSong>> song
             ) && song.isPresent()) {
                 appendHomogenousSet(
-                        Component.translatable("item_predicate.neospeedzero.extra_req.song"),
+                        NeoSpeedTranslations.EXTRA_REQUIREMENTS_SONG.create(),
                         song.get(),
                         appendedLores::add
                 );
             }
 
             if (partial.get(DataComponentPredicates.POTIONS) instanceof PotionsPredicate(HolderSet<Potion> potions)) {
-                appendHomogenousSet(Component.translatable("item_predicate.neospeedzero.extra_req.potion"), potions, appendedLores::add);
+                appendHomogenousSet(NeoSpeedTranslations.EXTRA_REQUIREMENTS_POTION.create(), potions, appendedLores::add);
             }
 
             if (partial.get(DataComponentPredicates.ARMOR_TRIM) instanceof TrimPredicate(
                     Optional<HolderSet<TrimMaterial>> material, Optional<HolderSet<TrimPattern>> pattern
             )) {
                 material.ifPresent(holders -> appendHomogenousSet(
-                        Component.translatable("item_predicate.neospeedzero.extra_req.trim.material"), holders, appendedLores::add)
+                        NeoSpeedTranslations.EXTRA_REQUIREMENTS_TRIM_MATERIAL.create(), holders, appendedLores::add)
                 );
                 pattern.ifPresent(holders -> appendHomogenousSet(
-                        Component.translatable("item_predicate.neospeedzero.extra_req.trim.patterns"), holders, appendedLores::add
+                        NeoSpeedTranslations.EXTRA_REQUIREMENTS_TRIM_PATTERNS.create(), holders, appendedLores::add
                 ));
             }
         }
 
         if (ofAny != null) {
-            appendHomogenousSet(Component.translatable("item_predicate.neospeedzero.extra_req.items"), ofAny, appendedLores::add);
+            appendHomogenousSet(NeoSpeedTranslations.EXTRA_REQUIREMENTS_ITEMS.create(), ofAny, appendedLores::add);
         }
 
         if (!appendedLores.isEmpty()) {
@@ -136,7 +137,7 @@ final class ExtraRequirements {
                 MinMaxBounds.Ints levels = enchantmentPredicate.level();
 
                 if (enchantments.isEmpty()) {
-                    loreAdder.accept(Component.translatable("item_predicate.neospeedzero.extra_req.enchantments.any", formatIntRange(levels)));
+                    loreAdder.accept(NeoSpeedTranslations.EXTRA_REQUIREMENTS_ENCHANTMENTS_ANY.createWithArgs(formatIntRange(levels)));
                 } else {
                     int size = enchantments.get().size();
                     if (size == 0) return;  // contains nothing
@@ -158,11 +159,11 @@ final class ExtraRequirements {
     @Contract("null, null -> fail")
     private static Component formatNumber(@Nullable Integer min, @Nullable Integer max) {
         Preconditions.checkArgument(min != null || max != null);
-        if (min == null) return Component.translatable("item_predicate.neospeedzero.extra_req.count.max", max);
-        if (max == null) return Component.translatable("item_predicate.neospeedzero.extra_req.count.min", min);
+        if (min == null) return NeoSpeedTranslations.EXTRA_REQUIREMENTS_COUNT_MAX.createWithArgs(max);
+        if (max == null) return NeoSpeedTranslations.EXTRA_REQUIREMENTS_COUNT_MIN.createWithArgs(min);
         if (min.equals(max))
-            return Component.translatable("item_predicate.neospeedzero.extra_req.count.exact", min);
-        return Component.translatable("item_predicate.neospeedzero.extra_req.count.between", min, max);
+            return NeoSpeedTranslations.EXTRA_REQUIREMENTS_COUNT_EXACT.createWithArgs(min);
+        return NeoSpeedTranslations.EXTRA_REQUIREMENTS_COUNT_BETWEEN.createWithArgs(min, max);
     }
 
     private static <T> Optional<? extends T> componentFromChanges(DataComponentGetter changes, DataComponentType<? extends T> componentType) {

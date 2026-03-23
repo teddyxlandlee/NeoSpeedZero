@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.record.manager.RecordManager;
 
 import java.util.List;
@@ -17,9 +18,9 @@ record RecordLookup(String prefix) implements RecordReference {
                 .filter(uuid -> uuid.toString().startsWith(prefix()))
                 .toList();
         return switch (uuids.size()) {
-            case 0 -> Either.right(Component.translatable("message.neospeedzero.record.not_found", toString()));
+            case 0 -> Either.right(NeoSpeedTranslations.RECORD_NOT_FOUND.createWithArgs(toString()));
             case 1 -> Either.left(uuids.getFirst());
-            default -> Either.right(Component.translatable("message.neospeedzero.record.ambiguous", toString()));
+            default -> Either.right(NeoSpeedTranslations.RECORD_LOOKUP_AMBIGUOUS.createWithArgs(toString()));
         };
     }
 
@@ -34,7 +35,7 @@ record RecordLookup(String prefix) implements RecordReference {
         } catch (IllegalArgumentException e) {
             // not a definite reference
             if (!s.matches("^[0-9A-Fa-f]{4}$")) {
-                return new Failure(Component.translatable("message.neospeedzero.record.invalid_ref", s));
+                return new Failure(NeoSpeedTranslations.RECORD_LOOKUP_INVALID_REFERENCE.createWithArgs(s));
             }
 
             return new RecordLookup(s.toLowerCase(Locale.ROOT));
@@ -67,9 +68,7 @@ record RecordLookup(String prefix) implements RecordReference {
             UUID uuid = manager.findRecordIdByPlayer(player());
             return uuid != null
                     ? Either.left(uuid)
-                    : Either.right(Component.translatable(
-                            "message.neospeedzero.record.stop.absent", player.getDisplayName()
-                    ));
+                    : Either.right(NeoSpeedTranslations.PLAYER_NOT_SPEEDRUNNING.createWithArgs(player.getDisplayName()));
         }
     }
 }

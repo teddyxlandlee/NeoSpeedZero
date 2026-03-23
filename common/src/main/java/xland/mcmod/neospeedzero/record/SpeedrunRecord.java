@@ -18,6 +18,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Unmodifiable;
 import xland.mcmod.neospeedzero.NeoSpeedMessages;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.difficulty.SpeedrunDifficulty;
 import xland.mcmod.neospeedzero.util.DialogUtil;
 import xland.mcmod.neospeedzero.util.TimeUtil;
@@ -132,10 +133,7 @@ public record SpeedrunRecord(
                     Component.empty().append(icon.getHoverName()).withStyle(style -> {
                         style = style.withColor(color);
                         if (time >= 0) {
-                            style = style.withHoverEvent(new HoverEvent.ShowText(Component.translatable(
-                                    "message.neospeedzero.challenge.finished_in",
-                                    TimeUtil.duration(this, time)
-                            )));
+                            style = style.withHoverEvent(new HoverEvent.ShowText(NeoSpeedTranslations.CHALLENGE_FINISH_DURATION.createWithArgs(TimeUtil.duration(this, time))));
                         }
                         return style;
                     })

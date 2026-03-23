@@ -8,12 +8,12 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 
 import java.util.Optional;
@@ -44,7 +44,7 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
             return new ItemStackTemplate(
                     Items.APPLE,
                     DataComponentPatch.builder()
-                            .set(DataComponents.ITEM_NAME, Component.translatable("item_predicate.neospeedzero.extra_req.items.any"))
+                            .set(DataComponents.ITEM_NAME, NeoSpeedTranslations.EXTRA_REQUIREMENTS_ANY_ITEM.create())
                             .build()
             );
         }

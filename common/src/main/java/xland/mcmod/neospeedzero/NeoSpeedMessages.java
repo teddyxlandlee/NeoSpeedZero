@@ -33,35 +33,23 @@ public final class NeoSpeedMessages {
     }
 
     static void announceRecordStart(ServerPlayer serverPlayer, SpeedrunRecord record) {
-        announce(serverPlayer, Component.translatable(
-                "message.neospeedzero.record.start",
-                serverPlayer.getDisplayName(),
-                record.snapshot()
-        ));
+        announce(serverPlayer, NeoSpeedTranslations.RECORD_START.createWithArgs(serverPlayer.getDisplayName(),
+                record.snapshot()));
     }
 
     static void announceRecordForceStop(ServerPlayer serverPlayer, SpeedrunRecord record) {
-        announce(serverPlayer, Component.translatable(
-                "message.neospeedzero.record.stop.force",
-                serverPlayer.getDisplayName(),
-                record.snapshot()
-        ));
+        announce(serverPlayer, NeoSpeedTranslations.RECORD_STOP_FORCE.createWithArgs(serverPlayer.getDisplayName(),
+                record.snapshot()));
     }
 
     static void announceRecordQuit(ServerPlayer serverPlayer, SpeedrunRecord record) {
-        announce(serverPlayer, Component.translatable(
-                "message.neospeedzero.join.unjoined",
-                serverPlayer.getDisplayName(),
-                record.snapshot()
-        ));
+        announce(serverPlayer, NeoSpeedTranslations.PLAYER_JOIN_QUITTING.createWithArgs(serverPlayer.getDisplayName(),
+                record.snapshot()));
     }
 
     static void announceRecordJoin(ServerPlayer serverPlayer, SpeedrunRecord record) {
-        announce(serverPlayer, Component.translatable(
-                "message.neospeedzero.join.success",
-                serverPlayer.getDisplayName(),
-                record.snapshot()
-        ));
+        announce(serverPlayer, NeoSpeedTranslations.PLAYER_JOIN_SUCCESS.createWithArgs(serverPlayer.getDisplayName(),
+                record.snapshot()));
     }
 
     static void announceChallengeComplete(ServerPlayer serverPlayer, SpeedrunRecord record, int index, long currentTime) {
@@ -71,14 +59,11 @@ public final class NeoSpeedMessages {
         final MinecraftServer server = serverPlayer.level().getServer();
         final boolean announceSpeedruns = NeoSpeedGameRules.announcesSpeedruns(server);
 
-        final Component component = Component.translatable(
-                "message.neospeedzero.challenge.complete",
-                serverPlayer.getDisplayName(),
+        final Component component = NeoSpeedTranslations.CHALLENGE_COMPLETE.createWithArgs(serverPlayer.getDisplayName(),
                 record.snapshot(),
                 challenge.icon().getDisplayName(),  // already wrapped
                 progress(record),
-                TimeUtil.duration(record, currentTime)
-        );
+                TimeUtil.duration(record, currentTime));
 
         if (announceSpeedruns) {
             server.getPlayerList().broadcastSystemMessage(component, false);
@@ -94,12 +79,9 @@ public final class NeoSpeedMessages {
         final MinecraftServer server = serverPlayer.level().getServer();
         final boolean announceSpeedruns = NeoSpeedGameRules.announcesSpeedruns(server);
 
-        final Component component = Component.translatable(
-                "message.neospeedzero.record.complete",
-                serverPlayer.getDisplayName(),
+        final Component component = NeoSpeedTranslations.RECORD_COMPLETE.createWithArgs(serverPlayer.getDisplayName(),
                 record.snapshot(),
-                TimeUtil.duration(record, currentTime)
-        );
+                TimeUtil.duration(record, currentTime));
 
         if (announceSpeedruns) {
             server.getPlayerList().broadcastSystemMessage(component, false);
@@ -136,35 +118,23 @@ public final class NeoSpeedMessages {
     
     private static Component snapshotHover(SpeedrunRecord record) {
         MutableComponent t = Component.empty();
-        t.append(Component.translatable("message.neospeedzero.record.snapshot.goal_id", String.valueOf(record.goal().id())))
+        t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_GOAL_ID.createWithArgs(String.valueOf(record.goal().id())))
                 .append("\n");
-        t.append(Component.translatable("message.neospeedzero.record.snapshot.difficulty", record.difficulty().displayedName()))
+        t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_DIFFICULTY.createWithArgs(record.difficulty().displayedName()))
                 .append("\n");
         if (record.hasCompleted()) {
-            t.append(Component.translatable(
-                    "message.neospeedzero.record.snapshot.progress",
-                    progress(record).withStyle(ChatFormatting.GREEN)
-            )).append("\n");
-            t.append(Component.translatable(
-                    "message.neospeedzero.record.snapshot.finish_time",
-                    TimeUtil.duration(record, record.finishTime().longValue())
-            )).append("\n");
+            t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_PROGRESS.createWithArgs(progress(record).withStyle(ChatFormatting.GREEN))).append("\n");
+            t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_FINISH_TIME.createWithArgs(TimeUtil.duration(record, record.finishTime().longValue()))).append("\n");
         } else {
-            t.append(Component.translatable(
-                    "message.neospeedzero.record.snapshot.progress",
-                    progress(record).withStyle(ChatFormatting.RED)
-            )).append("\n");
+            t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_PROGRESS.createWithArgs(progress(record).withStyle(ChatFormatting.RED))).append("\n");
         }
-        t.append(Component.translatable("message.neospeedzero.record.snapshot.id", String.valueOf(record.recordId()))).append("\n");
-        t.append(Component.translatable("message.neospeedzero.record.snapshot.non-synced").withStyle(ChatFormatting.GRAY));
+        t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_ID.createWithArgs(String.valueOf(record.recordId()))).append("\n");
+        t.append(NeoSpeedTranslations.RECORD_SNAPSHOT_NON_SYNCED.create().withStyle(ChatFormatting.GRAY));
         return t;
     }
 
     private static MutableComponent progress(SpeedrunRecord record) {
-        return Component.translatable(
-                "message.neospeedzero.record.snapshot.progress.data",
-                record.completedCount(),
-                record.totalCount()
-        );
+        return NeoSpeedTranslations.RECORD_SNAPSHOT_PROGRESS_DATA.createWithArgs(record.completedCount(),
+                record.totalCount());
     }
 }

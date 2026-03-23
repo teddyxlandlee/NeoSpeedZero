@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.*;
 import org.slf4j.Logger;
+import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 import xland.mcmod.neospeedzero.util.StreamIoUtil;
@@ -51,11 +52,8 @@ public class RecordManager {
 
     public @Nullable Component startHosting(SpeedrunRecord record, ServerPlayer host) {
         if (playerToRecordMap.containsKey(host.getUUID())) {
-            return Component.translatable(
-                    "message.neospeedzero.record.start.started",
-                    host.getDisplayName(),
-                    record.snapshot()
-            );
+            return NeoSpeedTranslations.PLAYER_ALREADY_SPEEDRUNNING.createWithArgs(host.getDisplayName(),
+                    record.snapshot());
         }
         bindHost(record, host);
         registerTo(host, record);
@@ -66,15 +64,12 @@ public class RecordManager {
         UUID prevRecordId = findRecordIdByPlayer(subPlayer);
         if (prevRecordId != null) {
             SpeedrunRecordHolder holder = findRecordByUuid(prevRecordId);
-            return Component.translatable(
-                    "message.neospeedzero.record.start.started",
-                    subPlayer.getDisplayName(),
-                    holder == null ? "<???>" : holder.record().snapshot()
-            );
+            return NeoSpeedTranslations.PLAYER_ALREADY_SPEEDRUNNING.createWithArgs(subPlayer.getDisplayName(),
+                    holder == null ? "<???>" : holder.record().snapshot());
         }
 
         var holder = findRecordByUuid(recordId);
-        if (holder == null) return Component.translatable("message.neospeedzero.record.not_found", recordId.toString());
+        if (holder == null) return NeoSpeedTranslations.RECORD_NOT_FOUND.createWithArgs(recordId.toString());
         holder.info().participants().add(subPlayer.getUUID());
         registerTo(subPlayer, holder.record());
 

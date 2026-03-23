@@ -31,17 +31,14 @@ public final class NeoSpeedLifecycle {
     public static Optional<Component> startSpeedrun(ServerPlayer player, SpeedrunStartupConfig startupConfig) {
         SpeedrunRecord record = NeoSpeedPlayer.getCurrentRecord(player);
         if (record != null) {
-            return Optional.of(Component.translatable(
-                    "message.neospeedzero.record.start.started",
-                    player.getDisplayName(),
-                    record.snapshot()
-            ));
+            return Optional.of(NeoSpeedTranslations.PLAYER_ALREADY_SPEEDRUNNING.createWithArgs(player.getDisplayName(),
+                    record.snapshot()));
         }
 
         ActionResult actionResult = NeoSpeedLifecycleEvents.START_RECORD.invoker().onStart(player, startupConfig);
         if (!actionResult.getResult(true)) {    // interruptFalse
             // Do not start
-            return Optional.of(Component.translatable("message.neospeedzero.record.start.cancel"));
+            return Optional.of(NeoSpeedTranslations.RECORD_START_CANCEL.create());
         }
         record = startupConfig.createRecord(NeoSpeedPlayer.getTime(player));
         Component message = NeoSpeedPlayer.getServerRecordManager(player).startHosting(record, player);
@@ -73,22 +70,22 @@ public final class NeoSpeedLifecycle {
     public static Optional<Component> stopSpeedrun(ServerPlayer player) {
         SpeedrunRecord previousRecord = NeoSpeedPlayer.getCurrentRecord(player);
         if (previousRecord == null) {
-            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
+            return Optional.of(NeoSpeedTranslations.PLAYER_NOT_SPEEDRUNNING.createWithArgs(player.getDisplayName()));
         }
 
         if (NeoSpeedPlayer.getServerRecordManager(player).getPlayerRole(previousRecord.recordId(), player) != PlayerRole.HOST) {
-            return Optional.of(Component.translatable("message.neospeedzero.stop.no_host"));
+            return Optional.of(NeoSpeedTranslations.PLAYER_NOT_HOST.create());
         }
 
         ActionResult actionResult = NeoSpeedLifecycleEvents.FORCE_STOP_RECORD.invoker().onStop(player);
         if (!actionResult.getResult(true)) {  // interruptFalse
             // Do not stop
-            return Optional.of(Component.translatable("message.neospeedzero.record.stop.force.cancel"));
+            return Optional.of(NeoSpeedTranslations.RECORD_STOP_FORCE_CANCEL.create());
         }
 
         SpeedrunRecordHolder prevHolder = NeoSpeedPlayer.getServerRecordManager(player).endRecord(previousRecord.recordId());
         if (prevHolder == null) {
-            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
+            return Optional.of(NeoSpeedTranslations.PLAYER_NOT_SPEEDRUNNING.createWithArgs(player.getDisplayName()));
         }
 
         NeoSpeedMessages.announceRecordForceStop(player, previousRecord);
@@ -102,18 +99,15 @@ public final class NeoSpeedLifecycle {
             NeoSpeedMessages.announceRecordQuit(player, holder.record());
             return Optional.empty();
         } else {
-            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
+            return Optional.of(NeoSpeedTranslations.PLAYER_NOT_SPEEDRUNNING.createWithArgs(player.getDisplayName()));
         }
     }
 
     public static Optional<Component> joinSpeedrun(ServerPlayer player, RecordReference ref) {
         SpeedrunRecord record = NeoSpeedPlayer.getCurrentRecord(player);
         if (record != null) {
-            return Optional.of(Component.translatable(
-                    "message.neospeedzero.record.start.started",
-                    player.getDisplayName(),
-                    record.snapshot()
-            ));
+            return Optional.of(NeoSpeedTranslations.PLAYER_ALREADY_SPEEDRUNNING.createWithArgs(player.getDisplayName(),
+                    record.snapshot()));
         }
 
         RecordManager manager = NeoSpeedPlayer.getServerRecordManager(player);
@@ -123,7 +117,7 @@ public final class NeoSpeedLifecycle {
                     if (msg == null) {
                         SpeedrunRecordHolder holder = manager.findRecordByUuid(uuid);
                         if (holder == null) {
-                            return Optional.of(Component.translatable("message.neospeedzero.record.stop.absent", player.getDisplayName()));
+                            return Optional.of(NeoSpeedTranslations.PLAYER_NOT_SPEEDRUNNING.createWithArgs(player.getDisplayName()));
                         }
 
                         NeoSpeedMessages.announceRecordJoin(player, holder.record());
