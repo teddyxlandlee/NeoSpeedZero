@@ -1,0 +1,53 @@
+package xland.mcmod.neospeedzero;
+
+import static xland.mcmod.neospeedzero.util.TranslatableComponentFactory.*;
+
+public interface NeoSpeedTranslations {
+    WithArgs COMMAND_MISSING_DIFFICULTY = withArgs("command.neospeedzero.not_found.difficulty", "Difficulty not found: %s");
+    WithArgs COMMAND_MISSING_GOAL = withArgs("command.neospeedzero.not_found.goal", "Goal not found: %s");
+    WithArgs VIEW_RAW_INCOMPLETE = withArgs("command.neospeedzero.view_raw.complete.no", "Not completed (%d):");
+    WithArgs VIEW_RAW_COMPLETE = withArgs("command.neospeedzero.view_raw.complete.yes", "Completed (%d):");
+    WithArgs VIEW_RAW_TITLE = withArgs("command.neospeedzero.view_raw.title", "====== Speedrun Record (Goal: %s) ======");
+    NoArgs DIALOG_GOALS = noArgs("gui.neospeedzero.goals", "NeoSpeedZero Speedrun Goals");
+    NoArgs DIALOG_SELECT_DIFFICULTY = noArgs("gui.neospeedzero.select_difficulty", "Difficulty");
+    WithArgs DIALOG_STARTUP_GOAL = withArgs("gui.neospeedzero.startup_goal", "Start a Record - %s");
+    NoArgs EXTRA_REQUIREMENTS_BUNDLE = noArgs("item_predicate.neospeedzero.extra_req.bundle", "Has extra requirements for bundle contents");
+    WithArgs EXTRA_REQUIREMENTS_COUNT = withArgs("item_predicate.neospeedzero.extra_req.count", "Required count: %s");
+    WithArgs EXTRA_REQUIREMENTS_COUNT_BETWEEN = withArgs("item_predicate.neospeedzero.extra_req.count.between", "%1$d~$2$d");
+    WithArgs EXTRA_REQUIREMENTS_COUNT_EXACT = withArgs("item_predicate.neospeedzero.extra_req.count.exact", "%d");
+    WithArgs EXTRA_REQUIREMENTS_COUNT_MAX = withArgs("item_predicate.neospeedzero.extra_req.count.max", "≤%d");
+    WithArgs EXTRA_REQUIREMENTS_COUNT_MIN = withArgs("item_predicate.neospeedzero.extra_req.count.min", "≥%d");
+    NoArgs EXTRA_REQUIREMENTS_CUSTOM_DATA = noArgs("item_predicate.neospeedzero.extra_req.custom_data", "Has extra requirements for custom data");
+    WithArgs EXTRA_REQUIREMENTS_DAMAGE = withArgs("item_predicate.neospeedzero.extra_req.damage", "Damage: %s");
+    WithArgs EXTRA_REQUIREMENTS_DURABILITY = withArgs("item_predicate.neospeedzero.extra_req.durability", "Durability: %s");
+    WithArgs EXTRA_REQUIREMENTS_ENCHANTMENTS_ANY = withArgs("item_predicate.neospeedzero.extra_req.enchantments.any", "Any enchantment with level %s");
+    NoArgs EXTRA_REQUIREMENTS_ITEMS = noArgs("item_predicate.neospeedzero.extra_req.items", "Requires any of following items:");
+    NoArgs EXTRA_REQUIREMENTS_ANY_ITEM = noArgs("item_predicate.neospeedzero.extra_req.items.any", "Any Item");
+    NoArgs EXTRA_REQUIREMENTS_POTION = noArgs("item_predicate.neospeedzero.extra_req.potion", "Any of following potions:");
+    NoArgs EXTRA_REQUIREMENTS_SONG = noArgs("item_predicate.neospeedzero.extra_req.song", "Plays any of following songs:");
+    NoArgs EXTRA_REQUIREMENTS_TRIM_MATERIAL = noArgs("item_predicate.neospeedzero.extra_req.trim.material", "Has any of following trim materials:");
+    NoArgs EXTRA_REQUIREMENTS_TRIM_PATTERNS = noArgs("item_predicate.neospeedzero.extra_req.trim.patterns", "Has any of following trim patterns:");
+    WithArgs CHALLENGE_COMPLETE = withArgs("message.neospeedzero.challenge.complete", "%1$s got %3$s (%4$s) from %2$s in %5$s!");
+    WithArgs CHALLENGE_FINISH_DURATION = withArgs("message.neospeedzero.challenge.finished_in", "Finished in %s");
+    NoArgs MOD_GIVEN = noArgs("message.neospeedzero.item.mod_given", "Speedrunners Only");
+    WithArgs PLAYER_JOIN_SUCCESS = withArgs("message.neospeedzero.join.success", "%1$s has joined in the record %2$s");
+    WithArgs PLAYER_JOIN_QUITTING = withArgs("message.neospeedzero.join.unjoined", "%1$s has quit from the record %2$s");
+    WithArgs RECORD_LOOKUP_AMBIGUOUS = withArgs("message.neospeedzero.record.ambiguous", "Record reference %s is ambiguous. Please use its full record ID.");
+    WithArgs RECORD_COMPLETE = withArgs("message.neospeedzero.record.complete", "%1$s completed %2$s in %3$s!");
+    WithArgs RECORD_LOOKUP_INVALID_REFERENCE = withArgs("message.neospeedzero.record.invalid_ref", "Invalid record reference: %s");
+    WithArgs RECORD_NOT_FOUND = withArgs("message.neospeedzero.record.not_found", "Record %1$s not found");
+    WithArgs RECORD_SNAPSHOT_DIFFICULTY = withArgs("message.neospeedzero.record.snapshot.difficulty", "Difficulty: %s");
+    WithArgs RECORD_SNAPSHOT_FINISH_TIME = withArgs("message.neospeedzero.record.snapshot.finish_time", "Finished in %s");
+    WithArgs RECORD_SNAPSHOT_GOAL_ID = withArgs("message.neospeedzero.record.snapshot.goal_id", "Goal ID: %s");
+    WithArgs RECORD_SNAPSHOT_ID = withArgs("message.neospeedzero.record.snapshot.id", "Record ID: %s");
+    NoArgs RECORD_SNAPSHOT_NON_SYNCED = noArgs("message.neospeedzero.record.snapshot.non-synced", "Non-synced Data");
+    WithArgs RECORD_SNAPSHOT_PROGRESS = withArgs("message.neospeedzero.record.snapshot.progress", "Progress: %s");
+    WithArgs RECORD_SNAPSHOT_PROGRESS_DATA = withArgs("message.neospeedzero.record.snapshot.progress.data", "%d/%d");
+    WithArgs RECORD_START = withArgs("message.neospeedzero.record.start", "%1$s starts running %2$s now!");
+    NoArgs RECORD_START_CANCEL = noArgs("message.neospeedzero.record.start.cancel", "Record start request is cancelled");
+    WithArgs PLAYER_ALREADY_SPEEDRUNNING = withArgs("message.neospeedzero.record.start.started", "There is an existing record %2$s run by %1$s");
+    WithArgs PLAYER_NOT_SPEEDRUNNING = withArgs("message.neospeedzero.record.stop.absent", "%1$s isn't speedrunning");
+    WithArgs RECORD_STOP_FORCE = withArgs("message.neospeedzero.record.stop.force", "Record %2$s run by %1$s is aborted");
+    NoArgs RECORD_STOP_FORCE_CANCEL = noArgs("message.neospeedzero.record.stop.force.cancel", "Record stop request is cancelled");
+    NoArgs PLAYER_NOT_HOST = noArgs("message.neospeedzero.stop.no_host", "Cannot stop the record run by your host.\nIf you want to quit, type `/neospeed quit.`");
+}

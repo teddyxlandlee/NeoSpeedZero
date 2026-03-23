@@ -1,4 +1,5 @@
 apply(plugin = "net.fabricmc.fabric-loom")
+apply(plugin = "java")
 
 repositories {
     mavenCentral()
@@ -20,5 +21,6 @@ dependencies {
 sourceSets {
     main {
         resources.srcDir("src/generated/resources")
+        java.srcDir("src/generated/java")
     }
 }

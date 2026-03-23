@@ -12,9 +12,6 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
     private final String key;
     private final String fallback;
 
-    public abstract Component create();
-    public abstract Component createWithArgs(@UnknownNullability Object... args);
-
     public static NoArgs noArgs(String key, String fallback) {
         return new NoArgs(key, fallback);
     }
@@ -28,25 +25,14 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
             super(key, fallback);
         }
 
-        @Override
         public Component create() {
             return Component.translatableWithFallback(getKey(), getFallback());
-        }
-
-        @Override
-        public Component createWithArgs(Object... args) {
-            throw new UnsupportedOperationException("This factory does not support args");
         }
     }
 
     public static final class WithArgs extends TranslatableComponentFactory {
         private WithArgs(String key, String fallback) {
             super(key, fallback);
-        }
-
-        @Override
-        public Component create() {
-            throw new UnsupportedOperationException("This factory must accept args");
         }
 
         private static Object mapArgument(@UnknownNullability Object arg) {
@@ -57,7 +43,6 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
             };
         }
 
-        @Override
         public Component createWithArgs(@UnknownNullability Object... args) {
             args = Arrays.stream(args).map(WithArgs::mapArgument).toArray();
             // runtime type: Object[]
@@ -73,10 +58,6 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
     }
 
     // Utilities
-    public final Component createWithArgs(Object arg) {
-        return createWithArgs(new Object[]{arg});
-    }
-
     public final String getKey() {
         return key;
     }
