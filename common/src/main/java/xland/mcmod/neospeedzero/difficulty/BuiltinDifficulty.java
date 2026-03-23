@@ -16,23 +16,26 @@ import java.util.UUID;
 import java.util.function.Function;
 
 public enum BuiltinDifficulty implements SpeedrunDifficulty {
-    NN(GiveItem.NONE, GiveItem.NONE, "empty"),
-    NC(GiveItem.NONE, GiveItem.COMMON, "elytra"),
-    NU(GiveItem.NONE, GiveItem.UNBREAKABLE, "inf_elytra"),
-    CN(GiveItem.COMMON, GiveItem.NONE, "firework"),
-    CC(GiveItem.COMMON, GiveItem.COMMON, "firework_elytra"),
-    CU(GiveItem.COMMON, GiveItem.UNBREAKABLE, "firework_inf_elytra"),
-    UN(GiveItem.UNBREAKABLE, GiveItem.NONE, "inf_firework"),
-    UC(GiveItem.UNBREAKABLE, GiveItem.COMMON, "inf_firework_elytra"),
-    UU(GiveItem.UNBREAKABLE, GiveItem.UNBREAKABLE, "inf_firework_inf_elytra")
+    NN(GiveItem.NONE, GiveItem.NONE, "empty", "Start From Zero"),
+    NC(GiveItem.NONE, GiveItem.COMMON, "elytra", "Elytra Travel"),
+    NU(GiveItem.NONE, GiveItem.UNBREAKABLE, "inf_elytra", "Unbreakable Wings"),
+    CN(GiveItem.COMMON, GiveItem.NONE, "firework", "Fireworks Only"),
+    CC(GiveItem.COMMON, GiveItem.COMMON, "firework_elytra", "Basic Travel"),
+    CU(GiveItem.COMMON, GiveItem.UNBREAKABLE, "firework_inf_elytra", "Infinite Adventure"),
+    UN(GiveItem.UNBREAKABLE, GiveItem.NONE, "inf_firework", "Infinite Fireworks Only"),
+    UC(GiveItem.UNBREAKABLE, GiveItem.COMMON, "inf_firework_elytra", "Advanced Travel"),
+    UU(GiveItem.UNBREAKABLE, GiveItem.UNBREAKABLE, "inf_firework_inf_elytra", "Classic")
     ;
     private final String rawId;
     private final GiveItem forFirework, forElytra;
 
-    BuiltinDifficulty(GiveItem forFirework, GiveItem forElytra, String rawId) {
+    private final String fallback;
+
+    BuiltinDifficulty(GiveItem forFirework, GiveItem forElytra, String rawId, String fallback) {
         this.rawId = rawId;
         this.forFirework = forFirework;
         this.forElytra = forElytra;
+        this.fallback = fallback;
     }
 
     @Override
@@ -42,7 +45,7 @@ public enum BuiltinDifficulty implements SpeedrunDifficulty {
 
     @Override
     public @NotNull Component displayedName() {
-        return Component.translatable("message.neospeedzero.difficulty." + rawId);
+        return Component.translatableWithFallback("message.neospeedzero.difficulty." + rawId, fallback);
     }
 
     @Override

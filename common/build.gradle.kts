@@ -13,6 +13,8 @@ dependencies {
     api("xland.mcmod:enchlevel-langpatch:3.1.0")
     api("net.fabricmc:sponge-mixin:0.16.5+mixin.0.8.7")
     api("io.github.llamalad7:mixinextras-common:0.5.0")
+
+    compileOnly("org.jetbrains:annotations:26.1.0")
 }
 
 sourceSets {

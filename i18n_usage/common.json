@@ -1,6 +1,7 @@
 [
   {
     "key": "command.neospeedzero.not_found.difficulty",
+    "field": "COMMAND_MISSING_DIFFICULTY",
     "has_varargs": true,
     "locations": [
       "record.SpeedrunStartupConfigImpl:62"
@@ -8,6 +9,7 @@
   },
   {
     "key": "command.neospeedzero.not_found.goal",
+    "field": "COMMAND_MISSING_GOAL",
     "has_varargs": true,
     "locations": [
       "record.SpeedrunStartupConfigImpl:59"
@@ -15,6 +17,7 @@
   },
   {
     "key": "command.neospeedzero.view_raw.complete.no",
+    "field": "VIEW_RAW_INCOMPLETE",
     "has_varargs": true,
     "locations": [
       "view.ChallengeSnapshot:141"
@@ -22,6 +25,7 @@
   },
   {
     "key": "command.neospeedzero.view_raw.complete.yes",
+    "field": "VIEW_RAW_COMPLETE",
     "has_varargs": true,
     "locations": [
       "view.ChallengeSnapshot:135"
@@ -29,6 +33,7 @@
   },
   {
     "key": "command.neospeedzero.view_raw.title",
+    "field": "VIEW_RAW_TITLE",
     "has_varargs": true,
     "locations": [
       "view.ChallengeSnapshot:117"
@@ -36,6 +41,7 @@
   },
   {
     "key": "gui.neospeedzero.goals",
+    "field": "DIALOG_GOALS",
     "has_varargs": false,
     "locations": [
       "resource.SpeedrunGoal:82"
@@ -43,6 +49,7 @@
   },
   {
     "key": "gui.neospeedzero.select_difficulty",
+    "field": "DIALOG_SELECT_DIFFICULTY",
     "has_varargs": false,
     "locations": [
       "resource.SpeedrunGoal:107"
@@ -50,6 +57,7 @@
   },
   {
     "key": "gui.neospeedzero.startup_goal",
+    "field": "DIALOG_STARTUP_GOAL",
     "has_varargs": true,
     "locations": [
       "resource.SpeedrunGoal:103"
@@ -57,6 +65,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.bundle",
+    "field": "EXTRA_REQUIREMENTS_BUNDLE",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:78"
@@ -64,6 +73,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.count",
+    "field": "EXTRA_REQUIREMENTS_COUNT",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:47"
@@ -71,6 +81,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.count.between",
+    "field": "EXTRA_REQUIREMENTS_COUNT_BETWEEN",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:165"
@@ -78,6 +89,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.count.exact",
+    "field": "EXTRA_REQUIREMENTS_COUNT_EXACT",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:164"
@@ -85,6 +97,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.count.max",
+    "field": "EXTRA_REQUIREMENTS_COUNT_MAX",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:161"
@@ -92,6 +105,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.count.min",
+    "field": "EXTRA_REQUIREMENTS_COUNT_MIN",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:162"
@@ -99,6 +113,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.custom_data",
+    "field": "EXTRA_REQUIREMENTS_CUSTOM_DATA",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:83"
@@ -106,6 +121,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.damage",
+    "field": "EXTRA_REQUIREMENTS_DAMAGE",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:58",
@@ -114,6 +130,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.durability",
+    "field": "EXTRA_REQUIREMENTS_DURABILITY",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:63"
@@ -121,6 +138,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.enchantments.any",
+    "field": "EXTRA_REQUIREMENTS_ENCHANTMENTS_ANY",
     "has_varargs": true,
     "locations": [
       "resource.ExtraRequirements:139"
@@ -128,6 +146,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.items",
+    "field": "EXTRA_REQUIREMENTS_ITEMS",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:116"
@@ -135,6 +154,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.items.any",
+    "field": "EXTRA_REQUIREMENTS_ANY_ITEM",
     "has_varargs": false,
     "locations": [
       "resource.GoalPredicate:47"
@@ -142,6 +162,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.potion",
+    "field": "EXTRA_REQUIREMENTS_POTION",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:100"
@@ -149,6 +170,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.song",
+    "field": "EXTRA_REQUIREMENTS_SONG",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:93"
@@ -156,6 +178,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.trim.material",
+    "field": "EXTRA_REQUIREMENTS_TRIM_MATERIAL",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:107"
@@ -163,6 +186,7 @@
   },
   {
     "key": "item_predicate.neospeedzero.extra_req.trim.patterns",
+    "field": "EXTRA_REQUIREMENTS_TRIM_PATTERNS",
     "has_varargs": false,
     "locations": [
       "resource.ExtraRequirements:110"
@@ -170,6 +194,7 @@
   },
   {
     "key": "message.neospeedzero.challenge.complete",
+    "field": "CHALLENGE_COMPLETE",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:74"
@@ -177,20 +202,15 @@
   },
   {
     "key": "message.neospeedzero.challenge.finished_in",
+    "field": "CHALLENGE_FINISH_DURATION",
     "has_varargs": true,
     "locations": [
       "record.SpeedrunRecord:135"
     ]
   },
   {
-    "key": "message.neospeedzero.difficulty. + rawId",
-    "has_varargs": false,
-    "locations": [
-      "difficulty.BuiltinDifficulty:45"
-    ]
-  },
-  {
     "key": "message.neospeedzero.item.mod_given",
+    "field": "MOD_GIVEN",
     "has_varargs": false,
     "locations": [
       "itemext.ItemExtensions:60"
@@ -198,6 +218,7 @@
   },
   {
     "key": "message.neospeedzero.join.success",
+    "field": "PLAYER_JOIN_SUCCESS",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:60"
@@ -205,6 +226,7 @@
   },
   {
     "key": "message.neospeedzero.join.unjoined",
+    "field": "PLAYER_JOIN_QUITTING",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:52"
@@ -212,6 +234,7 @@
   },
   {
     "key": "message.neospeedzero.record.ambiguous",
+    "field": "RECORD_LOOKUP_AMBIGUOUS",
     "has_varargs": true,
     "locations": [
       "command.RecordLookup:22"
@@ -219,6 +242,7 @@
   },
   {
     "key": "message.neospeedzero.record.complete",
+    "field": "RECORD_COMPLETE",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:97"
@@ -226,6 +250,7 @@
   },
   {
     "key": "message.neospeedzero.record.invalid_ref",
+    "field": "RECORD_LOOKUP_INVALID_REFERENCE",
     "has_varargs": true,
     "locations": [
       "command.RecordLookup:37"
@@ -233,6 +258,7 @@
   },
   {
     "key": "message.neospeedzero.record.not_found",
+    "field": "RECORD_NOT_FOUND",
     "has_varargs": true,
     "locations": [
       "command.RecordLookup:20",
@@ -241,6 +267,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.difficulty",
+    "field": "RECORD_SNAPSHOT_DIFFICULTY",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:141"
@@ -248,6 +275,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.finish_time",
+    "field": "RECORD_SNAPSHOT_FINISH_TIME",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:148"
@@ -255,6 +283,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.goal_id",
+    "field": "RECORD_SNAPSHOT_GOAL_ID",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:139"
@@ -262,6 +291,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.id",
+    "field": "RECORD_SNAPSHOT_ID",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:158",
@@ -270,6 +300,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.non-synced",
+    "field": "RECORD_SNAPSHOT_NON_SYNCED",
     "has_varargs": false,
     "locations": [
       "NeoSpeedMessages:159",
@@ -278,6 +309,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.progress",
+    "field": "RECORD_SNAPSHOT_PROGRESS",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:144",
@@ -286,6 +318,7 @@
   },
   {
     "key": "message.neospeedzero.record.snapshot.progress.data",
+    "field": "RECORD_SNAPSHOT_PROGRESS_DATA",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:164"
@@ -293,6 +326,7 @@
   },
   {
     "key": "message.neospeedzero.record.start",
+    "field": "RECORD_START",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:36"
@@ -300,6 +334,7 @@
   },
   {
     "key": "message.neospeedzero.record.start.cancel",
+    "field": "RECORD_START_CANCEL",
     "has_varargs": false,
     "locations": [
       "NeoSpeedLifecycle:44"
@@ -307,6 +342,7 @@
   },
   {
     "key": "message.neospeedzero.record.start.started",
+    "field": "PLAYER_ALREADY_SPEEDRUNNING",
     "has_varargs": true,
     "locations": [
       "NeoSpeedLifecycle:34",
@@ -317,6 +353,7 @@
   },
   {
     "key": "message.neospeedzero.record.stop.absent",
+    "field": "PLAYER_NOT_SPEEDRUNNING",
     "has_varargs": true,
     "locations": [
       "NeoSpeedLifecycle:76",
@@ -332,6 +369,7 @@
   },
   {
     "key": "message.neospeedzero.record.stop.force",
+    "field": "RECORD_STOP_FORCE",
     "has_varargs": true,
     "locations": [
       "NeoSpeedMessages:44"
@@ -339,6 +377,7 @@
   },
   {
     "key": "message.neospeedzero.record.stop.force.cancel",
+    "field": "RECORD_STOP_FORCE_CANCEL",
     "has_varargs": false,
     "locations": [
       "NeoSpeedLifecycle:86"
@@ -346,6 +385,7 @@
   },
   {
     "key": "message.neospeedzero.stop.no_host",
+    "field": "PLAYER_NOT_HOST",
     "has_varargs": false,
     "locations": [
       "NeoSpeedLifecycle:80"
