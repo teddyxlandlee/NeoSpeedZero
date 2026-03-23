@@ -1,6 +1,7 @@
 package xland.mcmod.neospeedzero.util;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.UnknownNullability;
 
@@ -25,7 +26,7 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
             super(key, fallback);
         }
 
-        public Component create() {
+        public MutableComponent create() {
             return Component.translatableWithFallback(getKey(), getFallback());
         }
     }
@@ -43,7 +44,7 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
             };
         }
 
-        public Component createWithArgs(@UnknownNullability Object... args) {
+        public MutableComponent createWithArgs(@UnknownNullability Object... args) {
             args = Arrays.stream(args).map(WithArgs::mapArgument).toArray();
             // runtime type: Object[]
             return Component.translatableWithFallback(getKey(), getFallback(), args);
