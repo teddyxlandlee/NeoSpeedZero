@@ -1,0 +1,354 @@
+[
+  {
+    "key": "command.neospeedzero.not_found.difficulty",
+    "has_varargs": true,
+    "locations": [
+      "record.SpeedrunStartupConfigImpl:62"
+    ]
+  },
+  {
+    "key": "command.neospeedzero.not_found.goal",
+    "has_varargs": true,
+    "locations": [
+      "record.SpeedrunStartupConfigImpl:59"
+    ]
+  },
+  {
+    "key": "command.neospeedzero.view_raw.complete.no",
+    "has_varargs": true,
+    "locations": [
+      "view.ChallengeSnapshot:141"
+    ]
+  },
+  {
+    "key": "command.neospeedzero.view_raw.complete.yes",
+    "has_varargs": true,
+    "locations": [
+      "view.ChallengeSnapshot:135"
+    ]
+  },
+  {
+    "key": "command.neospeedzero.view_raw.title",
+    "has_varargs": true,
+    "locations": [
+      "view.ChallengeSnapshot:117"
+    ]
+  },
+  {
+    "key": "gui.neospeedzero.goals",
+    "has_varargs": false,
+    "locations": [
+      "resource.SpeedrunGoal:82"
+    ]
+  },
+  {
+    "key": "gui.neospeedzero.select_difficulty",
+    "has_varargs": false,
+    "locations": [
+      "resource.SpeedrunGoal:107"
+    ]
+  },
+  {
+    "key": "gui.neospeedzero.startup_goal",
+    "has_varargs": true,
+    "locations": [
+      "resource.SpeedrunGoal:103"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.bundle",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:78"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.count",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:47"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.count.between",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:165"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.count.exact",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:164"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.count.max",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:161"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.count.min",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:162"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.custom_data",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:83"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.damage",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:58",
+      "resource.ExtraRequirements:64"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.durability",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:63"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.enchantments.any",
+    "has_varargs": true,
+    "locations": [
+      "resource.ExtraRequirements:139"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.items",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:116"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.items.any",
+    "has_varargs": false,
+    "locations": [
+      "resource.GoalPredicate:47"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.potion",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:100"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.song",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:93"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.trim.material",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:107"
+    ]
+  },
+  {
+    "key": "item_predicate.neospeedzero.extra_req.trim.patterns",
+    "has_varargs": false,
+    "locations": [
+      "resource.ExtraRequirements:110"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.challenge.complete",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:74"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.challenge.finished_in",
+    "has_varargs": true,
+    "locations": [
+      "record.SpeedrunRecord:135"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.difficulty. + rawId",
+    "has_varargs": false,
+    "locations": [
+      "difficulty.BuiltinDifficulty:45"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.item.mod_given",
+    "has_varargs": false,
+    "locations": [
+      "itemext.ItemExtensions:60"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.join.success",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:60"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.join.unjoined",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:52"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.ambiguous",
+    "has_varargs": true,
+    "locations": [
+      "command.RecordLookup:22"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.complete",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:97"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.invalid_ref",
+    "has_varargs": true,
+    "locations": [
+      "command.RecordLookup:37"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.not_found",
+    "has_varargs": true,
+    "locations": [
+      "command.RecordLookup:20",
+      "record.manager.RecordManager:77"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.difficulty",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:141"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.finish_time",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:148"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.goal_id",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:139"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.id",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:158",
+      "view.ChallengeSnapshot:120"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.non-synced",
+    "has_varargs": false,
+    "locations": [
+      "NeoSpeedMessages:159",
+      "view.ChallengeSnapshot:146"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.progress",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:144",
+      "NeoSpeedMessages:153"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.snapshot.progress.data",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:164"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.start",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:36"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.start.cancel",
+    "has_varargs": false,
+    "locations": [
+      "NeoSpeedLifecycle:44"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.start.started",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedLifecycle:34",
+      "NeoSpeedLifecycle:112",
+      "record.manager.RecordManager:54",
+      "record.manager.RecordManager:69"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.stop.absent",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedLifecycle:76",
+      "NeoSpeedLifecycle:91",
+      "NeoSpeedLifecycle:105",
+      "NeoSpeedLifecycle:126",
+      "command.RecordLookup:70",
+      "command.NeoSpeedCommands:74",
+      "command.NeoSpeedCommands:85",
+      "command.NeoSpeedCommands:97",
+      "view.ViewPackets:41"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.stop.force",
+    "has_varargs": true,
+    "locations": [
+      "NeoSpeedMessages:44"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.record.stop.force.cancel",
+    "has_varargs": false,
+    "locations": [
+      "NeoSpeedLifecycle:86"
+    ]
+  },
+  {
+    "key": "message.neospeedzero.stop.no_host",
+    "has_varargs": false,
+    "locations": [
+      "NeoSpeedLifecycle:80"
+    ]
+  }
+]
