@@ -84,8 +84,8 @@ public final class PlatformEventsNeoForge extends PlatformEvents {
     }
 
 //    @OnlyIn(Dist.CLIENT)
-    public void registerKeyMapping(Supplier<KeyMapping> keyMappingSupplier) {
-        final KeyMapping keyMapping = Objects.requireNonNull(keyMappingSupplier.get(), "keyMapping cannot be null.");
+    public void registerKeyMapping(KeyMapping keyMapping) {
+        Objects.requireNonNull(keyMapping, "keyMapping cannot be null.");
         IEventBus bus = ModList.get().getModContainerById(NeoSpeedZero.MOD_ID).map(ModContainer::getEventBus).orElseThrow();
         bus.addListener(RegisterKeyMappingsEvent.class, event -> event.register(keyMapping));
     }

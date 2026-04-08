@@ -13,7 +13,6 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
-import org.apache.commons.lang3.Validate;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 import xland.mcmod.neospeedzero.util.event.Event;
@@ -75,7 +74,6 @@ public final class PaperEvents extends PlatformEvents {
     @Override
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void registerCommand(Supplier<LiteralArgumentBuilder<CommandSourceStack>> nodeBuilder) {
-        Validate.validState(io.papermc.paper.command.brigadier.CommandSourceStack.class.isAssignableFrom(CommandSourceStack.class));
         @SuppressWarnings("rawtypes")
         Supplier s = nodeBuilder;
         COMMANDS.register((Supplier<? extends LiteralArgumentBuilder<io.papermc.paper.command.brigadier.CommandSourceStack>>) s);
@@ -121,12 +119,6 @@ public final class PaperEvents extends PlatformEvents {
     public Predicate<? super MinecraftServer> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
         // TODO: provide alternative options for game rule
         return com.google.common.base.Predicates.alwaysTrue();
-    }
-
-    @Deprecated
-    @Override
-    public void registerKeyMapping(Supplier<net.minecraft.client.KeyMapping> keyMapping) {
-        throw new UnsupportedOperationException("Wrong side");
     }
 
     @Deprecated

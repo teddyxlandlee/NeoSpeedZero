@@ -72,7 +72,7 @@ public final class PaperNetwork extends PlatformNetwork {
     @Override
     public void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer) {
         Player bukkitPlayer = CraftBukkitReflections.asBukkitPlayer(serverPlayer);
-        byte[] payloadBytes = payloadToBytes(payload);
+        byte @Nullable[] payloadBytes = payloadToBytes(payload);
         if (payloadBytes == null) return;   // unknown packet
 
         bukkitPlayer.sendPluginMessage(NeoSpeedZeroPaper.getInstance(), payload.type().id().toString(), payloadBytes);
@@ -80,7 +80,7 @@ public final class PaperNetwork extends PlatformNetwork {
 
     @Override
     public void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players) {
-        byte[] payloadBytes = payloadToBytes(payload);
+        byte @Nullable[] payloadBytes = payloadToBytes(payload);
         if (payloadBytes == null) return;   // unknown packet
 
         String channel = payload.type().id().toString();

@@ -75,8 +75,8 @@ public final class PlatformEventsFabric extends PlatformEvents {
     }
 
     @Environment(EnvType.CLIENT)
-    public void registerKeyMapping(Supplier<KeyMapping> keyMapping) {
-        KeyMappingHelper.registerKeyMapping(keyMapping.get());
+    public void registerKeyMapping(KeyMapping keyMapping) {
+        KeyMappingHelper.registerKeyMapping(keyMapping);
     }
 
     @Environment(EnvType.CLIENT)

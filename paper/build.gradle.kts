@@ -1,8 +1,7 @@
 plugins {
     `java-library`
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
 }
-
-apply(plugin = "net.fabricmc.fabric-loom")
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/") {
@@ -11,11 +10,10 @@ repositories {
 }
 
 dependencies {
-    add("minecraft", "com.mojang:minecraft:${rootProject.ext["minecraft_version"]}")
-    // Temporarily use 1.21.11 Paper API as a bridge, since
-    // CraftBukkit implementations are currently unavailable
-    api("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    implementation(project(":common"))
+    paperweight.paperDevBundle("26.1.1.build.+")
+    implementation(project(":common")) {
+        isTransitive = false    // we don't want those client-only code on classpath
+    }
 }
 
 tasks.processResources {
