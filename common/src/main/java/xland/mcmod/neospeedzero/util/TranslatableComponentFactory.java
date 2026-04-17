@@ -39,7 +39,7 @@ public abstract sealed class TranslatableComponentFactory implements java.io.Ser
         private static Object mapArgument(@UnknownNullability Object arg) {
             // See TranslatableContents.isAllowedPrimitiveArgument()
             return switch (arg) {
-                case String _, Number _, Boolean _ -> arg;
+                case String _, Number _, Boolean _, Component _ -> arg;
                 case null, default -> String.valueOf(arg);
             };
         }
