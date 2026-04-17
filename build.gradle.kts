@@ -4,7 +4,13 @@ import java.util.*
 plugins {
     `java-library`
     id("net.fabricmc.fabric-loom") version "1.16-SNAPSHOT" apply false
-    id("com.gradleup.shadow") version "9.4.1" apply false
+    /*
+    * Shadow 9.4.x fails:
+    * Execution failed for task ':shadowJar'.
+    *  > Resolution of the configuration ':common:universalShadowCandidate_jar_subproject_common'
+    *    was attempted without an exclusive lock. This is unsafe and not allowed.
+    */
+    id("com.gradleup.shadow") version "9.3.2" apply false
     id("com.modrinth.minotaur") version "2.+" apply false
 }
 
