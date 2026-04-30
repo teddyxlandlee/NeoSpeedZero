@@ -9,6 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.jetbrains.annotations.NotNullByDefault;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
@@ -16,7 +17,7 @@ import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Map;
 
-@org.jspecify.annotations.NullMarked
+@NotNullByDefault
 public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<SpeedrunGoal> {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final Identifier GOAL_KEY_ID = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");

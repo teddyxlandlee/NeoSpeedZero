@@ -22,6 +22,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.util.access.EnchantmentPredicateListProvider;
@@ -32,7 +33,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@org.jspecify.annotations.NullMarked
+@NotNullByDefault
 final class ExtraRequirements {
     static ItemStackTemplate fillExtraRequirements(ItemStackTemplate template,
                                                    @Nullable Either<TagKey<Item>, HolderSet<Item>> ofAny,
