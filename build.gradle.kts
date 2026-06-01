@@ -23,8 +23,8 @@ allprojects {
     version = rootProject.ext["mod_version"]!!
 
     repositories {
-        maven("https://mvn.7c7.icu") {
-            name = "7c7 Maven"
+        maven("https://maven.hixland.com") {
+            name = "Teddy's Maven"
         }
         maven("https://maven.fabricmc.net")
         mavenCentral()
