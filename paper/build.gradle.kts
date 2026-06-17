@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("26.1.1.build.+")
+    paperweight.paperDevBundle("26.2.build.+")
     implementation(project(":common")) {
         isTransitive = false    // we don't want those client-only code on classpath
     }

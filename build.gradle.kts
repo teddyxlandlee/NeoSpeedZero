@@ -3,20 +3,18 @@ import java.util.*
 
 plugins {
     `java-library`
-    id("net.fabricmc.fabric-loom") version "1.16-SNAPSHOT" apply false
+    id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT" apply false
     /*
     * Shadow 9.4.x fails:
     * Execution failed for task ':shadowJar'.
     *  > Resolution of the configuration ':common:universalShadowCandidate_jar_subproject_common'
     *    was attempted without an exclusive lock. This is unsafe and not allowed.
     */
-    id("com.gradleup.shadow") version "9.3.2" apply false
+    id("com.gradleup.shadow") version "9.4.2" apply false
     id("com.modrinth.minotaur") version "2.+" apply false
 }
 
 apply(plugin = "com.modrinth.minotaur")
-
-val javaVersion = 25
 
 allprojects {
     group = rootProject.ext["maven_group"]!!
@@ -36,7 +34,7 @@ subprojects {
 
     java {
         withSourcesJar()
-        toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+        toolchain.languageVersion = JavaLanguageVersion.of(25)
     }
 
     tasks.withType<JavaCompile>().configureEach {
@@ -55,7 +53,8 @@ private fun subprojectArchives(taskName: String) : Iterable<Configuration> = sub
     p.configurations.create("universalShadowCandidate_${taskName}_subproject_${p.name}").withDependency(files)
 }
 
-tasks.register("shadowJar", ShadowJar::class) {
+tasks.register<ShadowJar>("shadowJar") {
+    description = "Shadowing submodules into a universal jar"
     configurations.set(subprojectArchives("jar"))
     archiveClassifier.set("universal")
 
@@ -72,6 +71,7 @@ tasks.register("shadowJar", ShadowJar::class) {
 }
 
 tasks.register("shadowSourcesJar", ShadowJar::class) {
+    description = "Shadowing sources of submodules into a sources jar"
     configurations.set(subprojectArchives("sourcesJar"))
     archiveClassifier.set("universal-sources")
 }
