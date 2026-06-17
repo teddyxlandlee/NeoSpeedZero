@@ -42,16 +42,20 @@ subprojects {
     }
 }
 
-private fun Configuration.withDependency(c: FileCollection) : Configuration {
-    this.dependencies.add(dependencyFactory.create(c))
-    return this
+listOf("jar", "sourcesJar").forEach { taskName ->
+    configurations.create("universalShadowCandidate_${taskName}") {
+//        dependencies.add(dependencyFactory.create(files(tasks.named(taskName))))
+        isCanBeResolved = true
+        isCanBeConsumed = false
+        dependencies.add(dependencyFactory.create(files(
+            subprojects.map { p -> p.tasks.named(taskName) }
+        )))
+    }
 }
 
 // Shadow jar
-private fun subprojectArchives(taskName: String) : Iterable<Configuration> = subprojects.map { p ->
-    val files : FileCollection = p.tasks.getByName<Jar>(taskName).outputs.files
-    p.configurations.create("universalShadowCandidate_${taskName}_subproject_${p.name}").withDependency(files)
-}
+private fun subprojectArchives(taskName: String) : Provider<Iterable<Configuration>> =
+    configurations.named("universalShadowCandidate_${taskName}").map(::listOf)
 
 tasks.register<ShadowJar>("shadowJar") {
     description = "Shadowing submodules into a universal jar"
@@ -60,10 +64,6 @@ tasks.register<ShadowJar>("shadowJar") {
 
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
     mergeServiceFiles()
-
-    doFirst {
-        println(configurations.get().map { it.files })
-    }
 
     manifest.attributes(
         "Implementation-Version" to project.version     // used by Paper port's data pack cache
