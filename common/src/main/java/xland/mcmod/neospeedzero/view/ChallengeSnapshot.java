@@ -70,7 +70,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         class Receiver implements Runnable {
             @Override
             public void run() {
-                Minecraft.getInstance().setScreen(new ViewChallengeScreen(ChallengeSnapshot.this));
+                Minecraft.getInstance().gui.setScreen(new ViewChallengeScreen(ChallengeSnapshot.this));
             }
         }
         new Receiver().run();
@@ -107,7 +107,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         @Override
         @Environment(EnvType.CLIENT)
         public void onClientReceive() {
-            if (Minecraft.getInstance().screen instanceof ViewChallengeScreen viewChallengeScreen) {
+            if (Minecraft.getInstance().gui.screen() instanceof ViewChallengeScreen viewChallengeScreen) {
                 viewChallengeScreen.onDataUpdate(this);
             }
         }

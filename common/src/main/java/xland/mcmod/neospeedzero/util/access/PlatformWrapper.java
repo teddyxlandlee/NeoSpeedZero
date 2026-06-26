@@ -3,7 +3,7 @@ package xland.mcmod.neospeedzero.util.access;
 import com.google.common.base.Preconditions;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.predicates.EnchantmentPredicate;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;

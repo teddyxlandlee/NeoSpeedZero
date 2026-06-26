@@ -1,6 +1,6 @@
 package xland.mcmod.neospeedzero.util.access;
 
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.predicates.EnchantmentPredicate;
 
 import java.util.List;
 

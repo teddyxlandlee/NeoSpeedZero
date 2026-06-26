@@ -1,6 +1,6 @@
 package xland.mcmod.neospeedzero.mixin;
 
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +13,7 @@ import xland.mcmod.neospeedzero.NeoSpeedLifecycle;
 @Mixin(InventoryChangeTrigger.class)
 abstract class InventoryChangeTriggerMixin {
     @Inject(at = @At("HEAD"), method = "trigger(Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/world/entity/player/Inventory;Lnet/minecraft/world/item/ItemStack;)V")
-    private void onInventoryChange(ServerPlayer serverPlayer, Inventory inventory, ItemStack itemStack, CallbackInfo ci) {
-        NeoSpeedLifecycle.onInventoryChange(serverPlayer, itemStack);
+    private void onInventoryChange(ServerPlayer player, Inventory inventory, ItemStack changedItem, CallbackInfo ci) {
+        NeoSpeedLifecycle.onInventoryChange(player, changedItem);
     }
 }

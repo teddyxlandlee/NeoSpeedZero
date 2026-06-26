@@ -1,6 +1,6 @@
 name: NeoSpeedZero
 version: '${version}'
-api-version: '26.1'
+api-version: '26.2'
 authors:
   - teddyxlandlee
 main: xland.mcmod.neospeedzero.paper.NeoSpeedZeroPaper

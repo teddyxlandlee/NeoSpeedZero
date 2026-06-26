@@ -2,9 +2,9 @@ package xland.mcmod.neospeedzero.resource;
 
 import com.google.common.base.Preconditions;
 import com.mojang.datafixers.util.Either;
-import net.minecraft.advancements.criterion.CollectionPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.predicates.CollectionPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentGetter;
