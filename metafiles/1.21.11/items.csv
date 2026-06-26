@@ -789,7 +789,6 @@ M,mutton,3,生羊肉
 M,mycelium,3,菌丝体
 N,name_tag,3,命名牌
 N,nautilus_shell,4,鹦鹉螺壳
-N,nautilus_spawn_egg,6,鹦鹉螺刷怪蛋
 N,nether_brick,3,下界砖
 N,nether_brick_fence,5,下界砖栅栏
 N,nether_brick_slab,5,下界砖台阶
@@ -1384,4 +1383,3 @@ Y,yellow_stained_glass_pane,7,黄色染色玻璃板
 Y,yellow_terracotta,4,黄色陶瓦
 Y,yellow_wool,4,黄色羊毛
 Z,zombie_head,4,僵尸的头
-Z,zombie_nautilus_spawn_egg,8,僵尸鹦鹉螺刷怪蛋
