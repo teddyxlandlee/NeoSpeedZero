@@ -63,6 +63,7 @@ L,llama_spawn_egg,5,羊驼刷怪蛋
 M,magma_cube_spawn_egg,6,岩浆怪刷怪蛋
 M,mooshroom_spawn_egg,5,哞菇刷怪蛋
 M,mule_spawn_egg,4,骡刷怪蛋
+N,nautilus_spawn_egg,6,鹦鹉螺刷怪蛋
 O,ocelot_spawn_egg,5,豹猫刷怪蛋
 P,panda_spawn_egg,5,熊猫刷怪蛋
 P,parched_spawn_egg,5,焦骸刷怪蛋
@@ -116,6 +117,7 @@ W,wither_spawn_egg,5,凋灵刷怪蛋
 W,wolf_spawn_egg,4,狼刷怪蛋
 Z,zoglin_spawn_egg,8,僵尸疣猪兽刷怪蛋
 Z,zombie_horse_spawn_egg,6,僵尸马刷怪蛋
+Z,zombie_nautilus_spawn_egg,8,僵尸鹦鹉螺刷怪蛋
 Z,zombie_spawn_egg,5,僵尸刷怪蛋
 Z,zombie_villager_spawn_egg,7,僵尸村民刷怪蛋
 Z,zombified_piglin_spawn_egg,7,僵尸猪灵刷怪蛋
