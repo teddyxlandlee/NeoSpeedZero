@@ -1,5 +1,7 @@
 # User-specific stuff
 .idea/
+.venv/
+.vscode/
 
 *.iml
 *.ipr
