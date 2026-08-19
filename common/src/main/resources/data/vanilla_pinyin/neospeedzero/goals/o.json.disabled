@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.o",
+    "fallback": "Pinyin O"
+  },
+  "icon": {
+    "id": "barrier"
+  },
+  "predicates": [
+    "#vanilla_pinyin:o"
+  ]
+}

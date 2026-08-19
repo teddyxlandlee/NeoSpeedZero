@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.q",
+    "fallback": "Pinyin Q"
+  },
+  "icon": {
+    "id": "minecraft:armadillo_scute"
+  },
+  "predicates": [
+    "#vanilla_pinyin:q"
+  ]
+}

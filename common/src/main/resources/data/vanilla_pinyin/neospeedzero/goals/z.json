@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.z",
+    "fallback": "Pinyin Z"
+  },
+  "icon": {
+    "id": "minecraft:amethyst_block"
+  },
+  "predicates": [
+    "#vanilla_pinyin:z"
+  ]
+}

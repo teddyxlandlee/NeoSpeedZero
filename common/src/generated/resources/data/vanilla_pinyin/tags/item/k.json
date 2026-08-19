@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:armor_stand",
+    "minecraft:baked_potato",
+    "minecraft:chipped_anvil",
+    "minecraft:cocoa_beans",
+    "minecraft:creeper_head",
+    "minecraft:crying_obsidian",
+    "minecraft:leaf_litter",
+    "minecraft:map",
+    "minecraft:minecart",
+    "minecraft:skeleton_skull",
+    "minecraft:suspicious_gravel",
+    "minecraft:suspicious_sand",
+    "minecraft:tadpole_bucket"
+  ]
+}

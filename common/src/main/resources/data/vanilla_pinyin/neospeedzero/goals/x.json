@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.x",
+    "fallback": "Pinyin X"
+  },
+  "icon": {
+    "id": "minecraft:acacia_hanging_sign"
+  },
+  "predicates": [
+    "#vanilla_pinyin:x"
+  ]
+}

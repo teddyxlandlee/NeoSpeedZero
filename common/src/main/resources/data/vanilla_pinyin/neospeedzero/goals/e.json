@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.e",
+    "fallback": "Pinyin E"
+  },
+  "icon": {
+    "id": "minecraft:ghast_tear"
+  },
+  "predicates": [
+    "#vanilla_pinyin:e"
+  ]
+}

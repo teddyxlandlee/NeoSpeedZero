@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.d",
+    "fallback": "Pinyin D"
+  },
+  "icon": {
+    "id": "minecraft:azalea"
+  },
+  "predicates": [
+    "#vanilla_pinyin:d"
+  ]
+}

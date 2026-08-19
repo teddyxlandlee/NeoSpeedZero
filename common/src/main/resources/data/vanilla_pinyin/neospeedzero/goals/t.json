@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.t",
+    "fallback": "Pinyin T"
+  },
+  "icon": {
+    "id": "minecraft:anvil"
+  },
+  "predicates": [
+    "#vanilla_pinyin:t"
+  ]
+}

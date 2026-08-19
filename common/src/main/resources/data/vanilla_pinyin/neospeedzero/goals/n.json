@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.n",
+    "fallback": "Pinyin N"
+  },
+  "icon": {
+    "id": "minecraft:brain_coral"
+  },
+  "predicates": [
+    "#vanilla_pinyin:n"
+  ]
+}

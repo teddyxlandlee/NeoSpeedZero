@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.j",
+    "fallback": "Pinyin J"
+  },
+  "icon": {
+    "id": "minecraft:acacia_boat"
+  },
+  "predicates": [
+    "#vanilla_pinyin:j"
+  ]
+}

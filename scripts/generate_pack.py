@@ -249,7 +249,7 @@ def generate_datapack(input_csv, output_dir):
             pinyin_initial = item['pinyin_initial'].lower()
             if not pinyin_initial:
                 raise ValueError('Missing or empty pinyin_initial: ' + ','.join(item))
-            pinyin_initial_tags[pinyin_initial].append(f"minecraft:${item['id']}")
+            pinyin_initial_tags[pinyin_initial].append(f"minecraft:{item['id']}")
 
     # 4. 生成SpeedABC标签文件
     print("⏳ 生成SpeedABC标签...")

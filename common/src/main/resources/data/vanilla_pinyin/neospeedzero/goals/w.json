@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.w",
+    "fallback": "Pinyin W"
+  },
+  "icon": {
+    "id": "minecraft:bowl"
+  },
+  "predicates": [
+    "#vanilla_pinyin:w"
+  ]
+}

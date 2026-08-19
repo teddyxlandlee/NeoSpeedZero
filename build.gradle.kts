@@ -4,17 +4,9 @@ import java.util.*
 plugins {
     `java-library`
     id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT" apply false
-    /*
-    * Shadow 9.4.x fails:
-    * Execution failed for task ':shadowJar'.
-    *  > Resolution of the configuration ':common:universalShadowCandidate_jar_subproject_common'
-    *    was attempted without an exclusive lock. This is unsafe and not allowed.
-    */
-    id("com.gradleup.shadow") version "9.4.2" apply false
-    id("com.modrinth.minotaur") version "2.+" apply false
+    id("com.gradleup.shadow") version "9.6.1" apply false
+    id("com.modrinth.minotaur") version "2.+"
 }
-
-apply(plugin = "com.modrinth.minotaur")
 
 allprojects {
     group = rootProject.ext["maven_group"]!!
@@ -44,7 +36,6 @@ subprojects {
 
 listOf("jar", "sourcesJar").forEach { taskName ->
     configurations.create("universalShadowCandidate_${taskName}") {
-//        dependencies.add(dependencyFactory.create(files(tasks.named(taskName))))
         isCanBeResolved = true
         isCanBeConsumed = false
         dependencies.add(dependencyFactory.create(files(

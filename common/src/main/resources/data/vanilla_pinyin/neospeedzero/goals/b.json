@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.b",
+    "fallback": "Pinyin B"
+  },
+  "icon": {
+    "id": "minecraft:birch_boat"
+  },
+  "predicates": [
+    "#vanilla_pinyin:b"
+  ]
+}

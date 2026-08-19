@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.k",
+    "fallback": "Pinyin K"
+  },
+  "icon": {
+    "id": "minecraft:armor_stand"
+  },
+  "predicates": [
+    "#vanilla_pinyin:k"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.f",
+    "fallback": "Pinyin F"
+  },
+  "icon": {
+    "id": "minecraft:bee_nest"
+  },
+  "predicates": [
+    "#vanilla_pinyin:f"
+  ]
+}

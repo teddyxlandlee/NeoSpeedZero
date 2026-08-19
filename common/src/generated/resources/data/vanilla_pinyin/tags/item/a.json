@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:andesite",
+    "minecraft:andesite_slab",
+    "minecraft:andesite_stairs",
+    "minecraft:andesite_wall",
+    "minecraft:dark_prismarine",
+    "minecraft:dark_prismarine_slab",
+    "minecraft:dark_prismarine_stairs",
+    "minecraft:heart_pottery_sherd",
+    "minecraft:saddle",
+    "minecraft:short_dry_grass",
+    "minecraft:short_grass"
+  ]
+}

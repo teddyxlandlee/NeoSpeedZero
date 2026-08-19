@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.m",
+    "fallback": "Pinyin M"
+  },
+  "icon": {
+    "id": "minecraft:axolotl_bucket"
+  },
+  "predicates": [
+    "#vanilla_pinyin:m"
+  ]
+}

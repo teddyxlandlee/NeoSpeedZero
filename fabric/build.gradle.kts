@@ -1,4 +1,6 @@
-apply(plugin = "net.fabricmc.fabric-loom")
+plugins {
+    id("net.fabricmc.fabric-loom")
+}
 
 dependencies {
     add("minecraft", "com.mojang:minecraft:${rootProject.ext["minecraft_version"]}")

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bowl",
+    "minecraft:danger_pottery_sherd",
+    "minecraft:flow_pottery_sherd",
+    "minecraft:item_frame",
+    "minecraft:spyglass"
+  ]
+}

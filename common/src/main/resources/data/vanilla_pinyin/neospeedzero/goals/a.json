@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.a",
+    "fallback": "Pinyin A"
+  },
+  "icon": {
+    "id": "minecraft:andesite"
+  },
+  "predicates": [
+    "#vanilla_pinyin:a"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.s",
+    "fallback": "Pinyin S"
+  },
+  "icon": {
+    "id": "minecraft:beef"
+  },
+  "predicates": [
+    "#vanilla_pinyin:s"
+  ]
+}

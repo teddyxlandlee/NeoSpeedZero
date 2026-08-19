@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.c",
+    "fallback": "Pinyin C"
+  },
+  "icon": {
+    "id": "minecraft:angler_pottery_sherd"
+  },
+  "predicates": [
+    "#vanilla_pinyin:c"
+  ]
+}

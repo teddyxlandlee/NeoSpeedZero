@@ -1,0 +1,12 @@
+{
+  "display": {
+    "translate": "speedrun.alphabet.speedrun_goals.vanilla_pinyin.y",
+    "fallback": "Pinyin Y"
+  },
+  "icon": {
+    "id": "minecraft:ancient_debris"
+  },
+  "predicates": [
+    "#vanilla_pinyin:y"
+  ]
+}
