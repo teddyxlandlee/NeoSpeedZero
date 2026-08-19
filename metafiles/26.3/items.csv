@@ -1,4 +1,5 @@
 alphabet,id,han_num,chinese_name
+A,abandoned_camp_map,6,废弃营地地图
 A,acacia_boat,5,金合欢木船
 A,acacia_button,6,金合欢木按钮
 A,acacia_chest_boat,7,金合欢木运输船
@@ -95,6 +96,8 @@ B,black_candle,4,黑色蜡烛
 B,black_carpet,4,黑色地毯
 B,black_concrete,5,黑色混凝土
 B,black_concrete_powder,7,黑色混凝土粉末
+B,black_concrete_slab,7,黑色混凝土台阶
+B,black_concrete_stairs,7,黑色混凝土楼梯
 B,black_cushion,4,黑色坐垫
 B,black_dye,4,黑色染料
 B,black_glazed_terracotta,6,黑色带釉陶瓦
@@ -121,6 +124,8 @@ B,blue_candle,4,蓝色蜡烛
 B,blue_carpet,4,蓝色地毯
 B,blue_concrete,5,蓝色混凝土
 B,blue_concrete_powder,7,蓝色混凝土粉末
+B,blue_concrete_slab,7,蓝色混凝土台阶
+B,blue_concrete_stairs,7,蓝色混凝土楼梯
 B,blue_cushion,4,蓝色坐垫
 B,blue_dye,4,蓝色染料
 B,blue_egg,4,蓝色鸡蛋
@@ -163,6 +168,8 @@ B,brown_candle,4,棕色蜡烛
 B,brown_carpet,4,棕色地毯
 B,brown_concrete,5,棕色混凝土
 B,brown_concrete_powder,7,棕色混凝土粉末
+B,brown_concrete_slab,7,棕色混凝土台阶
+B,brown_concrete_stairs,7,棕色混凝土楼梯
 B,brown_cushion,4,棕色坐垫
 B,brown_dye,4,棕色染料
 B,brown_egg,4,棕色鸡蛋
@@ -183,6 +190,9 @@ B,bubble_coral_block,5,气泡珊瑚块
 B,bubble_coral_fan,5,气泡珊瑚扇
 B,bucket,2,铁桶
 B,bundle,3,收纳袋
+B,buried_ancient_city_map,9,埋藏的远古城市地图
+B,buried_mineshaft_map,9,埋藏的废弃矿井地图
+B,buried_treasure_map,3,藏宝图
 B,burn_pottery_sherd,6,烈焰纹样陶片
 B,bush,3,灌木丛
 C,cactus,3,仙人掌
@@ -351,6 +361,8 @@ C,cyan_candle,4,青色蜡烛
 C,cyan_carpet,4,青色地毯
 C,cyan_concrete,5,青色混凝土
 C,cyan_concrete_powder,7,青色混凝土粉末
+C,cyan_concrete_slab,7,青色混凝土台阶
+C,cyan_concrete_stairs,7,青色混凝土楼梯
 C,cyan_cushion,4,青色坐垫
 C,cyan_dye,4,青色染料
 C,cyan_glazed_terracotta,6,青色带釉陶瓦
@@ -421,6 +433,8 @@ D,deepslate_tile_slab,6,深板岩瓦台阶
 D,deepslate_tile_stairs,6,深板岩瓦楼梯
 D,deepslate_tile_wall,5,深板岩瓦墙
 D,deepslate_tiles,4,深板岩瓦
+D,desert_pyramid_map,6,沙漠神殿地图
+D,desert_village_map,6,沙漠村庄地图
 D,detector_rail,4,探测铁轨
 D,diamond,2,钻石
 D,diamond_axe,3,钻石斧
@@ -562,6 +576,8 @@ G,gray_candle,4,灰色蜡烛
 G,gray_carpet,4,灰色地毯
 G,gray_concrete,5,灰色混凝土
 G,gray_concrete_powder,7,灰色混凝土粉末
+G,gray_concrete_slab,7,灰色混凝土台阶
+G,gray_concrete_stairs,7,灰色混凝土楼梯
 G,gray_cushion,4,灰色坐垫
 G,gray_dye,4,灰色染料
 G,gray_glazed_terracotta,6,灰色带釉陶瓦
@@ -580,6 +596,8 @@ G,green_candle,4,绿色蜡烛
 G,green_carpet,4,绿色地毯
 G,green_concrete,5,绿色混凝土
 G,green_concrete_powder,7,绿色混凝土粉末
+G,green_concrete_slab,7,绿色混凝土台阶
+G,green_concrete_stairs,7,绿色混凝土楼梯
 G,green_cushion,4,绿色坐垫
 G,green_dye,4,绿色染料
 G,green_glazed_terracotta,6,绿色带釉陶瓦
@@ -642,6 +660,7 @@ J,jungle_boat,4,丛林木船
 J,jungle_button,5,丛林木按钮
 J,jungle_chest_boat,6,丛林木运输船
 J,jungle_door,4,丛林木门
+J,jungle_explorer_map,7,丛林探险家地图
 J,jungle_fence,5,丛林木栅栏
 J,jungle_fence_gate,6,丛林木栅栏门
 J,jungle_hanging_sign,9,悬挂式丛林木告示牌
@@ -682,6 +701,8 @@ L,light_blue_candle,5,淡蓝色蜡烛
 L,light_blue_carpet,5,淡蓝色地毯
 L,light_blue_concrete,6,淡蓝色混凝土
 L,light_blue_concrete_powder,8,淡蓝色混凝土粉末
+L,light_blue_concrete_slab,8,淡蓝色混凝土台阶
+L,light_blue_concrete_stairs,8,淡蓝色混凝土楼梯
 L,light_blue_cushion,5,淡蓝色坐垫
 L,light_blue_dye,5,淡蓝色染料
 L,light_blue_glazed_terracotta,7,淡蓝色带釉陶瓦
@@ -700,6 +721,8 @@ L,light_gray_candle,5,淡灰色蜡烛
 L,light_gray_carpet,5,淡灰色地毯
 L,light_gray_concrete,6,淡灰色混凝土
 L,light_gray_concrete_powder,8,淡灰色混凝土粉末
+L,light_gray_concrete_slab,8,淡灰色混凝土台阶
+L,light_gray_concrete_stairs,8,淡灰色混凝土楼梯
 L,light_gray_cushion,5,淡灰色坐垫
 L,light_gray_dye,5,淡灰色染料
 L,light_gray_glazed_terracotta,7,淡灰色带釉陶瓦
@@ -723,6 +746,8 @@ L,lime_candle,5,黄绿色蜡烛
 L,lime_carpet,5,黄绿色地毯
 L,lime_concrete,6,黄绿色混凝土
 L,lime_concrete_powder,8,黄绿色混凝土粉末
+L,lime_concrete_slab,8,黄绿色混凝土台阶
+L,lime_concrete_stairs,8,黄绿色混凝土楼梯
 L,lime_cushion,5,黄绿色坐垫
 L,lime_dye,5,黄绿色染料
 L,lime_glazed_terracotta,7,黄绿色带釉陶瓦
@@ -745,6 +770,8 @@ M,magenta_candle,5,品红色蜡烛
 M,magenta_carpet,5,品红色地毯
 M,magenta_concrete,6,品红色混凝土
 M,magenta_concrete_powder,8,品红色混凝土粉末
+M,magenta_concrete_slab,8,品红色混凝土台阶
+M,magenta_concrete_stairs,8,品红色混凝土楼梯
 M,magenta_cushion,5,品红色坐垫
 M,magenta_dye,5,品红色染料
 M,magenta_glazed_terracotta,7,品红色带釉陶瓦
@@ -881,6 +908,7 @@ O,oak_trapdoor,5,橡木活板门
 O,oak_wood,2,橡木
 O,observer,3,侦测器
 O,obsidian,3,黑曜石
+O,ocean_explorer_map,7,海洋探险家地图
 O,ochre_froglight,5,赭黄蛙明灯
 O,ominous_bottle,4,不祥之瓶
 O,ominous_trial_key,6,不祥试炼钥匙
@@ -892,6 +920,8 @@ O,orange_candle,4,橙色蜡烛
 O,orange_carpet,4,橙色地毯
 O,orange_concrete,5,橙色混凝土
 O,orange_concrete_powder,7,橙色混凝土粉末
+O,orange_concrete_slab,7,橙色混凝土台阶
+O,orange_concrete_stairs,7,橙色混凝土楼梯
 O,orange_cushion,4,橙色坐垫
 O,orange_dye,4,橙色染料
 O,orange_glazed_terracotta,6,橙色带釉陶瓦
@@ -958,6 +988,8 @@ P,pink_candle,5,粉红色蜡烛
 P,pink_carpet,5,粉红色地毯
 P,pink_concrete,6,粉红色混凝土
 P,pink_concrete_powder,8,粉红色混凝土粉末
+P,pink_concrete_slab,8,粉红色混凝土台阶
+P,pink_concrete_stairs,8,粉红色混凝土楼梯
 P,pink_cushion,5,粉红色坐垫
 P,pink_dye,5,粉红色染料
 P,pink_glazed_terracotta,7,粉红色带釉陶瓦
@@ -974,6 +1006,7 @@ P,pink_wool_stairs,7,粉红色羊毛楼梯
 P,piston,2,活塞
 P,pitcher_plant,3,瓶子草
 P,pitcher_pod,5,瓶子草荚果
+P,plains_village_map,6,平原村庄地图
 P,plenty_pottery_sherd,6,富饶纹样陶片
 P,podzol,3,灰化土
 P,pointed_dripstone,4,滴水石锥
@@ -1061,6 +1094,8 @@ P,purple_candle,4,紫色蜡烛
 P,purple_carpet,4,紫色地毯
 P,purple_concrete,5,紫色混凝土
 P,purple_concrete_powder,7,紫色混凝土粉末
+P,purple_concrete_slab,7,紫色混凝土台阶
+P,purple_concrete_stairs,7,紫色混凝土楼梯
 P,purple_cushion,4,紫色坐垫
 P,purple_dye,4,紫色染料
 P,purple_glazed_terracotta,6,紫色带釉陶瓦
@@ -1102,6 +1137,8 @@ R,red_candle,4,红色蜡烛
 R,red_carpet,4,红色地毯
 R,red_concrete,5,红色混凝土
 R,red_concrete_powder,7,红色混凝土粉末
+R,red_concrete_slab,7,红色混凝土台阶
+R,red_concrete_stairs,7,红色混凝土楼梯
 R,red_cushion,4,红色坐垫
 R,red_dye,4,红色染料
 R,red_glazed_terracotta,6,红色带釉陶瓦
@@ -1153,6 +1190,7 @@ S,sandstone,2,砂岩
 S,sandstone_slab,4,砂岩台阶
 S,sandstone_stairs,4,砂岩楼梯
 S,sandstone_wall,3,砂岩墙
+S,savanna_village_map,8,热带草原村庄地图
 S,scaffolding,3,脚手架
 S,scrape_pottery_sherd,6,刮削纹样陶片
 S,sculk,3,幽匿块
@@ -1203,6 +1241,7 @@ S,snout_armor_trim_smithing_template,4,锻造模板
 S,snow,1,雪
 S,snow_block,2,雪块
 S,snowball,2,雪球
+S,snowy_village_map,6,雪原村庄地图
 S,soul_campfire,4,灵魂营火
 S,soul_lantern,4,灵魂灯笼
 S,soul_sand,3,灵魂沙
@@ -1294,8 +1333,10 @@ S,sunflower,3,向日葵
 S,suspicious_gravel,5,可疑的沙砾
 S,suspicious_sand,5,可疑的沙子
 S,suspicious_stew,4,谜之炖菜
+S,swamp_explorer_map,7,沼泽探险家地图
 S,sweet_berries,3,甜浆果
 T,tadpole_bucket,3,蝌蚪桶
+T,taiga_village_map,7,针叶林村庄地图
 T,tall_dry_grass,4,高枯草丛
 T,tall_grass,3,高草丛
 T,target,2,标靶
@@ -1310,6 +1351,7 @@ T,torchflower,3,火把花
 T,torchflower_seeds,5,火把花种子
 T,totem_of_undying,4,不死图腾
 T,trapped_chest,3,陷阱箱
+T,trial_explorer_map,7,试炼探险家地图
 T,trial_key,4,试炼钥匙
 T,trident,3,三叉戟
 T,tripwire_hook,3,绊线钩
@@ -1334,6 +1376,7 @@ V,verdant_froglight,5,青翠蛙明灯
 V,vex_armor_trim_smithing_template,4,锻造模板
 V,vine,2,藤蔓
 W,ward_armor_trim_smithing_template,4,锻造模板
+W,warm_ocean_ruins_map,8,暖水海底废墟地图
 W,warped_button,5,诡异木按钮
 W,warped_door,4,诡异木门
 W,warped_fence,5,诡异木栅栏
@@ -1441,6 +1484,8 @@ W,white_candle,4,白色蜡烛
 W,white_carpet,4,白色地毯
 W,white_concrete,5,白色混凝土
 W,white_concrete_powder,7,白色混凝土粉末
+W,white_concrete_slab,7,白色混凝土台阶
+W,white_concrete_stairs,7,白色混凝土楼梯
 W,white_cushion,4,白色坐垫
 W,white_dye,4,白色染料
 W,white_glazed_terracotta,6,白色带釉陶瓦
@@ -1465,6 +1510,7 @@ W,wooden_pickaxe,2,木镐
 W,wooden_shovel,2,木锹
 W,wooden_spear,2,木矛
 W,wooden_sword,2,木剑
+W,woodland_explorer_map,7,林地探险家地图
 W,writable_book,3,书与笔
 W,written_book,2,成书
 Y,yellow_banner,4,黄色旗帜
@@ -1474,6 +1520,8 @@ Y,yellow_candle,4,黄色蜡烛
 Y,yellow_carpet,4,黄色地毯
 Y,yellow_concrete,5,黄色混凝土
 Y,yellow_concrete_powder,7,黄色混凝土粉末
+Y,yellow_concrete_slab,7,黄色混凝土台阶
+Y,yellow_concrete_stairs,7,黄色混凝土楼梯
 Y,yellow_cushion,4,黄色坐垫
 Y,yellow_dye,4,黄色染料
 Y,yellow_glazed_terracotta,6,黄色带釉陶瓦

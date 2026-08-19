@@ -13,6 +13,7 @@ L,leather,2,皮革
 B,bamboo_block,2,竹块
 C,chainmail_leggings,4,锁链护腿
 L,light_gray_shulker_box,6,淡灰色潜影盒
+W,warm_ocean_ruins_map,8,暖水海底废墟地图
 P,pearlescent_froglight,5,珠光蛙明灯
 B,bamboo_mosaic,4,竹马赛克
 G,gray_banner,4,灰色旗帜
@@ -36,6 +37,7 @@ B,brick_slab,4,红砖台阶
 I,infested_chiseled_stone_bricks,6,虫蚀雕纹石砖
 W,weathered_copper_bulb,5,锈蚀的铜灯
 O,oxidized_copper_chain,5,氧化的铜链
+A,abandoned_camp_map,6,废弃营地地图
 W,weathered_copper_trapdoor,7,锈蚀的铜活板门
 Z,zombie_head,4,僵尸的头
 D,diamond,2,钻石
@@ -59,6 +61,7 @@ N,nautilus_shell,4,鹦鹉螺壳
 H,happy_ghast_spawn_egg,7,快乐恶魂刷怪蛋
 P,polished_tuff_wall,6,磨制凝灰岩墙
 P,polished_tuff_stairs,7,磨制凝灰岩楼梯
+B,buried_ancient_city_map,9,埋藏的远古城市地图
 W,warped_hyphae,4,诡异菌核
 T,tall_dry_grass,4,高枯草丛
 W,wayfinder_armor_trim_smithing_template,4,锻造模板
@@ -69,6 +72,7 @@ B,blue_orchid,2,兰花
 W,waxed_exposed_copper_grate,8,涂蜡的斑驳铜格栅
 P,purple_concrete,5,紫色混凝土
 W,waxed_cut_copper,7,涂蜡的切制铜块
+W,white_concrete_slab,7,白色混凝土台阶
 M,melon_seeds,4,西瓜种子
 W,warped_fence,5,诡异木栅栏
 R,red_wool_slab,6,红色羊毛台阶
@@ -125,6 +129,7 @@ S,shelf_mushroom,3,层孔菇
 R,red_tulip,5,红色郁金香
 N,nether_brick_wall,4,下界砖墙
 B,blue_shulker_box,5,蓝色潜影盒
+L,lime_concrete_stairs,8,黄绿色混凝土楼梯
 G,golden_sword,2,金剑
 W,writable_book,3,书与笔
 L,light_gray_cushion,5,淡灰色坐垫
@@ -155,6 +160,7 @@ L,light,4,光源方块
 C,cod_spawn_egg,5,鳕鱼刷怪蛋
 C,campfire,2,营火
 L,large_amethyst_bud,5,大型紫晶芽
+M,magenta_concrete_slab,8,品红色混凝土台阶
 B,blackstone,2,黑石
 P,pink_petals,5,粉红色花簇
 L,light_blue_dye,5,淡蓝色染料
@@ -166,6 +172,7 @@ P,polished_andesite,5,磨制安山岩
 F,frogspawn,3,青蛙卵
 L,leather_helmet,4,皮革帽子
 E,enchanting_table,3,附魔台
+O,orange_concrete_slab,7,橙色混凝土台阶
 A,activator_rail,4,激活铁轨
 F,field_masoned_banner_pattern,6,砖纹旗帜图案
 C,cherry_fence,5,樱花木栅栏
@@ -183,6 +190,7 @@ P,petrified_oak_slab,6,石化橡木台阶
 L,lime_banner,5,黄绿色旗帜
 C,chainmail_boots,4,锁链靴子
 M,mushroom_stew,3,蘑菇煲
+C,cyan_concrete_stairs,7,青色混凝土楼梯
 P,pink_wool_stairs,7,粉红色羊毛楼梯
 D,deepslate_tile_wall,5,深板岩瓦墙
 G,golden_boots,3,金靴子
@@ -200,6 +208,7 @@ Z,zombified_piglin_spawn_egg,7,僵尸猪灵刷怪蛋
 H,husk_spawn_egg,5,尸壳刷怪蛋
 B,bamboo_sign,4,竹告示牌
 L,leather_horse_armor,4,皮革马铠
+L,lime_concrete_slab,8,黄绿色混凝土台阶
 B,black_banner,4,黑色旗帜
 S,spruce_stairs,5,云杉木楼梯
 C,cyan_wool_slab,6,青色羊毛台阶
@@ -252,6 +261,7 @@ N,nether_gold_ore,5,下界金矿石
 N,netherite_spear,5,下界合金矛
 S,stripped_birch_wood,5,去皮白桦木
 S,sulfur_cube_bucket,4,硫方怪桶
+S,savanna_village_map,8,热带草原村庄地图
 P,pale_oak_chest_boat,7,苍白橡木运输船
 E,ender_eye,4,末影之眼
 S,shulker_box,3,潜影盒
@@ -282,6 +292,7 @@ P,polished_deepslate_wall,6,磨制深板岩墙
 G,glass_bottle,3,玻璃瓶
 S,spider_spawn_egg,5,蜘蛛刷怪蛋
 D,dead_tube_coral_fan,7,失活的管珊瑚扇
+W,woodland_explorer_map,7,林地探险家地图
 S,saddle,1,鞍
 W,waxed_weathered_copper_trapdoor,9,涂蜡的锈蚀铜活板门
 G,gunpowder,2,火药
@@ -364,8 +375,10 @@ C,chiseled_polished_blackstone,6,雕纹磨制黑石
 S,stripped_spruce_log,6,去皮云杉原木
 M,mutton,3,生羊肉
 B,brown_glazed_terracotta,6,棕色带釉陶瓦
+B,brown_concrete_slab,7,棕色混凝土台阶
 V,verdant_froglight,5,青翠蛙明灯
 L,lever,2,拉杆
+G,gray_concrete_stairs,7,灰色混凝土楼梯
 G,gold_block,2,金块
 D,dirt_path,2,土径
 C,cobblestone_wall,3,圆石墙
@@ -405,6 +418,8 @@ C,copper_block,2,铜块
 L,lime_bundle,6,黄绿色收纳袋
 A,acacia_fence,6,金合欢木栅栏
 B,bamboo_slab,3,竹台阶
+O,orange_concrete_stairs,7,橙色混凝土楼梯
+G,green_concrete_slab,7,绿色混凝土台阶
 C,cooked_chicken,3,熟鸡肉
 I,iron_nugget,2,铁粒
 W,weathered_copper_lantern,6,锈蚀的铜灯笼
@@ -419,6 +434,7 @@ C,chicken_spawn_egg,4,鸡刷怪蛋
 W,waxed_weathered_cut_copper_slab,10,涂蜡的锈蚀切制铜台阶
 P,poppy,3,虞美人
 M,music_disc_5,4,音乐唱片
+L,light_blue_concrete_stairs,8,淡蓝色混凝土楼梯
 C,cherry_boat,4,樱花木船
 B,blue_dye,4,蓝色染料
 F,flow_banner_pattern,4,旗帜图案
@@ -498,12 +514,14 @@ T,tadpole_bucket,3,蝌蚪桶
 E,elder_guardian_spawn_egg,8,远古守卫者刷怪蛋
 P,pale_moss_block,5,苍白苔藓块
 M,mossy_cobblestone_wall,3,苔石墙
+L,light_blue_concrete_slab,8,淡蓝色混凝土台阶
 E,exposed_cut_copper_slab,8,斑驳的切制铜台阶
 S,spawner,3,刷怪笼
 B,blue_wool_slab,6,蓝色羊毛台阶
 M,music_disc_creator,4,音乐唱片
 J,jungle_door,4,丛林木门
 D,dispenser,3,发射器
+T,trial_explorer_map,7,试炼探险家地图
 M,magenta_cushion,5,品红色坐垫
 P,polished_sulfur_wall,5,磨制硫黄墙
 S,soul_campfire,4,灵魂营火
@@ -530,6 +548,7 @@ D,deepslate_iron_ore,5,深层铁矿石
 S,sulfur_spike,4,硫黄尖锥
 C,creeper_head,5,苦力怕的头
 B,brown_dye,4,棕色染料
+G,gray_concrete_slab,7,灰色混凝土台阶
 G,green_banner,4,绿色旗帜
 Y,yellow_concrete,5,黄色混凝土
 P,purple_terracotta,4,紫色陶瓦
@@ -537,6 +556,7 @@ C,camel_husk_spawn_egg,7,骆驼尸壳刷怪蛋
 P,poplar_door,3,杨木门
 A,allay_spawn_egg,5,悦灵刷怪蛋
 N,nether_sprouts,3,下界苗
+L,light_gray_concrete_stairs,8,淡灰色混凝土楼梯
 O,oak_fence_gate,5,橡木栅栏门
 E,exposed_copper_door,5,斑驳的铜门
 D,donkey_spawn_egg,4,驴刷怪蛋
@@ -555,6 +575,7 @@ I,iron_axe,2,铁斧
 B,brown_bundle,5,棕色收纳袋
 W,wild_armor_trim_smithing_template,4,锻造模板
 P,purple_wool_slab,6,紫色羊毛台阶
+P,purple_concrete_slab,7,紫色混凝土台阶
 G,glow_lichen,4,发光地衣
 R,resin_bricks,4,树脂砖块
 A,arrow,1,箭
@@ -673,15 +694,18 @@ W,white_stained_glass,6,白色染色玻璃
 R,red_shrub,3,红灌木
 W,white_stained_glass_pane,7,白色染色玻璃板
 E,exposed_cut_copper,7,斑驳的切制铜块
+G,green_concrete_stairs,7,绿色混凝土楼梯
 D,deepslate_copper_ore,5,深层铜矿石
 Q,quartz_slab,4,石英台阶
 R,raiser_armor_trim_smithing_template,4,锻造模板
 L,light_weighted_pressure_plate,7,轻质测重压力板
 M,mangrove_planks,4,红树木板
+P,pink_concrete_slab,8,粉红色混凝土台阶
 B,black_stained_glass_pane,7,黑色染色玻璃板
 M,mangrove_propagule,5,红树胎生苗
 N,netherite_upgrade_smithing_template,4,锻造模板
 D,diorite_wall,4,闪长岩墙
+Y,yellow_concrete_slab,7,黄色混凝土台阶
 O,oak_pressure_plate,5,橡木压力板
 H,horse_spawn_egg,4,马刷怪蛋
 C,crossbow,1,弩
@@ -794,6 +818,7 @@ S,stripped_mangrove_wood,5,去皮红树木
 W,wither_rose,4,凋灵玫瑰
 D,diamond_shovel,3,钻石锹
 O,oxidized_cut_copper,7,氧化的切制铜块
+B,black_concrete_stairs,7,黑色混凝土楼梯
 B,black_wool_stairs,6,黑色羊毛楼梯
 P,polished_blackstone_stairs,6,磨制黑石楼梯
 L,lily_pad,2,睡莲
@@ -829,6 +854,7 @@ P,pink_glazed_terracotta,7,粉红色带釉陶瓦
 S,stripped_poplar_log,6,去皮杨木原木
 C,copper_hoe,2,铜锄
 C,cod_bucket,3,鳕鱼桶
+D,desert_village_map,6,沙漠村庄地图
 T,tripwire_hook,3,绊线钩
 B,bone_block,2,骨块
 G,golden_dandelion,4,金蒲公英
@@ -843,6 +869,7 @@ D,deepslate,3,深板岩
 P,prismarine_slab,5,海晶石台阶
 P,pale_oak_log,6,苍白橡木原木
 W,weeping_vines,3,垂泪藤
+D,desert_pyramid_map,6,沙漠神殿地图
 L,light_blue_harness,5,淡蓝色挽具
 C,cobblestone_slab,4,圆石台阶
 P,polished_sulfur_slab,6,磨制硫黄台阶
@@ -885,6 +912,7 @@ S,stone_hoe,2,石锄
 B,bookshelf,2,书架
 L,light_blue_candle,5,淡蓝色蜡烛
 Y,yellow_dye,4,黄色染料
+B,buried_treasure_map,3,藏宝图
 M,magenta_concrete,6,品红色混凝土
 R,red_concrete,5,红色混凝土
 C,crimson_hyphae,4,绯红菌核
@@ -925,10 +953,12 @@ P,polished_diorite_stairs,7,磨制闪长岩楼梯
 O,orange_wool_slab,6,橙色羊毛台阶
 W,waxed_oxidized_copper_grate,8,涂蜡的氧化铜格栅
 R,repeater,5,红石中继器
+W,white_concrete_stairs,7,白色混凝土楼梯
 D,deepslate_brick_slab,6,深板岩砖台阶
 D,dead_horn_coral_fan,8,失活的鹿角珊瑚扇
 A,anvil,2,铁砧
 T,test_instance_block,6,测试实例方块
+J,jungle_explorer_map,7,丛林探险家地图
 C,chiseled_tuff_bricks,6,雕纹凝灰岩砖
 W,waxed_weathered_copper_bars,8,涂蜡的锈蚀铜栏杆
 S,sandstone_slab,4,砂岩台阶
@@ -1035,6 +1065,7 @@ C,cherry_trapdoor,6,樱花木活板门
 F,friend_pottery_sherd,6,挚友纹样陶片
 R,resin_brick_stairs,5,树脂砖楼梯
 O,orange_bundle,5,橙色收纳袋
+M,magenta_concrete_stairs,8,品红色混凝土楼梯
 C,chiseled_quartz_block,5,雕纹石英块
 G,golden_helmet,3,金头盔
 W,warped_roots,4,诡异菌索
@@ -1086,6 +1117,7 @@ M,magenta_bed,4,品红色床
 G,gray_stained_glass_pane,7,灰色染色玻璃板
 T,tuff_wall,4,凝灰岩墙
 G,glow_item_frame,7,荧光物品展示框
+C,cyan_concrete_slab,7,青色混凝土台阶
 S,stone_brick_wall,3,石砖墙
 M,magenta_bundle,6,品红色收纳袋
 G,guardian_spawn_egg,6,守卫者刷怪蛋
@@ -1139,6 +1171,7 @@ H,howl_pottery_sherd,6,狼嚎纹样陶片
 B,birch_stairs,5,白桦木楼梯
 R,red_candle,4,红色蜡烛
 C,cobbled_deepslate,5,深板岩圆石
+Y,yellow_concrete_stairs,7,黄色混凝土楼梯
 H,horn_coral_block,5,鹿角珊瑚块
 R,red_mushroom_block,6,红色蘑菇方块
 O,oak_button,4,橡木按钮
@@ -1151,6 +1184,8 @@ B,bamboo_fence_gate,4,竹栅栏门
 C,cyan_terracotta,4,青色陶瓦
 L,light_gray_wool,5,淡灰色羊毛
 D,damaged_anvil,5,损坏的铁砧
+B,brown_concrete_stairs,7,棕色混凝土楼梯
+B,black_concrete_slab,7,黑色混凝土台阶
 S,sponge,2,海绵
 M,magenta_stained_glass,7,品红色染色玻璃
 W,witch_spawn_egg,5,女巫刷怪蛋
@@ -1210,6 +1245,7 @@ J,jack_o_lantern,3,南瓜灯
 W,wind_charge,2,风弹
 S,silverfish_spawn_egg,5,蠹虫刷怪蛋
 N,netherite_pickaxe,5,下界合金镐
+S,snowy_village_map,6,雪原村庄地图
 W,warped_stairs,5,诡异木楼梯
 P,purple_shulker_box,5,紫色潜影盒
 C,cyan_glazed_terracotta,6,青色带釉陶瓦
@@ -1222,6 +1258,7 @@ P,prismarine_brick_stairs,6,海晶石砖楼梯
 G,globe_banner_pattern,4,旗帜图案
 M,magenta_terracotta,5,品红色陶瓦
 M,mushroom_stem,3,蘑菇柄
+R,red_concrete_slab,7,红色混凝土台阶
 C,crimson_nylium,4,绯红菌岩
 K,knowledge_book,4,知识之书
 R,redstone_torch,4,红石火把
@@ -1275,6 +1312,7 @@ Y,yellow_terracotta,4,黄色陶瓦
 P,poplar_sapling,4,杨树树苗
 B,brown_stained_glass_pane,7,棕色染色玻璃板
 C,cherry_button,5,樱花木按钮
+O,ocean_explorer_map,7,海洋探险家地图
 L,lime_wool_slab,7,黄绿色羊毛台阶
 I,infested_cobblestone,4,虫蚀圆石
 B,black_candle,4,黑色蜡烛
@@ -1338,6 +1376,7 @@ B,birch_door,4,白桦木门
 B,blaze_powder,3,烈焰粉
 P,purple_banner,4,紫色旗帜
 D,diamond_helmet,4,钻石头盔
+P,pink_concrete_stairs,8,粉红色混凝土楼梯
 G,grindstone,2,砂轮
 I,iron_ingot,2,铁锭
 Z,zombie_spawn_egg,5,僵尸刷怪蛋
@@ -1390,6 +1429,8 @@ G,glass,2,玻璃
 L,light_gray_glazed_terracotta,7,淡灰色带釉陶瓦
 R,redstone_block,3,红石块
 C,cooked_mutton,3,熟羊肉
+T,taiga_village_map,7,针叶林村庄地图
+B,blue_concrete_slab,7,蓝色混凝土台阶
 C,cyan_bed,3,青色床
 S,spider_eye,3,蜘蛛眼
 S,shaper_armor_trim_smithing_template,4,锻造模板
@@ -1399,6 +1440,7 @@ W,waxed_exposed_copper_golem_statue,9,涂蜡的斑驳铜傀儡像
 O,orange_dye,4,橙色染料
 S,stone_pressure_plate,5,石头压力板
 M,music_disc_11,4,音乐唱片
+P,purple_concrete_stairs,7,紫色混凝土楼梯
 R,reinforced_deepslate,5,强化深板岩
 P,pink_dye,5,粉红色染料
 H,heartbreak_pottery_sherd,6,心碎纹样陶片
@@ -1439,6 +1481,7 @@ W,waxed_copper_golem_statue,7,涂蜡的铜傀儡像
 W,waxed_oxidized_cut_copper,9,涂蜡的氧化切制铜块
 N,nether_star,4,下界之星
 O,ominous_bottle,4,不祥之瓶
+R,red_concrete_stairs,7,红色混凝土楼梯
 I,ink_sac,2,墨囊
 P,polished_andesite_stairs,7,磨制安山岩楼梯
 S,spruce_door,4,云杉木门
@@ -1460,10 +1503,12 @@ R,redstone_ore,4,红石矿石
 W,waxed_oxidized_cut_copper_slab,10,涂蜡的氧化切制铜台阶
 L,light_blue_banner,5,淡蓝色旗帜
 G,glow_ink_sac,4,荧光墨囊
+L,light_gray_concrete_slab,8,淡灰色混凝土台阶
 C,cyan_stained_glass_pane,7,青色染色玻璃板
 S,stone_button,4,石头按钮
 S,smooth_red_sandstone_stairs,7,平滑红砂岩楼梯
 F,flower_pot,2,花盆
+B,buried_mineshaft_map,9,埋藏的废弃矿井地图
 S,seagrass,2,海草
 Z,zoglin_spawn_egg,8,僵尸疣猪兽刷怪蛋
 J,jungle_sapling,4,丛林树苗
@@ -1544,6 +1589,7 @@ B,blackstone_slab,4,黑石台阶
 M,mud_brick_stairs,4,泥砖楼梯
 H,hoglin_spawn_egg,6,疣猪兽刷怪蛋
 T,test_block,4,测试方块
+B,blue_concrete_stairs,7,蓝色混凝土楼梯
 S,stick,2,木棍
 N,netherite_chestplate,6,下界合金胸甲
 S,stone_axe,2,石斧
@@ -1557,6 +1603,7 @@ W,white_terracotta,4,白色陶瓦
 O,oxidized_copper_door,5,氧化的铜门
 B,bee_nest,2,蜂巢
 G,granite_stairs,5,花岗岩楼梯
+S,swamp_explorer_map,7,沼泽探险家地图
 R,resin_clump,3,树脂团
 P,pink_wool_slab,7,粉红色羊毛台阶
 L,light_blue_terracotta,5,淡蓝色陶瓦
@@ -1587,6 +1634,7 @@ Q,quartz_stairs,4,石英楼梯
 P,pink_cushion,5,粉红色坐垫
 M,mojang_banner_pattern,4,旗帜图案
 C,cut_red_sandstone,5,切制红砂岩
+P,plains_village_map,6,平原村庄地图
 S,skull_pottery_sherd,6,头颅纹样陶片
 C,chiseled_resin_bricks,6,雕纹树脂砖块
 C,cyan_wool_stairs,6,青色羊毛楼梯
