@@ -213,6 +213,7 @@ def generate_datapack(input_csv, output_dir):
         items = []
         with open(input_csv, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
+            has_pinyin = 'pinyin_initial' in reader.fieldnames
             for row in reader:
                 items.append(row)
         print(f"✅ 成功读取 {len(items)} 个物品数据")
@@ -224,12 +225,16 @@ def generate_datapack(input_csv, output_dir):
     print("⏳ 正在创建数据包结构...")
     speedabc_dir = os.path.join(output_dir, 'data', 'speedabc', 'tags', 'item')
     hannumspeed_dir = os.path.join(output_dir, 'data', 'hannumspeed', 'tags', 'item')
+    vanilla_pinyin_dir = os.path.join(output_dir, 'data', 'vanilla_pinyin', 'tags', 'item')
     os.makedirs(speedabc_dir, exist_ok=True)
     os.makedirs(hannumspeed_dir, exist_ok=True)
+    if has_pinyin:
+        os.makedirs(vanilla_pinyin_dir, exist_ok=True)
 
     # 3. 分组物品数据
     speedabc_tags = defaultdict(list)
     hannum_tags = defaultdict(list)
+    pinyin_initial_tags = defaultdict(list)
 
     for item in items:
         # SpeedABC分组 (按首字母)
@@ -240,6 +245,12 @@ def generate_datapack(input_csv, output_dir):
         length = item['han_num']
         hannum_tags[length].append(f"minecraft:{item['id']}")
 
+        if has_pinyin:
+            pinyin_initial = item['pinyin_initial'].lower()
+            if not pinyin_initial:
+                raise ValueError('Missing or empty pinyin_initial: ' + ','.join(item))
+            pinyin_initial_tags[pinyin_initial].append(f"minecraft:${item['id']}")
+
     # 4. 生成SpeedABC标签文件
     print("⏳ 生成SpeedABC标签...")
     for letter, ids in speedabc_tags.items():
@@ -248,13 +259,11 @@ def generate_datapack(input_csv, output_dir):
         if not safe_letter:
             safe_letter = 'OTHER'
 
-        ids = sorted(ids)
-
         file_path = os.path.join(speedabc_dir, f"{safe_letter}.json")
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump({
                 "replace": False,
-                "values": ids
+                "values": sorted(ids)
             }, f, indent=2, ensure_ascii=False)
 
     # 5. 生成HanNumSpeed标签文件
@@ -264,8 +273,23 @@ def generate_datapack(input_csv, output_dir):
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump({
                 "replace": False,
-                "values": ids
+                "values": sorted(ids)
             }, f, indent=2, ensure_ascii=False)
+
+    if has_pinyin:
+        print("⏳ 生成Vanilla_Pinyin标签...")
+        for letter, ids in pinyin_initial_tags.items():
+            # 文件名过滤非法字符
+            safe_letter = ''.join(c for c in letter if c.isalnum())
+            if not safe_letter:
+                safe_letter = 'OTHER'
+
+            file_path = os.path.join(vanilla_pinyin_dir, f"{safe_letter}.json")
+            with open(file_path, 'w', encoding='utf-8') as f:
+                json.dump({
+                    "replace": False,
+                    "values": sorted(ids)
+                }, f, indent=2, ensure_ascii=False)
 
     print(f"✅ 数据包已生成至: {output_dir}")
     print("💡 注意：请手动添加pack.mcmeta文件以使数据包可用")
