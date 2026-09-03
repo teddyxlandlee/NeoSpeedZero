@@ -13,6 +13,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
+import org.bukkit.configuration.ConfigurationSection;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 import xland.mcmod.neospeedzero.util.event.Event;
@@ -117,8 +118,9 @@ public final class PaperEvents extends PlatformEvents {
 
     @Override
     public Predicate<? super MinecraftServer> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
-        // TODO: provide alternative options for game rule
-        return com.google.common.base.Predicates.alwaysTrue();
+        // ignore `category`
+        final ConfigurationSection config = NeoSpeedZeroPaper.getInstance().getConfig();
+        return _ -> config.getBoolean(id, defaultValue);
     }
 
     @Deprecated

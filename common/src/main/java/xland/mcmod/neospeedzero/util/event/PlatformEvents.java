@@ -47,7 +47,7 @@ public abstract class PlatformEvents {
     public abstract Predicate<? super MinecraftServer> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue);
 
     @Environment(EnvType.CLIENT)
-    // cannot make abstract because client-only minecraft implementations are
+    // cannot make abstract because client-only Minecraft implementations are
     // not available on :paper:compileClasspath
     public void registerKeyMapping(KeyMapping keyMapping) {
         throw new UnsupportedOperationException("Wrong side");

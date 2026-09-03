@@ -22,6 +22,9 @@ public class NeoSpeedZeroPaper extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        // Paper config.yml
+        this.saveDefaultConfig();
+
         NeoSpeedZero.init();
 
         // Load goals
