@@ -292,7 +292,6 @@ P,polished_deepslate_wall,6,磨制深板岩墙
 G,glass_bottle,3,玻璃瓶
 S,spider_spawn_egg,5,蜘蛛刷怪蛋
 D,dead_tube_coral_fan,7,失活的管珊瑚扇
-W,woodland_explorer_map,7,林地探险家地图
 S,saddle,1,鞍
 W,waxed_weathered_copper_trapdoor,9,涂蜡的锈蚀铜活板门
 G,gunpowder,2,火药
@@ -364,6 +363,7 @@ L,lantern,2,灯笼
 C,copper_pickaxe,2,铜镐
 S,stripped_crimson_hyphae,6,去皮绯红菌核
 B,blue_concrete_powder,7,蓝色混凝土粉末
+O,ocean_monument_map,6,海底神殿地图
 S,skeleton_spawn_egg,5,骷髅刷怪蛋
 L,lectern,2,讲台
 G,green_harness,4,绿色挽具
@@ -495,6 +495,7 @@ W,weathered_cut_copper_slab,8,锈蚀的切制铜台阶
 B,bamboo_chest_raft,4,运输竹筏
 M,mangrove_roots,3,红树根
 L,lime_glazed_terracotta,7,黄绿色带釉陶瓦
+J,jungle_pyramid_map,6,丛林神庙地图
 D,dark_oak_planks,6,深色橡木木板
 S,smooth_stone,4,平滑石头
 D,dune_armor_trim_smithing_template,4,锻造模板
@@ -521,7 +522,6 @@ B,blue_wool_slab,6,蓝色羊毛台阶
 M,music_disc_creator,4,音乐唱片
 J,jungle_door,4,丛林木门
 D,dispenser,3,发射器
-T,trial_explorer_map,7,试炼探险家地图
 M,magenta_cushion,5,品红色坐垫
 P,polished_sulfur_wall,5,磨制硫黄墙
 S,soul_campfire,4,灵魂营火
@@ -958,7 +958,6 @@ D,deepslate_brick_slab,6,深板岩砖台阶
 D,dead_horn_coral_fan,8,失活的鹿角珊瑚扇
 A,anvil,2,铁砧
 T,test_instance_block,6,测试实例方块
-J,jungle_explorer_map,7,丛林探险家地图
 C,chiseled_tuff_bricks,6,雕纹凝灰岩砖
 W,waxed_weathered_copper_bars,8,涂蜡的锈蚀铜栏杆
 S,sandstone_slab,4,砂岩台阶
@@ -1100,6 +1099,7 @@ T,turtle_egg,3,海龟蛋
 B,brewer_pottery_sherd,6,佳酿纹样陶片
 R,rail,2,铁轨
 H,heart_pottery_sherd,6,爱心纹样陶片
+S,swamp_hut_map,6,沼泽小屋地图
 R,rooted_dirt,4,缠根泥土
 E,enchanted_book,3,附魔书
 M,mossy_cobblestone_slab,4,苔石台阶
@@ -1237,6 +1237,7 @@ P,porkchop,3,生猪排
 S,smoker,3,烟熏炉
 G,glass_pane,3,玻璃板
 S,sugar_cane,2,甘蔗
+W,woodland_mansion_map,6,林地府邸地图
 P,polished_tuff,5,磨制凝灰岩
 H,honey_block,3,蜂蜜块
 P,purple_cushion,4,紫色坐垫
@@ -1312,7 +1313,6 @@ Y,yellow_terracotta,4,黄色陶瓦
 P,poplar_sapling,4,杨树树苗
 B,brown_stained_glass_pane,7,棕色染色玻璃板
 C,cherry_button,5,樱花木按钮
-O,ocean_explorer_map,7,海洋探险家地图
 L,lime_wool_slab,7,黄绿色羊毛台阶
 I,infested_cobblestone,4,虫蚀圆石
 B,black_candle,4,黑色蜡烛
@@ -1519,6 +1519,7 @@ O,orange_concrete,5,橙色混凝土
 W,white_bed,3,白色床
 I,iron_door,2,铁门
 J,jungle_slab,5,丛林木台阶
+B,buried_trial_chambers_map,9,埋藏的试炼密室地图
 P,purple_stained_glass_pane,7,紫色染色玻璃板
 L,light_blue_bed,4,淡蓝色床
 I,iron_hoe,2,铁锄
@@ -1603,7 +1604,6 @@ W,white_terracotta,4,白色陶瓦
 O,oxidized_copper_door,5,氧化的铜门
 B,bee_nest,2,蜂巢
 G,granite_stairs,5,花岗岩楼梯
-S,swamp_explorer_map,7,沼泽探险家地图
 R,resin_clump,3,树脂团
 P,pink_wool_slab,7,粉红色羊毛台阶
 L,light_blue_terracotta,5,淡蓝色陶瓦

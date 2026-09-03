@@ -193,6 +193,7 @@ B,bundle,3,收纳袋
 B,buried_ancient_city_map,9,埋藏的远古城市地图
 B,buried_mineshaft_map,9,埋藏的废弃矿井地图
 B,buried_treasure_map,3,藏宝图
+B,buried_trial_chambers_map,9,埋藏的试炼密室地图
 B,burn_pottery_sherd,6,烈焰纹样陶片
 B,bush,3,灌木丛
 C,cactus,3,仙人掌
@@ -660,7 +661,6 @@ J,jungle_boat,4,丛林木船
 J,jungle_button,5,丛林木按钮
 J,jungle_chest_boat,6,丛林木运输船
 J,jungle_door,4,丛林木门
-J,jungle_explorer_map,7,丛林探险家地图
 J,jungle_fence,5,丛林木栅栏
 J,jungle_fence_gate,6,丛林木栅栏门
 J,jungle_hanging_sign,9,悬挂式丛林木告示牌
@@ -668,6 +668,7 @@ J,jungle_leaves,4,丛林树叶
 J,jungle_log,4,丛林原木
 J,jungle_planks,4,丛林木板
 J,jungle_pressure_plate,6,丛林木压力板
+J,jungle_pyramid_map,6,丛林神庙地图
 J,jungle_sapling,4,丛林树苗
 J,jungle_shelf,6,丛林木展示架
 J,jungle_sign,6,丛林木告示牌
@@ -908,7 +909,7 @@ O,oak_trapdoor,5,橡木活板门
 O,oak_wood,2,橡木
 O,observer,3,侦测器
 O,obsidian,3,黑曜石
-O,ocean_explorer_map,7,海洋探险家地图
+O,ocean_monument_map,6,海底神殿地图
 O,ochre_froglight,5,赭黄蛙明灯
 O,ominous_bottle,4,不祥之瓶
 O,ominous_trial_key,6,不祥试炼钥匙
@@ -1333,7 +1334,7 @@ S,sunflower,3,向日葵
 S,suspicious_gravel,5,可疑的沙砾
 S,suspicious_sand,5,可疑的沙子
 S,suspicious_stew,4,谜之炖菜
-S,swamp_explorer_map,7,沼泽探险家地图
+S,swamp_hut_map,6,沼泽小屋地图
 S,sweet_berries,3,甜浆果
 T,tadpole_bucket,3,蝌蚪桶
 T,taiga_village_map,7,针叶林村庄地图
@@ -1351,7 +1352,6 @@ T,torchflower,3,火把花
 T,torchflower_seeds,5,火把花种子
 T,totem_of_undying,4,不死图腾
 T,trapped_chest,3,陷阱箱
-T,trial_explorer_map,7,试炼探险家地图
 T,trial_key,4,试炼钥匙
 T,trident,3,三叉戟
 T,tripwire_hook,3,绊线钩
@@ -1510,7 +1510,7 @@ W,wooden_pickaxe,2,木镐
 W,wooden_shovel,2,木锹
 W,wooden_spear,2,木矛
 W,wooden_sword,2,木剑
-W,woodland_explorer_map,7,林地探险家地图
+W,woodland_mansion_map,6,林地府邸地图
 W,writable_book,3,书与笔
 W,written_book,2,成书
 Y,yellow_banner,4,黄色旗帜
