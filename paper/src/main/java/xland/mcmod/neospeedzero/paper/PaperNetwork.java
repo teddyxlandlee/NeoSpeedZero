@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Consumer;
 
 @NullMarked
-public final class PaperNetwork extends PlatformNetwork {
+final class PaperNetwork extends PlatformNetwork {
     private PaperNetwork() {}
     private static final PaperNetwork INSTANCE = new PaperNetwork();
     public static PaperNetwork getInstance() { return INSTANCE; }

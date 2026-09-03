@@ -28,7 +28,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public final class PaperEvents extends PlatformEvents {
+final class PaperEvents extends PlatformEvents {
     private PaperEvents() {}
     private static final PaperEvents INSTANCE = new PaperEvents();
     public static PaperEvents getInstance() { return INSTANCE; }
