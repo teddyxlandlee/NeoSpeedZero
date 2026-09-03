@@ -63,7 +63,7 @@ public final class PaperEvents extends PlatformEvents {
 
     static Consumer<org.bukkit.entity.Player> getPlayerTickTask() {
         final var invoker = PRE_PLAYER_TICK.invoker();
-        return p -> invoker.accept(CraftBukkitReflections.asVanillaPlayer(p));
+        return p -> invoker.accept(CraftBukkitConversions.asVanillaPlayer(p));
     }
 
     static final Event<
@@ -91,7 +91,7 @@ public final class PaperEvents extends PlatformEvents {
         final var prefix = SpeedrunGoalManager.GOAL_KEY_ID.getNamespace() + '/' + SpeedrunGoalManager.GOAL_KEY_ID.getPath();
         final FileToIdConverter converter = FileToIdConverter.json(prefix);
 
-        final var jsonOps = RegistryOps.create(JsonOps.INSTANCE, CraftBukkitReflections.getRegistryAccess());
+        final var jsonOps = RegistryOps.create(JsonOps.INSTANCE, CraftBukkitConversions.getRegistryAccess());
 
         final HashMap<Identifier, SpeedrunGoal> result = new HashMap<>();
         SimpleJsonResourceReloadListener.scanDirectory(server.getResourceManager(), converter, jsonOps, SpeedrunGoal.CODEC, result);
@@ -101,7 +101,7 @@ public final class PaperEvents extends PlatformEvents {
 
     @Override
     public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
-        final var registryAccess = CraftBukkitReflections.getRegistryAccess();
+        final var registryAccess = CraftBukkitConversions.getRegistryAccess();
         PreparableReloadListener listener = factory.apply(registryAccess);
         if (listener instanceof SpeedrunGoalManager goalManager) {
             Object prev;

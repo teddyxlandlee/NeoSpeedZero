@@ -11,8 +11,8 @@ import org.bukkit.craftbukkit.advancement.CraftAdvancement;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 
-public final class CraftBukkitReflections {
-    private CraftBukkitReflections() {}
+final class CraftBukkitConversions {
+    private CraftBukkitConversions() {}
 
     public static MinecraftServer getServer() {
         return MinecraftServer.getServer();

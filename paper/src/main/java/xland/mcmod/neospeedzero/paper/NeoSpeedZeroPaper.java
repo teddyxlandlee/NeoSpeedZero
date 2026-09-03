@@ -25,10 +25,10 @@ public class NeoSpeedZeroPaper extends JavaPlugin {
         NeoSpeedZero.init();
 
         // Load goals
-        PaperEvents.applyGoalsFrom(CraftBukkitReflections.getServer());
+        PaperEvents.applyGoalsFrom(CraftBukkitConversions.getServer());
 
         // Server Start Events
-        PaperEvents.SERVER_STARTING.invoker().accept(CraftBukkitReflections.getServer());
+        PaperEvents.SERVER_STARTING.invoker().accept(CraftBukkitConversions.getServer());
 
         // Commands
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
@@ -59,6 +59,6 @@ public class NeoSpeedZeroPaper extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        PaperEvents.SERVER_STOPPING.invoker().accept(CraftBukkitReflections.getServer());
+        PaperEvents.SERVER_STOPPING.invoker().accept(CraftBukkitConversions.getServer());
     }
 }

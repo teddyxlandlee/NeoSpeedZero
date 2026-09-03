@@ -31,8 +31,8 @@ public final class PaperNetwork extends PlatformNetwork {
     protected <P extends CustomPacketPayload> void registerC2SImpl(CustomPacketPayload.TypeAndCodec<RegistryFriendlyByteBuf, P> typeAndCodec, Consumer<ServerPlayer> callback) {
         Objects.requireNonNull(callback, "callback cannot be null.");
         // Does not care the content of payload.
-        Key key = CraftBukkitReflections.asKey(typeAndCodec.type().id());
-        C2S.put(key, p -> callback.accept(CraftBukkitReflections.asVanillaServerPlayer(p)));
+        Key key = CraftBukkitConversions.asKey(typeAndCodec.type().id());
+        C2S.put(key, p -> callback.accept(CraftBukkitConversions.asVanillaServerPlayer(p)));
     }
 
     private static final ConcurrentMap<Identifier, StreamCodec<RegistryFriendlyByteBuf, ?>> S2C = new ConcurrentHashMap<>();
@@ -58,7 +58,7 @@ public final class PaperNetwork extends PlatformNetwork {
         StreamCodec<RegistryFriendlyByteBuf, ServerToClientPayload> codec = (StreamCodec<RegistryFriendlyByteBuf, ServerToClientPayload>) S2C.get(payload.type().id());
         if (codec == null) return null;
 
-        final RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), CraftBukkitReflections.getRegistryAccess());
+        final RegistryFriendlyByteBuf buf = new RegistryFriendlyByteBuf(Unpooled.buffer(), CraftBukkitConversions.getRegistryAccess());
         try {
             codec.encode(buf, payload);
             byte[] bytes = new byte[buf.readableBytes()];
@@ -71,7 +71,7 @@ public final class PaperNetwork extends PlatformNetwork {
 
     @Override
     public void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer) {
-        Player bukkitPlayer = CraftBukkitReflections.asBukkitPlayer(serverPlayer);
+        Player bukkitPlayer = CraftBukkitConversions.asBukkitPlayer(serverPlayer);
         byte @Nullable[] payloadBytes = payloadToBytes(payload);
         if (payloadBytes == null) return;   // unknown packet
 
@@ -87,7 +87,7 @@ public final class PaperNetwork extends PlatformNetwork {
         var plugin = NeoSpeedZeroPaper.getInstance();
 
         for (ServerPlayer player : players) {
-            CraftBukkitReflections.asBukkitPlayer(player).sendPluginMessage(plugin, channel, payloadBytes);
+            CraftBukkitConversions.asBukkitPlayer(player).sendPluginMessage(plugin, channel, payloadBytes);
         }
     }
 }

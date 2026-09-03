@@ -16,22 +16,22 @@ public final class NeoSpeedBukkitListener implements Listener {
     @EventHandler   // substitutes PlayerAdvancementsMixin
     public void onAdvancementMade(PlayerAdvancementDoneEvent event) {
         NeoSpeedLifecycle.onAdvancementMade(
-                CraftBukkitReflections.asVanillaServerPlayer(event.getPlayer()),
-                CraftBukkitReflections.asVanillaAdvancement(event.getAdvancement())
+                CraftBukkitConversions.asVanillaServerPlayer(event.getPlayer()),
+                CraftBukkitConversions.asVanillaAdvancement(event.getAdvancement())
         );
     }
 
     @EventHandler   // functionally substitutes InventoryChangeTriggerMixin
     public void onInventoryChange(PlayerInventorySlotChangeEvent event) {
         NeoSpeedLifecycle.onInventoryChange(
-                CraftBukkitReflections.asVanillaServerPlayer(event.getPlayer()),
-                CraftBukkitReflections.asVanillaItemStack(event.getNewItemStack())
+                CraftBukkitConversions.asVanillaServerPlayer(event.getPlayer()),
+                CraftBukkitConversions.asVanillaItemStack(event.getNewItemStack())
         );
     }
 
     @EventHandler   // substitutes FireworkRocketItemMixin.stopConsuming
     public void onElytraBoost(PlayerElytraBoostEvent event) {
-        var vanillaItemStack = CraftBukkitReflections.asVanillaItemStack(event.getItemStack());
+        var vanillaItemStack = CraftBukkitConversions.asVanillaItemStack(event.getItemStack());
         if (ItemExtensions.isInfiniteFirework(vanillaItemStack)) {
             event.setShouldConsume(false);
         }
@@ -39,7 +39,7 @@ public final class NeoSpeedBukkitListener implements Listener {
 
     @EventHandler   // substitutes FireworkRocketItemMixin.stopShrinking
     public void onFireworkLaunch(PlayerLaunchProjectileEvent event) {
-        var vanillaItemStack = CraftBukkitReflections.asVanillaItemStack(event.getItemStack());
+        var vanillaItemStack = CraftBukkitConversions.asVanillaItemStack(event.getItemStack());
         if (ItemExtensions.isInfiniteFirework(vanillaItemStack)) {
             event.setShouldConsume(false);
         }
@@ -47,6 +47,6 @@ public final class NeoSpeedBukkitListener implements Listener {
 
     @EventHandler   // reload goal holders (not including first load)
     public void onResourceReload(ServerResourcesReloadedEvent event) {
-        PaperEvents.applyGoalsFrom(CraftBukkitReflections.getServer());
+        PaperEvents.applyGoalsFrom(CraftBukkitConversions.getServer());
     }
 }
