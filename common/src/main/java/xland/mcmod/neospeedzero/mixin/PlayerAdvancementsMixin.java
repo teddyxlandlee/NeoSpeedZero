@@ -23,7 +23,7 @@ abstract class PlayerAdvancementsMixin {
                     shift = At.Shift.AFTER
             )
     )
-    private void onComplete(AdvancementHolder advancement, String criterionKey, CallbackInfoReturnable<Boolean> cir) {
-        NeoSpeedLifecycle.onAdvancementMade(ns0$player(), advancement);
+    private void onComplete(AdvancementHolder holder, String criterion, CallbackInfoReturnable<Boolean> cir) {
+        NeoSpeedLifecycle.onAdvancementMade(ns0$player(), holder);
     }
 }

@@ -5,7 +5,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.serialization.Codec;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
@@ -33,7 +32,6 @@ import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -65,10 +63,10 @@ public final class PlatformEventsNeoForge extends PlatformEvents {
         });
     }
 
-    public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
+    public void registerResourceReloadListener(Identifier id, Supplier<? extends PreparableReloadListener> factory) {
         NeoForge.EVENT_BUS.addListener(
                 AddServerReloadListenersEvent.class,
-                event -> event.addListener(id, factory.apply(event.getServerResources().getRegistryLookup()))
+                event -> event.addListener(id, factory.get())
         );
     }
 

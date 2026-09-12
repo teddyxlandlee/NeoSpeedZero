@@ -66,6 +66,7 @@
   "item_predicate.neospeedzero.extra_req.enchantments.any": "任意 %s 级膜法",
   "item_predicate.neospeedzero.extra_req.bundle": "对捆绑包内容物有额外要求",
   "item_predicate.neospeedzero.extra_req.custom_data": "对自定义数据 (NBT) 有额外要求",
+  "item_predicate.neospeedzero.extra_req.potion.effects": "对溶液效果有额外要求",
   "item_predicate.neospeedzero.extra_req.items": "是以下任一物品：",
   "item_predicate.neospeedzero.extra_req.song": "是以下任一唱片：",
   "item_predicate.neospeedzero.extra_req.potion": "是以下任一溶液：",

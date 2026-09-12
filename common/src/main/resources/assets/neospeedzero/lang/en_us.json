@@ -70,6 +70,7 @@
   "item_predicate.neospeedzero.extra_req.items": "Requires any of following items:",
   "item_predicate.neospeedzero.extra_req.song": "Plays any of following songs:",
   "item_predicate.neospeedzero.extra_req.potion": "Any of following potions:",
+  "item_predicate.neospeedzero.extra_req.potion.effects": "Has extra requirements for potion effects",
   "item_predicate.neospeedzero.extra_req.trim.material": "Has any of following trim materials:",
   "item_predicate.neospeedzero.extra_req.trim.patterns": "Has any of following trim patterns:",
 

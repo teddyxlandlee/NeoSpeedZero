@@ -4,7 +4,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.serialization.JsonOps;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
@@ -101,9 +100,8 @@ final class PaperEvents extends PlatformEvents {
     }
 
     @Override
-    public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
-        final var registryAccess = CraftBukkitConversions.getRegistryAccess();
-        PreparableReloadListener listener = factory.apply(registryAccess);
+    public void registerResourceReloadListener(Identifier id, Supplier<? extends PreparableReloadListener> factory) {
+        PreparableReloadListener listener = factory.get();
         if (listener instanceof SpeedrunGoalManager goalManager) {
             Object prev;
             // Compared to compareAndSet(), getAndSet() rewrites the field when the check fails,

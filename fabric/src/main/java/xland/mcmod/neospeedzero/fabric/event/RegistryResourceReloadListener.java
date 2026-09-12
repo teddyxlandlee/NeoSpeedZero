@@ -10,6 +10,7 @@ import java.util.concurrent.Executor;
 import java.util.function.Function;
 
 @SuppressWarnings("ClassCanBeRecord")
+@Deprecated(forRemoval = true)
 final class RegistryResourceReloadListener implements PreparableReloadListener {
     private final Function<HolderLookup.Provider, PreparableReloadListener> factory;
 

@@ -4,6 +4,7 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Prediction;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -95,7 +96,8 @@ public interface ItemExtensions {
 
     static void give(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
         if (!player.addItem(stack)) {
-            player.drop(stack, true);
+            // Reference: CompassItem.useOn()
+            player.drop(stack, false, Prediction.PREDICTED);
         }
     }
 }

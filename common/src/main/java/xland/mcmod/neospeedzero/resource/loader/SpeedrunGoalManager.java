@@ -2,8 +2,8 @@ package xland.mcmod.neospeedzero.resource.loader;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -23,8 +23,8 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
     public static final Identifier GOAL_KEY_ID = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");
     public static final ResourceKey<Registry<SpeedrunGoal>> GOAL_KEY = ResourceKey.createRegistryKey(GOAL_KEY_ID);
 
-    private SpeedrunGoalManager(HolderLookup.Provider provider) {
-        super(provider, SpeedrunGoal.CODEC, GOAL_KEY);
+    private SpeedrunGoalManager() {
+        super(SpeedrunGoal.CODEC, FileToIdConverter.registry(GOAL_KEY));
     }
 
     public static void registerEvents() {

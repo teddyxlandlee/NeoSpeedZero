@@ -22,32 +22,6 @@ public interface NeoSpeedPlayer {
         return getServer(player).overworld().getGameTime();
     }
 
-    @Nullable
-    @Deprecated
-    default SpeedrunRecord getCurrentRecord() {
-        return getCurrentRecord(ns0$self());
-    }
-
-    @Deprecated
-    default long getTime() {
-        return getTime(ns0$self());
-    }
-
-    @Deprecated
-    default RecordManager getServerRecordManager() {
-        return getServerRecordManager(ns0$self());
-    }
-
-    @Deprecated
-    static NeoSpeedPlayer of(ServerPlayer player) {
-        return () -> player;
-    }
-
-    @ApiStatus.Internal
-    @ApiStatus.OverrideOnly
-    @Deprecated
-    ServerPlayer ns0$self();
-
     @SuppressWarnings("resource")
     static MinecraftServer getServer(ServerPlayer player) {
         return player.level().getServer();

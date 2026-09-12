@@ -24,6 +24,7 @@ public interface NeoSpeedTranslations {
     NoArgs EXTRA_REQUIREMENTS_ITEMS = noArgs("item_predicate.neospeedzero.extra_req.items", "Requires any of following items:");
     NoArgs EXTRA_REQUIREMENTS_ANY_ITEM = noArgs("item_predicate.neospeedzero.extra_req.items.any", "Any Item");
     NoArgs EXTRA_REQUIREMENTS_POTION = noArgs("item_predicate.neospeedzero.extra_req.potion", "Any of following potions:");
+    NoArgs EXTRA_REQUIREMENTS_POTION_EFFECTS = noArgs("item_predicate.neospeedzero.extra_req.potion.effects", "Has extra requirements for potion effects");
     NoArgs EXTRA_REQUIREMENTS_SONG = noArgs("item_predicate.neospeedzero.extra_req.song", "Plays any of following songs:");
     NoArgs EXTRA_REQUIREMENTS_TRIM_MATERIAL = noArgs("item_predicate.neospeedzero.extra_req.trim.material", "Has any of following trim materials:");
     NoArgs EXTRA_REQUIREMENTS_TRIM_PATTERNS = noArgs("item_predicate.neospeedzero.extra_req.trim.patterns", "Has any of following trim patterns:");

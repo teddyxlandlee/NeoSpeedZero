@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.PackType;
@@ -24,7 +23,6 @@ import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -61,10 +59,10 @@ public final class PlatformEventsFabric extends PlatformEvents {
         });
     }
 
-    public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
+    public void registerResourceReloadListener(Identifier id, Supplier<? extends PreparableReloadListener> factory) {
         ResourceLoader.get(PackType.SERVER_DATA).registerReloadListener(
                 Objects.requireNonNull(id, "id cannot be null."),
-                new RegistryResourceReloadListener(factory)
+                factory.get()
         );
     }
 
