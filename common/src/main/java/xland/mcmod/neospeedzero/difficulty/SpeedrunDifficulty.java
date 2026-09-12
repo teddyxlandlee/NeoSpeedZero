@@ -18,6 +18,7 @@ public interface SpeedrunDifficulty {
                     .map(DataResult::success)
                     .orElseGet(() -> DataResult.error(() -> "SpeedrunDifficulty not found: " + id)),
             speedrunDifficulty -> {
+                //noinspection ConstantConditions: robustness
                 if (speedrunDifficulty == null) return DataResult.error(() -> "null difficulty, should not happen");
                 return DataResult.success(speedrunDifficulty.id());
             }
