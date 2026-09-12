@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TriState;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.UnknownNullability;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
     int page;
     private final TriState[] cachedConditions;
 
-    private PageButton prevButton, nextButton;
+    private @UnknownNullability /*late-init*/ PageButton prevButton, nextButton;
 
     public ViewChallengeScreen(ChallengeSnapshot challengeSnapshot) {
         super(challengeSnapshot.title());
@@ -112,7 +112,7 @@ public class ViewChallengeScreen extends AbstractSlottedScreen {
     }
 
     @Override
-    public void extractRenderState(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
     }
 

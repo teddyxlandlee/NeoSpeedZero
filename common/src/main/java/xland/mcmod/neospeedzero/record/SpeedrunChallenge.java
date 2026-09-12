@@ -12,12 +12,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import xland.mcmod.neospeedzero.resource.StatedIcon;
 
 import java.util.Optional;
 
-@org.jspecify.annotations.NullMarked
 public record SpeedrunChallenge(Either<ItemPredicate, ResourceKey<Advancement>> challenge, ItemStack icon) {
     public static final Codec<SpeedrunChallenge> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Type.CODEC.dispatch(Type::fromEither, Type::toMapCodec).fieldOf("challenge").forGetter(SpeedrunChallenge::challenge),

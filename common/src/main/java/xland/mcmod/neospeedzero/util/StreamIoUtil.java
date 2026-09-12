@@ -12,8 +12,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.VarInt;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryOps;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
@@ -25,7 +24,6 @@ public final class StreamIoUtil {
     private StreamIoUtil() {}
     private static final Gson GSON = new Gson();
 
-    @org.jspecify.annotations.NullMarked
     public static <B extends ByteBuf, K, V> StreamCodec<B, Map<K, V>> ofMap(StreamCodec<? super B, K> keyCodec, StreamCodec<? super B, V> valueCodec) {
         return StreamCodec.of(
                 /*encode=*/(buf, map) -> {
@@ -46,7 +44,7 @@ public final class StreamIoUtil {
         );
     }
 
-    private static final StreamCodec<@NotNull ByteBuf, @NotNull String> INF_UTF8 = StreamCodec.of(
+    private static final StreamCodec<ByteBuf, String> INF_UTF8 = StreamCodec.of(
             /*encode=*/(buf, s) -> {
                 byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
                 VarInt.write(buf, bytes.length);
@@ -58,7 +56,6 @@ public final class StreamIoUtil {
             }
     );
 
-    @org.jspecify.annotations.NullMarked
     public static <O, C extends Collection<O>> StreamCodec<RegistryFriendlyByteBuf, C> ofJsonArrayString(Codec<O> codec, IntFunction<C> collectionFactory) {
         return StreamCodec.of(
                 /*encode=*/(buf, objs) -> {

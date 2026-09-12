@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiFunction;
 
@@ -45,10 +44,10 @@ public record StatedIcon(IconState iconState, ItemStackTemplate icon) {
         }
 
         @Override
-        public @NotNull String getSerializedName() {
+        public String getSerializedName() {
             return id;
         }
 
-        public static final StringRepresentable.EnumCodec<@NotNull IconState> CODEC = StringRepresentable.fromEnum(IconState::values);
+        public static final StringRepresentable.EnumCodec<IconState> CODEC = StringRepresentable.fromEnum(IconState::values);
     }
 }

@@ -13,6 +13,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.bukkit.configuration.ConfigurationSection;
+import org.jetbrains.annotations.UnknownNullability;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 import xland.mcmod.neospeedzero.util.event.Event;
@@ -79,7 +80,7 @@ final class PaperEvents extends PlatformEvents {
         COMMANDS.register((Supplier<? extends LiteralArgumentBuilder<io.papermc.paper.command.brigadier.CommandSourceStack>>) s);
     }
 
-    private static final AtomicReference<SpeedrunGoalManager> GOAL_MANAGER = new AtomicReference<>();
+    private static final AtomicReference<@UnknownNullability /*late-init*/ SpeedrunGoalManager> GOAL_MANAGER = new AtomicReference<>();
 
     static void applyGoals(Map<Identifier, SpeedrunGoal> map) {
         final var goalManager = GOAL_MANAGER.get();

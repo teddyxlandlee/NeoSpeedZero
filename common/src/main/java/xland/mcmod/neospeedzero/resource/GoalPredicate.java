@@ -11,8 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 
@@ -81,7 +80,7 @@ public sealed interface GoalPredicate permits GoalPredicate.OfItemPredicate, Goa
         ));
     }
 
-    record OfAdvancement(ResourceKey<@NotNull Advancement> advancementKey, @Override Optional<StatedIcon> icon) implements GoalPredicate {
+    record OfAdvancement(ResourceKey<Advancement> advancementKey, @Override Optional<StatedIcon> icon) implements GoalPredicate {
         public static final Codec<OfAdvancement> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceKey.codec(Registries.ADVANCEMENT).fieldOf("advancement").forGetter(OfAdvancement::advancementKey),
                 StatedIcon.CODEC.optionalFieldOf("icon").forGetter(OfAdvancement::icon)

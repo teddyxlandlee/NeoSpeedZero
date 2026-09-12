@@ -1,10 +1,12 @@
 package xland.mcmod.neospeedzero.util.event;
 
+import org.jspecify.annotations.NonNull;
+
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public sealed interface Event<T, I> permits Events {
-    static <T, I> Event<T, I> of(Function<? super Iterable<? extends T>, ? extends I> merger) {
+    static <T, I> Event<T, I> of(@NonNull Function<? super Iterable<? extends T>, ? extends I> merger) {
         return new Events<>(merger);
     }
 

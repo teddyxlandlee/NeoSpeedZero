@@ -11,8 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import org.apache.commons.compress.utils.Lists;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +22,7 @@ abstract class AbstractSlottedScreen extends Screen {
     protected int imageHeight = 166;
     protected int leftPos, topPos;
 
-    protected final List<@NotNull FakeSlot> slots = Lists.newArrayList();
+    protected final List<FakeSlot> slots = Lists.newArrayList();
     protected int hoveredSlotIndex = -1;
 
     private static final Identifier SLOT_HIGHLIGHT_BACK_SPRITE = Identifier.withDefaultNamespace("container/slot_highlight_back");
@@ -40,7 +39,7 @@ abstract class AbstractSlottedScreen extends Screen {
     }
 
     @Override
-    public void extractRenderState(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
         final int leftPos = this.leftPos;
         final int topPos = this.topPos;
@@ -58,7 +57,7 @@ abstract class AbstractSlottedScreen extends Screen {
     }
 
     @Override
-    public void extractBackground(@NotNull GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
         this.renderExtraBackground(guiGraphics, mouseX, mouseY, partialTick);
     }
@@ -127,7 +126,7 @@ abstract class AbstractSlottedScreen extends Screen {
 
     protected static class FakeSlot {
         private final int x, y;
-        private @NotNull ItemStack itemStack;
+        private ItemStack itemStack;
 
         public FakeSlot(int x, int y, @Nullable ItemStack itemStack) {
             this.x = x;
@@ -135,7 +134,7 @@ abstract class AbstractSlottedScreen extends Screen {
             this.itemStack = orEmpty(itemStack);
         }
 
-        private static @NotNull ItemStack orEmpty(@Nullable ItemStack stack) {
+        private static ItemStack orEmpty(@Nullable ItemStack stack) {
             return Objects.requireNonNullElse(stack, ItemStack.EMPTY);
         }
 
@@ -146,7 +145,7 @@ abstract class AbstractSlottedScreen extends Screen {
         public int x() { return x; }
         public int y() { return y; }
 
-        public @NotNull ItemStack getItemStack() {
+        public ItemStack getItemStack() {
             return itemStack;
         }
 

@@ -17,6 +17,7 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.event.Event;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
@@ -26,6 +27,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@NullMarked
 public final class PlatformEventsFabric extends PlatformEvents {
     private PlatformEventsFabric() {}
     private static final PlatformEventsFabric INSTANCE = new PlatformEventsFabric();

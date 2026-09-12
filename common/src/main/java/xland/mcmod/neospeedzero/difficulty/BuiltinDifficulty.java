@@ -5,8 +5,7 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.itemext.ItemExtensions;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
@@ -39,17 +38,17 @@ public enum BuiltinDifficulty implements SpeedrunDifficulty {
     }
 
     @Override
-    public @NotNull Identifier id() {
+    public Identifier id() {
         return Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, rawId);
     }
 
     @Override
-    public @NotNull Component displayedName() {
+    public Component displayedName() {
         return Component.translatableWithFallback("message.neospeedzero.difficulty." + rawId, fallback);
     }
 
     @Override
-    public @NotNull Component displayedNameHoverable() {
+    public Component displayedNameHoverable() {
         return Component.empty()
                 .append(this.displayedName())
                 .withStyle(s -> s.withHoverEvent(new HoverEvent.ShowText(
@@ -88,11 +87,11 @@ public enum BuiltinDifficulty implements SpeedrunDifficulty {
             this.elytraFactory = elytraFactory;
         }
 
-        @NotNull ItemStack createFirework(UUID recordId) {
+        ItemStack createFirework(UUID recordId) {
             return Objects.requireNonNullElse(fireworkFactory.apply(recordId), ItemStack.EMPTY);
         }
 
-        @NotNull ItemStack createElytra(UUID recordId) {
+        ItemStack createElytra(UUID recordId) {
             return Objects.requireNonNullElse(elytraFactory.apply(recordId), ItemStack.EMPTY);
         }
     }

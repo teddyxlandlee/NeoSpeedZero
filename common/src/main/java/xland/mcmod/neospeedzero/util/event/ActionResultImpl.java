@@ -1,6 +1,6 @@
 package xland.mcmod.neospeedzero.util.event;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 enum ActionResultImpl implements ActionResult {
     INTERRUPT_SUCCESS(Boolean.TRUE),

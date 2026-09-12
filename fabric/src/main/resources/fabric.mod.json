@@ -29,7 +29,7 @@
     "neospeedzero-fabric.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18",
+    "fabricloader": ">=0.19",
     "minecraft": ">=26",
     "java": ">=25",
     "fabric-api": "*"

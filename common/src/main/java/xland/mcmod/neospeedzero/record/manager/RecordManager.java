@@ -14,6 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelResource;
 import org.jetbrains.annotations.*;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
@@ -89,7 +90,7 @@ public class RecordManager {
     }
 
     public @Nullable SpeedrunRecordHolder findRecordByPlayer(UUID playerId) {
-        @Nullable UUID recordId = findRecordIdByPlayer(playerId);
+        UUID recordId = findRecordIdByPlayer(playerId);
         return recordId == null ? null : recordMap.get(recordId);
     }
 
@@ -186,7 +187,7 @@ public class RecordManager {
             manager.playerToRecordMap.putAll(this.playerToRecordIdMap());
         }
 
-        public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull Snapshot> STREAM_CODEC = StreamCodec.composite(
+        public static final StreamCodec<RegistryFriendlyByteBuf, Snapshot> STREAM_CODEC = StreamCodec.composite(
                 SaveInfo.STREAM_CODEC, Snapshot::saveInfo,
                 StreamIoUtil.ofMap(UUIDUtil.STREAM_CODEC, SpeedrunPlayerInfo.STREAM_CODEC), Snapshot::infos,
                 StreamIoUtil.ofMap(UUIDUtil.STREAM_CODEC, UUIDUtil.STREAM_CODEC), Snapshot::playerToRecordIdMap,

@@ -1,6 +1,6 @@
 package xland.mcmod.neospeedzero.util;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.UnknownNullability;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 
@@ -28,7 +28,7 @@ public abstract class PlatformAPI {
         );
     }
 
-    private static volatile PlatformAPI instance;
+    private static volatile @UnknownNullability PlatformAPI instance;
 
     public static PlatformAPI getInstance() {
         if (instance == null) {
@@ -96,9 +96,9 @@ public abstract class PlatformAPI {
             this.declaredClass = declaredClass;
         }
 
-        private static Platform detected;
+        private static @UnknownNullability Platform detected;
 
-        public static @NotNull Platform detect() {
+        public static Platform detect() {
             if (detected == null) {
                 var lookup = MethodHandles.lookup();
                 Platform detected0 = null;

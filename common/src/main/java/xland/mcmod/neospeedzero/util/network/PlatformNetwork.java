@@ -9,12 +9,13 @@ import net.minecraft.network.VarInt;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.util.PlatformAPI;
 
 import java.util.Collection;
 import java.util.function.Consumer;
 
-@org.jspecify.annotations.NullMarked
+@NullMarked
 public abstract class PlatformNetwork {
     public static PlatformNetwork getInstance() {
         return PlatformAPI.getInstance().network();

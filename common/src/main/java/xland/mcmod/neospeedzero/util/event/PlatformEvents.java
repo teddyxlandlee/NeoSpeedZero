@@ -12,6 +12,7 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.ApiStatus;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.util.PlatformAPI;
 
 import java.util.function.Consumer;
@@ -19,6 +20,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @ApiStatus.Internal
+@NullMarked
 public abstract class PlatformEvents {
     public static PlatformEvents getInstance() {
         return PlatformAPI.getInstance().events();

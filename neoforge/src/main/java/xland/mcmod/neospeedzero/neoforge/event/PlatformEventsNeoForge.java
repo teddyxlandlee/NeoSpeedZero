@@ -26,7 +26,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.commons.lang3.BooleanUtils;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
@@ -35,6 +35,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@NullMarked
 public final class PlatformEventsNeoForge extends PlatformEvents {
     private PlatformEventsNeoForge() {}
     private static final PlatformEventsNeoForge INSTANCE = new PlatformEventsNeoForge();
@@ -71,11 +72,11 @@ public final class PlatformEventsNeoForge extends PlatformEvents {
     }
 
     @ApiStatus.Internal
-    public static final DeferredRegister<@NotNull GameRule<?>> GAME_RULE_REG = DeferredRegister.create(Registries.GAME_RULE, NeoSpeedZero.MOD_ID);
+    public static final DeferredRegister<GameRule<?>> GAME_RULE_REG = DeferredRegister.create(Registries.GAME_RULE, NeoSpeedZero.MOD_ID);
 
     @Override
     public Predicate<? super MinecraftServer> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue) {
-        var gameRuleProvider = GAME_RULE_REG.register(id, () -> new GameRule<@NotNull Boolean>(
+        var gameRuleProvider = GAME_RULE_REG.register(id, () -> new GameRule<>(
                 category, GameRuleType.BOOL, BoolArgumentType.bool(), GameRuleTypeVisitor::visitBoolean, Codec.BOOL, BooleanUtils::toInteger, defaultValue, FeatureFlagSet.of()
         ));
         return server -> server.getGameRules().get(gameRuleProvider.value());

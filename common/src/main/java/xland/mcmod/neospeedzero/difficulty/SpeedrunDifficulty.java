@@ -6,14 +6,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
 
 import java.util.Optional;
 
 public interface SpeedrunDifficulty {
-    Codec<@NotNull SpeedrunDifficulty> CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.flatXmap(
+    Codec<SpeedrunDifficulty> CODEC = Codec.lazyInitialized(() -> Identifier.CODEC.flatXmap(
             id -> Optional.ofNullable(SpeedrunDifficulties.get(id))
                     .map(DataResult::success)
                     .orElseGet(() -> DataResult.error(() -> "SpeedrunDifficulty not found: " + id)),
@@ -24,9 +23,9 @@ public interface SpeedrunDifficulty {
             }
     ));
 
-    @NotNull Identifier id();
+    Identifier id();
 
-    default @NotNull Component displayedName() {
+    default Component displayedName() {
         return Component.literal(id().toString());
     }
 
@@ -35,7 +34,7 @@ public interface SpeedrunDifficulty {
      * @since 6.0.1
      */
     @ApiStatus.Experimental
-    default @NotNull Component displayedNameHoverable() {
+    default Component displayedNameHoverable() {
         return this.displayedName();
     }
 

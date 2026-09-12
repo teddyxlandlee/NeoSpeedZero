@@ -8,7 +8,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.Nullable;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 
 import java.util.function.Function;
@@ -53,7 +52,7 @@ public interface SpeedrunGoalInfo {
                 Identifier goalId = goalOnlyResult.getOrThrow();
 
                 try {
-                    @Nullable SpeedrunGoal.Holder holder = SpeedrunGoal.Holder.holders().get(goalId);
+                    /*nullable*/ SpeedrunGoal.Holder holder = SpeedrunGoal.Holder.holders().get(goalId);
                     if (holder != null) return DataResult.success(holder);
                     return DataResult.error(() -> "No speedrun goal found with id " + goalId, partialResultOf(goalId));
                 } catch (Exception e) {
