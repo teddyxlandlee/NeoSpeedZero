@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:abandoned_camp_map",
     "minecraft:bee_nest",
     "minecraft:beehive",
     "minecraft:calcite",
@@ -39,6 +40,9 @@
     "minecraft:pink_carpet",
     "minecraft:pink_concrete",
     "minecraft:pink_concrete_powder",
+    "minecraft:pink_concrete_slab",
+    "minecraft:pink_concrete_stairs",
+    "minecraft:pink_cushion",
     "minecraft:pink_dye",
     "minecraft:pink_glazed_terracotta",
     "minecraft:pink_harness",
@@ -49,6 +53,8 @@
     "minecraft:pink_terracotta",
     "minecraft:pink_tulip",
     "minecraft:pink_wool",
+    "minecraft:pink_wool_slab",
+    "minecraft:pink_wool_stairs",
     "minecraft:plenty_pottery_sherd",
     "minecraft:rotten_flesh",
     "minecraft:wind_charge"

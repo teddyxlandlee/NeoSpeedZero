@@ -9,6 +9,7 @@
     "minecraft:sandstone_slab",
     "minecraft:sandstone_stairs",
     "minecraft:sandstone_wall",
+    "minecraft:savanna_village_map",
     "minecraft:scaffolding",
     "minecraft:scrape_pottery_sherd",
     "minecraft:sculk",
@@ -23,6 +24,7 @@
     "minecraft:shaper_armor_trim_smithing_template",
     "minecraft:sheaf_pottery_sherd",
     "minecraft:shears",
+    "minecraft:shelf_mushroom",
     "minecraft:shelter_pottery_sherd",
     "minecraft:shield",
     "minecraft:short_dry_grass",
@@ -58,6 +60,7 @@
     "minecraft:snow",
     "minecraft:snow_block",
     "minecraft:snowball",
+    "minecraft:snowy_village_map",
     "minecraft:soul_campfire",
     "minecraft:soul_lantern",
     "minecraft:soul_sand",
@@ -106,6 +109,7 @@
     "minecraft:stone_stairs",
     "minecraft:stone_sword",
     "minecraft:stonecutter",
+    "minecraft:straw_bed",
     "minecraft:string",
     "minecraft:stripped_acacia_log",
     "minecraft:stripped_acacia_wood",
@@ -126,6 +130,8 @@
     "minecraft:stripped_oak_wood",
     "minecraft:stripped_pale_oak_log",
     "minecraft:stripped_pale_oak_wood",
+    "minecraft:stripped_poplar_log",
+    "minecraft:stripped_poplar_wood",
     "minecraft:stripped_spruce_log",
     "minecraft:stripped_spruce_wood",
     "minecraft:stripped_warped_hyphae",
@@ -146,6 +152,7 @@
     "minecraft:suspicious_gravel",
     "minecraft:suspicious_sand",
     "minecraft:suspicious_stew",
+    "minecraft:swamp_hut_map",
     "minecraft:sweet_berries"
   ]
 }
