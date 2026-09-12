@@ -1,9 +1,9 @@
 from generate_pack import *
 
-def setup_directories():
+def setup_directories(base_dir: Path):
     """创建必要目录"""
-    os.makedirs(SERVER_DIR, exist_ok=True)
-    os.makedirs(REPORTS_DIR, exist_ok=True)
+    os.makedirs(base_dir / SERVER_DIR, exist_ok=True)
+    os.makedirs(base_dir / REPORTS_DIR, exist_ok=True)
 
 def compare_items(version1, data1, version2, data2):
     """比较两个版本的物品差异"""
@@ -75,18 +75,21 @@ def main():
     parser.add_argument("version1", help="第一个Minecraft版本号 (如 1.21.6)")
     parser.add_argument("version2", help="第二个Minecraft版本号 (如 1.21.7-rc2)")
     parser.add_argument('-o', '--output', help="报告输出路径 (可选)")
+    parser.add_argument('-d', '--base', help="缓存路径（默认：当前目录）", default='.')
+
     args = parser.parse_args()
     
     try:
-        setup_directories()
+        base_dir = Path(args.base)
+        setup_directories(base_dir=base_dir)
         
         # 处理版本1
-        jar1 = download_server_jar(args.version1)
-        data1 = generate_item_report(args.version1, jar1)
+        jar1 = download_server_jar(args.version1, base_dirname=base_dir)
+        data1 = generate_item_report(args.version1, jar1, base_dirname=base_dir)
 
         # 处理版本2
-        jar2 = download_server_jar(args.version2)
-        data2 = generate_item_report(args.version2, jar2)
+        jar2 = download_server_jar(args.version2, base_dirname=base_dir)
+        data2 = generate_item_report(args.version2, jar2, base_dirname=base_dir)
 
         # 比较并输出结果
         results = compare_items(args.version1, data1, args.version2, data2)
