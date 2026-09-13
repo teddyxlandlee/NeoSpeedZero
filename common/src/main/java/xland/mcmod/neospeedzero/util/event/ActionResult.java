@@ -1,7 +1,9 @@
 package xland.mcmod.neospeedzero.util.event;
 
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public sealed interface ActionResult permits ActionResultImpl {
     static ActionResult interruptSuccess() {
         return ActionResultImpl.INTERRUPT_SUCCESS;
