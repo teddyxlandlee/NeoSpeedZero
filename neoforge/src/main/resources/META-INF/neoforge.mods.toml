@@ -11,7 +11,8 @@ authors = "teddyxlandlee"
 description = '''
 ABS Next Level ™
 '''
-logoFile = "icon_neo.png"
+logoFile = "assets/neospeedzero/icon.png"
+iconFile = "assets/neospeedzero/icon.png"
 logoBlur = false
 
 [[dependencies.neospeedzero]]
