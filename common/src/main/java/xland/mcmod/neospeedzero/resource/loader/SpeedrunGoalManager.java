@@ -8,7 +8,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
+import org.jetbrains.annotations.ApiStatus;
 import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
@@ -34,6 +36,11 @@ public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<Speedr
     @Override
     protected void apply(Map<Identifier, SpeedrunGoal> map, ResourceManager resourceManager, ProfilerFiller profiler) {
         this.applyMap(map);
+    }
+
+    @ApiStatus.Internal
+    public Map<Identifier, SpeedrunGoal> prepare(ResourceManager manager) {
+        return this.prepare(manager, Profiler.get());
     }
 
     public void applyMap(Map<Identifier, SpeedrunGoal> map) {

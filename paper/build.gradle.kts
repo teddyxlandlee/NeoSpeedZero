@@ -1,6 +1,6 @@
 plugins {
     `java-library`
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.22"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.23"
 }
 
 repositories {
@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("26.2.build.+")
+    paperweight.paperDevBundle("26.3.build.+")
     implementation(project(":common")) {
         isTransitive = false    // we don't want those client-only code on classpath
     }

@@ -1,15 +1,11 @@
 package xland.mcmod.neospeedzero.paper;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.serialization.JsonOps;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.bukkit.configuration.ConfigurationSection;
@@ -19,7 +15,6 @@ import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 import xland.mcmod.neospeedzero.util.event.Event;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -82,22 +77,11 @@ final class PaperEvents extends PlatformEvents {
 
     private static final AtomicReference<@UnknownNullability /*late-init*/ SpeedrunGoalManager> GOAL_MANAGER = new AtomicReference<>();
 
-    static void applyGoals(Map<Identifier, SpeedrunGoal> map) {
-        final var goalManager = GOAL_MANAGER.get();
-        Objects.requireNonNull(goalManager, "goalManager cannot be null");
-        goalManager.applyMap(map);
-    }
-
     static void applyGoalsFrom(MinecraftServer server) {
-        final var prefix = SpeedrunGoalManager.GOAL_KEY_ID.getNamespace() + '/' + SpeedrunGoalManager.GOAL_KEY_ID.getPath();
-        final FileToIdConverter converter = FileToIdConverter.json(prefix);
-
-        final var jsonOps = RegistryOps.create(JsonOps.INSTANCE, CraftBukkitConversions.getRegistryAccess());
-
-        final HashMap<Identifier, SpeedrunGoal> result = new HashMap<>();
-        SimpleJsonResourceReloadListener.scanDirectory(server.getResourceManager(), converter, jsonOps, SpeedrunGoal.CODEC, result);
-
-        applyGoals(result);
+        final SpeedrunGoalManager goalManager = GOAL_MANAGER.get();
+        Objects.requireNonNull(goalManager, "goalManager cannot be null");
+        final Map<Identifier, SpeedrunGoal> result = goalManager.prepare(server.getResourceManager());
+        goalManager.applyMap(result);
     }
 
     @Override
