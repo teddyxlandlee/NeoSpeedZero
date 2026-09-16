@@ -11,13 +11,14 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.ClientCommonPacketListener;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
 import java.util.Collection;
 import java.util.function.Consumer;
 
-@org.jspecify.annotations.NullMarked
+@NullMarked
 public final class PlatformNetworkFabric extends PlatformNetwork {
     private PlatformNetworkFabric() {}
     private static final PlatformNetworkFabric INSTANCE = new PlatformNetworkFabric();

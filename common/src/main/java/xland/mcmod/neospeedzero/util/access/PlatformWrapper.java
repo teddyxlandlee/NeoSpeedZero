@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.world.item.component.CustomData;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.record.manager.NeoSpeedServer;
 import xland.mcmod.neospeedzero.record.manager.RecordManager;
 
@@ -54,6 +55,7 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
     }
 
     // Must cache
+    @NullMarked
     static final class NeoSpeedServerImpl implements NeoSpeedServer {
         private final RecordManager recordManager;
 
@@ -69,6 +71,7 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
 
     // These classes below are merely pre-computed wrappers. Not worth caching.
 
+    @NullMarked
     static final class AdvancementProgressGetterImpl implements AdvancementProgressGetter {
         private final Supplier<Map<AdvancementHolder, AdvancementProgress>> call;
         private static final MethodHandle MH_progress;
@@ -96,6 +99,7 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
         }
     }
 
+    @NullMarked
     static final class EnchantmentPredicateListProviderImpl implements EnchantmentPredicateListProvider {
         private final Supplier<List<EnchantmentPredicate>> call;
         private static final MethodHandle MH_enchantments;
@@ -123,6 +127,7 @@ final class PlatformWrapper<T, R> implements Function<T, R> {
         }
     }
 
+    @NullMarked
     static final class CustomDataTagProviderImpl implements CustomDataTagProvider {
         private final Supplier<CompoundTag> call;
         private static final MethodHandle MH_getUnsafe;

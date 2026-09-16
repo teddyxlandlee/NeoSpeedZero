@@ -9,7 +9,6 @@ import java.time.Duration;
 public final class TimeUtil {
     public static final long TICK_TO_NANOS = 50000000L;
     static final String PLACEHOLDER_KEY = "message.neospeedzero.duration.placeholder2";
-    // TODO: Make all translatable strings fallback-friendly, to get prepared for Paper port
 
     public static Component duration(SpeedrunRecord record, long currentTime) {
         Duration duration = record.duration(currentTime);

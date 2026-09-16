@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.record.SpeedrunChallenge;
 import xland.mcmod.neospeedzero.record.SpeedrunRecord;
@@ -33,7 +32,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     public ChallengeSnapshot {
     }
 
-    public static ChallengeSnapshot fromRecord(@NotNull SpeedrunRecord record) {
+    public static ChallengeSnapshot fromRecord(SpeedrunRecord record) {
         return new ChallengeSnapshot(
                 record.recordId(),
                 record.goal().display().copy(),
@@ -42,7 +41,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         );
     }
 
-    public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull ChallengeSnapshot> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChallengeSnapshot> STREAM_CODEC = StreamCodec.composite(
             UUIDUtil.STREAM_CODEC, ChallengeSnapshot::recordId,
             ComponentSerialization.STREAM_CODEC, ChallengeSnapshot::title,
             ByteBufCodecs.<RegistryFriendlyByteBuf, ItemStack>list().apply(ItemStack.STREAM_CODEC), ChallengeSnapshot::challenges,
@@ -55,7 +54,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     }
 
     @Override
-    public @NotNull Type<@NotNull ChallengeSnapshot> type() {
+    public Type<ChallengeSnapshot> type() {
         return ViewPackets.TYPE_SNAPSHOT;
     }
 
@@ -77,7 +76,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
     }
 
     public record Change(UUID recordId, int index, long newValue) implements ServerToClientPayload {
-        public static final StreamCodec<@NotNull RegistryFriendlyByteBuf, @NotNull Change> STREAM_CODEC = StreamCodec.composite(
+        public static final StreamCodec<RegistryFriendlyByteBuf, Change> STREAM_CODEC = StreamCodec.composite(
                 UUIDUtil.STREAM_CODEC, Change::recordId,
                 ByteBufCodecs.VAR_INT, Change::index,
                 ByteBufCodecs.LONG, Change::newValue,
@@ -100,7 +99,7 @@ public record ChallengeSnapshot(UUID recordId, Component title, List<ItemStack> 
         }
 
         @Override
-        public @NotNull Type<@NotNull Change> type() {
+        public Type<Change> type() {
             return ViewPackets.TYPE_CHANGE;
         }
 

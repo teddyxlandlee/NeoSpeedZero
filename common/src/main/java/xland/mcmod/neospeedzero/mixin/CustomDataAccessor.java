@@ -2,6 +2,7 @@ package xland.mcmod.neospeedzero.mixin;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.component.CustomData;
+import org.jspecify.annotations.NonNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import xland.mcmod.neospeedzero.util.access.CustomDataTagProvider;
@@ -12,5 +13,6 @@ import xland.mcmod.neospeedzero.util.access.CustomDataTagProvider;
 interface CustomDataAccessor extends CustomDataTagProvider {
     @Accessor("tag")
     @Override
+    @NonNull
     CompoundTag ns0$getUnsafe();
 }

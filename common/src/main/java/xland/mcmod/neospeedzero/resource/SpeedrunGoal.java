@@ -13,7 +13,6 @@ import net.minecraft.server.dialog.body.DialogBody;
 import net.minecraft.server.dialog.input.SingleOptionInput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
@@ -46,7 +45,7 @@ public record SpeedrunGoal(ItemStackTemplate icon, Component display, List<GoalP
         }
 
         @Override
-        public int compareTo(@NotNull SpeedrunGoal.Holder o) {
+        public int compareTo(SpeedrunGoal.Holder o) {
             // Key first
             int result = id.getNamespace().compareTo(o.id.getNamespace());
             if (result == 0) result = id.getPath().compareTo(o.id.getPath());

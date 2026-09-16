@@ -3,7 +3,7 @@ package xland.mcmod.neospeedzero.record;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import net.minecraft.resources.Identifier;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.UnknownNullability;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.api.SpeedrunDifficulties;
 import xland.mcmod.neospeedzero.api.SpeedrunStartupConfig;
@@ -30,19 +30,19 @@ public record SpeedrunStartupConfigImpl(
     }
 
     public static final class BuilderImpl implements Builder {
-        private SpeedrunGoal.Holder goal;
+        private SpeedrunGoal.@UnknownNullability Holder goal;
         // Here we have default difficulty
-        private @NotNull SpeedrunDifficulty difficulty = SpeedrunDifficulty.getDefault();
+        private SpeedrunDifficulty difficulty = SpeedrunDifficulty.getDefault();
 
         @Override
-        public Builder goal(SpeedrunGoal.@NotNull Holder goal) {
+        public Builder goal(SpeedrunGoal.Holder goal) {
             Objects.requireNonNull(goal, "goal");
             this.goal = goal;
             return this;
         }
 
         @Override
-        public Builder difficulty(@NotNull SpeedrunDifficulty difficulty) {
+        public Builder difficulty(SpeedrunDifficulty difficulty) {
             Objects.requireNonNull(difficulty, "difficulty");
             this.difficulty = difficulty;
             return this;

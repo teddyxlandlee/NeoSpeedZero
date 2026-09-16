@@ -3,6 +3,7 @@ package xland.mcmod.neospeedzero.mixin;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.server.PlayerAdvancements;
+import org.jspecify.annotations.NullMarked;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import xland.mcmod.neospeedzero.util.access.AdvancementProgressGetter;
@@ -13,5 +14,6 @@ import java.util.Map;
 interface PlayerAdvancementsAccessor extends AdvancementProgressGetter {
     @Accessor("progress")
     @Override
+    @NullMarked
     Map<AdvancementHolder, AdvancementProgress> ns0$progress();
 }

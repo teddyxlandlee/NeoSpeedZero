@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:abandoned_camp_map",
     "minecraft:acacia_boat",
     "minecraft:acacia_button",
     "minecraft:acacia_chest_boat",

@@ -56,6 +56,9 @@
     "minecraft:white_carpet",
     "minecraft:white_concrete",
     "minecraft:white_concrete_powder",
+    "minecraft:white_concrete_slab",
+    "minecraft:white_concrete_stairs",
+    "minecraft:white_cushion",
     "minecraft:white_dye",
     "minecraft:white_glazed_terracotta",
     "minecraft:white_harness",
@@ -64,6 +67,8 @@
     "minecraft:white_stained_glass_pane",
     "minecraft:white_terracotta",
     "minecraft:white_tulip",
-    "minecraft:white_wool"
+    "minecraft:white_wool",
+    "minecraft:white_wool_slab",
+    "minecraft:white_wool_stairs"
   ]
 }

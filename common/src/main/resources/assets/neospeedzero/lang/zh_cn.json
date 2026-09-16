@@ -69,6 +69,7 @@
   "item_predicate.neospeedzero.extra_req.items": "是以下任一物品：",
   "item_predicate.neospeedzero.extra_req.song": "是以下任一唱片：",
   "item_predicate.neospeedzero.extra_req.potion": "是以下任一药水：",
+  "item_predicate.neospeedzero.extra_req.potion.effects": "对药水效果有额外要求",
   "item_predicate.neospeedzero.extra_req.trim.material": "含以下纹饰材料：",
   "item_predicate.neospeedzero.extra_req.trim.patterns": "含以下纹饰图案：",
 

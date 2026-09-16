@@ -2,14 +2,14 @@ package xland.mcmod.neospeedzero.resource.loader;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import org.jetbrains.annotations.NotNullByDefault;
+import org.jspecify.annotations.NullMarked;
 import org.slf4j.Logger;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
@@ -17,14 +17,14 @@ import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 
 import java.util.Map;
 
-@NotNullByDefault
+@NullMarked
 public class SpeedrunGoalManager extends SimpleJsonResourceReloadListener<SpeedrunGoal> {
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final Identifier GOAL_KEY_ID = Identifier.fromNamespaceAndPath(NeoSpeedZero.MOD_ID, "goals");
     public static final ResourceKey<Registry<SpeedrunGoal>> GOAL_KEY = ResourceKey.createRegistryKey(GOAL_KEY_ID);
 
-    private SpeedrunGoalManager(HolderLookup.Provider provider) {
-        super(provider, SpeedrunGoal.CODEC, GOAL_KEY);
+    private SpeedrunGoalManager() {
+        super(SpeedrunGoal.CODEC, FileToIdConverter.registry(GOAL_KEY));
     }
 
     public static void registerEvents() {

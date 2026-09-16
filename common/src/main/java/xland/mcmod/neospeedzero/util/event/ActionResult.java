@@ -1,7 +1,9 @@
 package xland.mcmod.neospeedzero.util.event;
 
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 public sealed interface ActionResult permits ActionResultImpl {
     static ActionResult interruptSuccess() {
         return ActionResultImpl.INTERRUPT_SUCCESS;
@@ -28,7 +30,7 @@ public sealed interface ActionResult permits ActionResultImpl {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     default boolean getResult(boolean defaultValue) {
-        @Nullable Boolean nullable = asTriState();
+        Boolean nullable = asTriState();
         return nullable == null ? defaultValue : nullable;
     }
 }

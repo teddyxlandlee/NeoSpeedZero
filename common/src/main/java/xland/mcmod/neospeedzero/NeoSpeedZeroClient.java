@@ -1,9 +1,9 @@
 package xland.mcmod.neospeedzero;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
 import xland.mcmod.neospeedzero.util.DurationLocalizer;
 import xland.mcmod.neospeedzero.util.event.PlatformEvents;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
@@ -13,7 +13,8 @@ import xland.mcmod.neospeedzero.view.ViewPackets;
 public final class NeoSpeedZeroClient {
     public static final KeyMapping KEY_VIEW = new KeyMapping(
             "key.neospeedzero.view",
-            GLFW.GLFW_KEY_B,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_B,
             KeyMapping.Category.MISC
     );
 

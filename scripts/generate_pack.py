@@ -3,6 +3,9 @@ import subprocess
 import json
 import csv
 import os
+from pathlib import Path
+from typing import Iterable
+
 import requests
 import sys
 from collections import defaultdict
@@ -10,16 +13,18 @@ import unicodedata
 import hashlib
 import shutil
 
-SERVER_DIR='server_jars'
-REPORTS_DIR='item_reports'
+SERVER_DIR = 'server_jars'
+REPORTS_DIR = 'item_reports'
 
-def match_sha1(filename: str, sha1: str, silent_fnf: bool = True) -> bool:
+
+def match_sha1(filename: str | Path, sha1: str, silent_fnf: bool = True) -> bool:
     # 创建一个 SHA-1 对象
     sha1_hash = hashlib.sha1()
     try:
         with open(filename, 'rb') as f:
             # 以二进制模式读取文件，并分块更新哈希（适合大文件）
             for byte_block in iter(lambda: f.read(4096), b""):
+                byte_block: bytes
                 sha1_hash.update(byte_block)
     except FileNotFoundError:
         if not silent_fnf:
@@ -35,7 +40,8 @@ def match_sha1(filename: str, sha1: str, silent_fnf: bool = True) -> bool:
     # 比较计算出的 SHA-1 和传入的 SHA-1 是否相等（不区分大小写）
     return calculated_sha1.lower() == sha1.lower()
 
-def mkdir_dummy(dirpath: str) -> None:
+
+def mkdir_dummy(dirpath: str | Path) -> None:
     if os.path.exists(dirpath):
         if os.path.isdir(dirpath):
             shutil.rmtree(dirpath)
@@ -45,7 +51,10 @@ def mkdir_dummy(dirpath: str) -> None:
     os.makedirs(dirpath)
     print(f"已创建目录: {dirpath}")
 
-def download_server_jar(version):
+
+def download_server_jar(version: str, base_dirname: str | Path) -> Path:
+    base_dir = Path(base_dirname)
+
     # 获取版本清单
     manifest_url = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
     manifest = requests.get(manifest_url).json()
@@ -66,8 +75,8 @@ def download_server_jar(version):
     server_sha1 = version_meta['downloads']['server']['sha1']
 
     # 下载文件
-    os.makedirs(SERVER_DIR, exist_ok=True)
-    jar_path = os.path.join(SERVER_DIR, f"server_{version}.jar")
+    os.makedirs(base_dir / SERVER_DIR, exist_ok=True)
+    jar_path = base_dir / SERVER_DIR / f"server_{version}.jar"
 
     if match_sha1(jar_path, server_sha1):
         print(f'✅ server.jar 已存在于 {jar_path}')
@@ -82,19 +91,20 @@ def download_server_jar(version):
     return jar_path
 
 
-def generate_item_report(version, jar_path):
+def generate_item_report(version: str, jar_path: os.PathLike, base_dirname: str | Path) -> Iterable[tuple[str, str]]:
     """生成物品报告"""
-    report_root_dir = os.path.join(REPORTS_DIR, version)
+    # report_root_dir = os.path.join(REPORTS_DIR, version)
+    report_root_dir = Path(base_dirname) / REPORTS_DIR / version
     mkdir_dummy(report_root_dir)
-    report_file = os.path.join(report_root_dir, "reports", "items.json")
-    report_folder = os.path.join(report_root_dir, "reports", "minecraft", "components", "item")
+    report_file = report_root_dir / 'reports' / 'items.json'
+    report_folder = report_root_dir / 'reports' / 'minecraft' / 'components' / 'item'
 
     # 执行server.jar生成报告
     print(f"⏳ 生成 {version} 的物品报告...")
     cmd = [
         "java",
         "-DbundlerMainClass=net.minecraft.data.Main",
-        "-jar", jar_path,
+        "-jar", str(Path(jar_path)),
         "--reports",
         "--output", report_root_dir
     ]
@@ -113,20 +123,22 @@ def generate_item_report(version, jar_path):
 def _get_translation(data: dict) -> str:
     return data["components"]["minecraft:item_name"]["translate"]
 
-def _load_separate_files(report_folder):
+
+def _load_separate_files(report_folder: str | Path) -> Iterable[tuple[str, str]]:
     sub_dirs = os.listdir(report_folder)
     return (
-        (filename.removesuffix('.json'), _load_single_file(os.path.join(report_folder, filename)))
+        (filename.removesuffix('.json'), _load_single_file(Path(report_folder) / filename))
         for filename in sub_dirs
     )
 
-def _load_single_file(report_path):
+
+def _load_single_file(report_path: str | Path) -> str:
     with open(report_path, "r", encoding='utf8') as f:
         data = json.load(f)
     return _get_translation(data)
 
-def _load_whole_file(report_path):
-    """解析物品报告"""
+
+def _load_whole_file(report_path: str | Path) -> Iterable[tuple[str, str]]:
     with open(report_path, "r", encoding='utf8') as f:
         data = json.load(f)
     return (
@@ -134,7 +146,8 @@ def _load_whole_file(report_path):
         for item_id, item_data in data.items()
     )
 
-def load_chinese_translations(version):
+
+def load_chinese_translations(version: str):
     manifest_url = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
     manifest = requests.get(manifest_url).json()
 
@@ -151,15 +164,16 @@ def load_chinese_translations(version):
     zh_cn_url = f"https://resources.download.minecraft.net/{zh_cn_hash[:2]}/{zh_cn_hash}"
     return requests.get(zh_cn_url).json()
 
+
 # ========================
 # CSV生成模块
 # ========================
-def generate_csv(version, output_csv):
+def generate_csv(version: str, output_csv: str | Path, base_dir: str):
     """生成中间CSV文件：执行server.jar并处理数据"""
-    server_jar = download_server_jar(version)
+    server_jar = download_server_jar(version, base_dirname=base_dir)
 
     # 1. 调用server.jar生成物品报告
-    items_report = generate_item_report(version, server_jar)
+    items_report = generate_item_report(version, server_jar, base_dirname=base_dir)
 
     # 2. 获取中文翻译文件
     print("⏳ 正在获取中文翻译文件...")
@@ -201,6 +215,7 @@ def generate_csv(version, output_csv):
 
     print(f"✅ CSV文件已生成: {output_csv}")
     print("💡 请手动检查并移除CSV中不可用的项目")
+
 
 # ========================
 # 数据包生成模块
@@ -294,6 +309,7 @@ def generate_datapack(input_csv, output_dir):
     print(f"✅ 数据包已生成至: {output_dir}")
     print("💡 注意：请手动添加pack.mcmeta文件以使数据包可用")
 
+
 # ========================
 # 主程序
 # ========================
@@ -305,6 +321,7 @@ def main():
     parser_csv = subparsers.add_parser('csv', help='生成中间CSV文件')
     parser_csv.add_argument('version', help='Minecraft版本号，如1.21.6')
     parser_csv.add_argument('output_csv', help='输出的CSV文件路径')
+    parser_csv.add_argument('-d', '--base', help='工作目录（默认为当前目录）', default='.')
 
     # generate-datapack 命令
     parser_datapack = subparsers.add_parser('datapack', help='生成最终数据包')
@@ -314,9 +331,10 @@ def main():
     args = parser.parse_args()
 
     if args.command == 'csv':
-        generate_csv(args.version, args.output_csv)
+        generate_csv(args.version, args.output_csv, base_dir=args.base)
     elif args.command == 'datapack':
         generate_datapack(args.input_csv, args.output_dir)
+
 
 if __name__ == '__main__':
     main()

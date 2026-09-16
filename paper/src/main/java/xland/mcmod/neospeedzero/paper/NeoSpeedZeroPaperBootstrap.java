@@ -9,7 +9,6 @@ import io.papermc.paper.plugin.lifecycle.event.registrar.RegistrarEvent;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -69,7 +68,7 @@ public class NeoSpeedZeroPaperBootstrap implements PluginBootstrap {
     }
 
     @Override
-    public @NotNull JavaPlugin createPlugin(@NotNull PluginProviderContext context) {
+    public JavaPlugin createPlugin(PluginProviderContext context) {
         return NeoSpeedZeroPaper.getInstance();
     }
 }

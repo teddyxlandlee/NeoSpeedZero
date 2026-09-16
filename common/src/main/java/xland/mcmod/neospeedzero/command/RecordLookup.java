@@ -3,7 +3,6 @@ package xland.mcmod.neospeedzero.command;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import org.jetbrains.annotations.NotNull;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.record.manager.RecordManager;
 
@@ -25,7 +24,7 @@ record RecordLookup(String prefix) implements RecordReference {
     }
 
     @Override
-    public @NotNull String toString() {
+    public String toString() {
         return "#" + prefix();
     }
 

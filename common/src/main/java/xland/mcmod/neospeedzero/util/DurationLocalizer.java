@@ -5,7 +5,6 @@ import com.mojang.logging.LogUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import xland.mcmod.enchlevellangpatch.api.EnchantmentLevelLangPatch;
 
@@ -23,7 +22,7 @@ public final class DurationLocalizer {
     private static final String SEPARATOR_KEY = PREFIX + "separator";
     private static final String FINAL_SEPARATOR_KEY = PREFIX + "final_separator";
 
-    private final @NotNull Map<String, String> translations;
+    private final Map<String, String> translations;
 
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -75,12 +74,12 @@ public final class DurationLocalizer {
         return PlatformAPI.getInstance().isLangPatchAvailable();
     }
     
-    private DurationLocalizer(@NotNull Map<String, String> translations) {
+    private DurationLocalizer(Map<String, String> translations) {
         Objects.requireNonNull(translations, "translations");
         this.translations = translations;
     }
     
-    @NotNull String localize(@NotNull Duration duration) {
+    String localize(Duration duration) {
         Objects.requireNonNull(duration, "duration");
         // Fetch config
         int maxUnits = getIntConfig(MAX_UNITS_KEY, Integer.MAX_VALUE);

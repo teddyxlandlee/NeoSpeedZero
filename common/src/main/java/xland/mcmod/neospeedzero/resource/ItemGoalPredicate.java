@@ -7,9 +7,9 @@ import net.minecraft.advancements.predicates.DataComponentMatchers;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.codec.RegistryCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -38,13 +38,13 @@ final class ItemGoalPredicate extends GoalPredicate.OfItemPredicate {
 
     private static Codec<ItemGoalPredicate> createCodec() {
         Codec<ItemGoalPredicate> baseCodec = RecordCodecBuilder.create(instance -> instance.group(
-                RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("items").forGetter(ItemGoalPredicate::items),
+                RegistryCodecs.holderSet(Registries.ITEM).fieldOf("items").forGetter(ItemGoalPredicate::items),
                 Select.CODEC.optionalFieldOf("select", Select.ALL).forGetter(p -> p.select),
                 StatedIcon.CODEC.optionalFieldOf("icon").forGetter(ItemGoalPredicate::icon),
                 ItemPredicate.CODEC.optionalFieldOf("item_predicate").forGetter(p -> Optional.ofNullable(p.subPredicate))
         ).apply(instance, ItemGoalPredicate::new));
         // alternative: string/array
-        return Codec.withAlternative(baseCodec, RegistryCodecs.homogeneousList(Registries.ITEM), ItemGoalPredicate::of);
+        return Codec.withAlternative(baseCodec, RegistryCodecs.holderSet(Registries.ITEM), ItemGoalPredicate::of);
     }
 
     private HolderSet<Item> items() {

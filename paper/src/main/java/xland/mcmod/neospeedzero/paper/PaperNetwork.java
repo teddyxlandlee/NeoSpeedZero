@@ -8,8 +8,8 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import xland.mcmod.neospeedzero.util.network.PlatformNetwork;
 import xland.mcmod.neospeedzero.util.network.ServerToClientPayload;
 
@@ -72,7 +72,7 @@ final class PaperNetwork extends PlatformNetwork {
     @Override
     public void sendToPlayer(ServerToClientPayload payload, ServerPlayer serverPlayer) {
         Player bukkitPlayer = CraftBukkitConversions.asBukkitPlayer(serverPlayer);
-        byte @Nullable[] payloadBytes = payloadToBytes(payload);
+        byte[] payloadBytes = payloadToBytes(payload);
         if (payloadBytes == null) return;   // unknown packet
 
         bukkitPlayer.sendPluginMessage(NeoSpeedZeroPaper.getInstance(), payload.type().id().toString(), payloadBytes);
@@ -80,7 +80,7 @@ final class PaperNetwork extends PlatformNetwork {
 
     @Override
     public void sendToPlayers(ServerToClientPayload payload, Collection<? extends ServerPlayer> players) {
-        byte @Nullable[] payloadBytes = payloadToBytes(payload);
+        byte[] payloadBytes = payloadToBytes(payload);
         if (payloadBytes == null) return;   // unknown packet
 
         String channel = payload.type().id().toString();

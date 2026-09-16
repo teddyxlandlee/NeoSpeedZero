@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,14 +12,15 @@ import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.jetbrains.annotations.ApiStatus;
+import org.jspecify.annotations.NullMarked;
 import xland.mcmod.neospeedzero.util.PlatformAPI;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @ApiStatus.Internal
+@NullMarked
 public abstract class PlatformEvents {
     public static PlatformEvents getInstance() {
         return PlatformAPI.getInstance().events();
@@ -42,7 +42,7 @@ public abstract class PlatformEvents {
 
     public abstract void registerCommand(Supplier<LiteralArgumentBuilder<CommandSourceStack>> nodeBuilder);
 
-    public abstract void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory);
+    public abstract void registerResourceReloadListener(Identifier id, Supplier<? extends PreparableReloadListener> factory);
 
     public abstract Predicate<? super MinecraftServer> registerBooleanGameRule(String id, GameRuleCategory category, boolean defaultValue);
 

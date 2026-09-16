@@ -4,13 +4,14 @@ import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Prediction;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemLore;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.NeoSpeedZero;
 import xland.mcmod.neospeedzero.util.access.PlatformAccess;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
+@NullMarked
 public interface ItemExtensions {
     String TAG_MOD_GIVEN = NeoSpeedZero.MOD_ID + "_given_item";
     String TAG_INFINITE_FIREWORK = "infinite_firework";
@@ -93,9 +95,10 @@ public interface ItemExtensions {
         return rawTag.getBooleanOr(TAG_INFINITE_FIREWORK, false);
     }
 
-    static void give(@NotNull ServerPlayer player, @NotNull ItemStack stack) {
+    static void give(ServerPlayer player, ItemStack stack) {
         if (!player.addItem(stack)) {
-            player.drop(stack, true);
+            // Reference: CompassItem.useOn()
+            player.drop(stack, false, Prediction.PREDICTED);
         }
     }
 }

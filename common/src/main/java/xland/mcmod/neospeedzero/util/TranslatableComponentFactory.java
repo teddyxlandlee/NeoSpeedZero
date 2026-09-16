@@ -2,13 +2,13 @@ package xland.mcmod.neospeedzero.util;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import org.jetbrains.annotations.NotNullByDefault;
 import org.jetbrains.annotations.UnknownNullability;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-@NotNullByDefault
+@NullMarked
 public abstract sealed class TranslatableComponentFactory implements java.io.Serializable {
     private final String key;
     private final String fallback;

@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Either;
 import net.minecraft.advancements.predicates.CollectionPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.MinMaxBounds;
+import net.minecraft.advancements.predicates.MobEffectsPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentGetter;
@@ -15,6 +16,7 @@ import net.minecraft.core.component.predicates.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.component.ItemLore;
@@ -22,8 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNullByDefault;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import xland.mcmod.neospeedzero.NeoSpeedTranslations;
 import xland.mcmod.neospeedzero.util.access.EnchantmentPredicateListProvider;
 import xland.mcmod.neospeedzero.util.access.PlatformAccess;
@@ -33,7 +34,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@NotNullByDefault
 final class ExtraRequirements {
     static ItemStackTemplate fillExtraRequirements(ItemStackTemplate template,
                                                    @Nullable Either<TagKey<Item>, HolderSet<Item>> ofAny,
@@ -98,8 +98,14 @@ final class ExtraRequirements {
                 );
             }
 
-            if (partial.get(DataComponentPredicates.POTIONS) instanceof PotionsPredicate(HolderSet<Potion> potions)) {
-                appendHomogenousSet(NeoSpeedTranslations.EXTRA_REQUIREMENTS_POTION.create(), potions, appendedLores::add);
+            if (partial.get(DataComponentPredicates.POTIONS) instanceof PotionsPredicate(
+                    Optional<HolderSet<Potion>> potions,
+                    Optional<CollectionPredicate<MobEffectInstance, MobEffectsPredicate>> effects
+            )) {
+                potions.ifPresent(holders -> appendHomogenousSet(NeoSpeedTranslations.EXTRA_REQUIREMENTS_POTION.create(), holders, appendedLores::add));
+                if (effects.isPresent()) {
+                   appendedLores.add(NeoSpeedTranslations.EXTRA_REQUIREMENTS_POTION_EFFECTS.create());
+                }
             }
 
             if (partial.get(DataComponentPredicates.ARMOR_TRIM) instanceof TrimPredicate(

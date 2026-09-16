@@ -4,7 +4,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.serialization.JsonOps;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
@@ -14,6 +13,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import org.bukkit.configuration.ConfigurationSection;
+import org.jetbrains.annotations.UnknownNullability;
 import xland.mcmod.neospeedzero.resource.SpeedrunGoal;
 import xland.mcmod.neospeedzero.resource.loader.SpeedrunGoalManager;
 import xland.mcmod.neospeedzero.util.event.Event;
@@ -80,7 +80,7 @@ final class PaperEvents extends PlatformEvents {
         COMMANDS.register((Supplier<? extends LiteralArgumentBuilder<io.papermc.paper.command.brigadier.CommandSourceStack>>) s);
     }
 
-    private static final AtomicReference<SpeedrunGoalManager> GOAL_MANAGER = new AtomicReference<>();
+    private static final AtomicReference<@UnknownNullability /*late-init*/ SpeedrunGoalManager> GOAL_MANAGER = new AtomicReference<>();
 
     static void applyGoals(Map<Identifier, SpeedrunGoal> map) {
         final var goalManager = GOAL_MANAGER.get();
@@ -101,9 +101,8 @@ final class PaperEvents extends PlatformEvents {
     }
 
     @Override
-    public void registerResourceReloadListener(Identifier id, Function<HolderLookup.Provider, PreparableReloadListener> factory) {
-        final var registryAccess = CraftBukkitConversions.getRegistryAccess();
-        PreparableReloadListener listener = factory.apply(registryAccess);
+    public void registerResourceReloadListener(Identifier id, Supplier<? extends PreparableReloadListener> factory) {
+        PreparableReloadListener listener = factory.get();
         if (listener instanceof SpeedrunGoalManager goalManager) {
             Object prev;
             // Compared to compareAndSet(), getAndSet() rewrites the field when the check fails,

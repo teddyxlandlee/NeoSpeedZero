@@ -16,7 +16,7 @@ abstract class FireworkRocketItemMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"
     ))
-    private boolean stopShrinking(ItemStack instance, int decrement) {
+    private boolean stopShrinking(ItemStack instance, int amount) {
         return !ItemExtensions.isInfiniteFirework(instance);
     }
 
@@ -24,7 +24,7 @@ abstract class FireworkRocketItemMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"
     ))
-    private boolean stopConsuming(ItemStack instance, int amount, LivingEntity entity) {
+    private boolean stopConsuming(ItemStack instance, int amount, LivingEntity owner) {
         return !ItemExtensions.isInfiniteFirework(instance);
     }
 }
